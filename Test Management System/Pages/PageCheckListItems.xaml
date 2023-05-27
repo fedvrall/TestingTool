@@ -1,0 +1,64 @@
+﻿<Page x:Class="Test_Management_System.Pages.PageCheckListItems"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Test_Management_System.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1150" Background="#353535"
+      Title="PageCheckListItems">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Content="Описание пункта:" Grid.Row="0" />
+        <TextBox Grid.Row="0" Margin="140, 10, 10, 10" Text="{Binding Description}" />
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock  Text="Статус:" Margin="10" />
+            <ComboBox Margin="56, 10, 10, 10" Width="200"  SelectedItem="{Binding Status}">
+                <ComboBoxItem Content="Завершено" />
+                <ComboBoxItem Content="В процессе" />
+                <ComboBoxItem Content="Не выполнено" />
+            </ComboBox>
+            <Label Content="Чек-лист:" Margin="10"/>
+            <ComboBox  Width="200" Margin="10" SelectedItem="{Binding Checklist}">
+                <!-- Здесь привязка к коллекции чек-листов -->
+            </ComboBox>
+
+            <Label  Content="Приоритет:" Margin="10" />
+            <ComboBox Width="200" Margin="10" SelectedItem="{Binding Priority}">
+                <ComboBoxItem Content="Низкий" />
+                <ComboBoxItem Content="Средний" />
+                <ComboBoxItem Content="Высокий" />
+            </ComboBox>
+        </StackPanel>
+
+        <Label Grid.Row="2" Content="Комментарий:" Margin="0, 10, 10, 10"  />
+        <TextBox Grid.Row="2" Margin="140, 10, 10, 10" Height="100" Text="{Binding Comment}" />
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <Label  Content="Пользователь:"  Margin="0, 10, 10, 10" />
+            <TextBox Width="300" Margin="8, 10, 10, 10" Text="{Binding User}" />
+            <Label  Content="Дата прохождения:" Margin="10" />
+            <DatePicker Width="200" Margin="10" SelectedDate="{Binding CompletionDate}" />
+        </StackPanel>
+
+        <Label Grid.Row="4" Content="Вложения:" Margin="0, 10, 10, 10"/>
+        <Button Template="{StaticResource beautifulButton}" Grid.Row="4" Width="200" Content="Прикрепить" Margin="10" Name="AddAttachmentToCheckList" HorizontalAlignment="Right" Click="AddAttachmentToCheckList_Click"/>
+
+        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Template="{StaticResource beautifulButton}"  Width="200" Margin="10" Content="Создать и выйти" Name="AddItemToCheckListAndExit" Click="AddItemToCheckListAndExit_Click"/>
+            <Button Template="{StaticResource beautifulButton}" Grid.Row="6" Width="250" Margin="10" Content="Создать и перейти к следующему" Name="AddItemToCheckListGoToAnother" Click="AddItemToCheckListGoToAnother_Click" />
+            <Button Template="{StaticResource beautifulButton}" Grid.Row="6" Width="200" Margin="10" Content="Выйти без сохранения" Name="ExitFromAddingCheckListItem" Click="ExitFromAddingCheckListItem_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

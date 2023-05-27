@@ -1,0 +1,90 @@
+﻿<Page x:Class="Test_Management_System.Pages.PageNewProject"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Test_Management_System.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1150" Background="#353535"
+      Title="PageNewProject">
+
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Добавление нового проекта" FontSize="18" Margin="10"/>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="10">
+            <TextBlock Text="Документация: " />
+            <ListBox  SelectionMode="Multiple" Margin="10" Width="793" Height="117">
+                <!-- привязка к коллекции вложений в модели представления -->
+                <ListBox ItemsSource="{Binding Attachments}" Width="567" Margin="10, 0, 0, 0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <!-- отображение имени файла в списке вложений -->
+                                <TextBlock Text="{Binding FileName}" />
+                                <!-- кнопка удаления вложения -->
+                                <Button Template="{StaticResource beautifulButton}" Content="Удалить" Command="{Binding DataContext.RemoveAttachmentCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ListBox>
+            <Button Content="Добавить вложение" Margin="10, 10, 10,10" Width="180" Command="{Binding AddAttachmentCommand}" Template="{StaticResource beautifulButton}" Height="44" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">
+            <TextBlock Text="Название:" />
+            <TextBox x:Name="txtName" Width="923" Margin="123, 10, 10, 10"/>
+        </StackPanel>
+
+        <TextBlock Grid.Row="2" Text="Заметки:" Margin="555, 15, 10, 0"/>
+        <TextBox Grid.Row="2" Grid.RowSpan="2" Margin="645,10,10,10" Text="Текстовое поле, объединяющее две строки"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
+            <TextBlock Text="Дата начала проекта:" VerticalAlignment="Center" />
+            <DatePicker  x:Name="dpStartDate" Width="200" VerticalAlignment="Center" Margin="50,0, 10, 0" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10">
+            <TextBlock Text="Дата окончания (если есть):" VerticalAlignment="Center" />
+            <DatePicker x:Name="dpEndDate" Width="200" VerticalAlignment="Center" Margin="10,0, 0, 0"/>
+        </StackPanel>
+        <TextBlock Text="Информация о заказчике проекта" Grid.Row="5" FontSize="18" Margin="10"/>
+        <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="10">
+            <TextBlock Text="Имя заканчика:" />
+            <TextBox x:Name="customerNameTB" Width="200" Margin="10,0, 0, 0"/>
+            <TextBlock Text="Фамилия:" Margin="10,0, 0, 0"/>
+            <TextBox x:Name="customerLastNameTB" Width="200"  Margin="10,0, 0, 0"/>
+        </StackPanel>
+        <StackPanel Grid.Row="7" Orientation="Horizontal" Margin="10">
+            <TextBlock Text="Электронная почта:" VerticalAlignment="Center" />
+            <TextBox x:Name="customerEmailTB" Width="200" VerticalAlignment="Center" Margin="10,0, 0, 0"/>
+            <TextBlock Text="Телефон:" VerticalAlignment="Center" />
+            <TextBox x:Name="customerPhoneTB" Width="200" VerticalAlignment="Center" Margin="10,0, 0, 0"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="10">
+            <TextBlock Text="Дополнительная информация:" />
+            <TextBox x:Name="customerNotesTB" Width="889" Margin="10,0, 0, 0" Height="115"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="9" Orientation="Horizontal" Margin="10" HorizontalAlignment="Right">
+            <Button Content="Добавить проект" Template="{StaticResource beautifulButton}" Width="200"/>
+            <Button Content="Сохранить изменения" Template="{StaticResource beautifulButton}" Width="200"/>
+            <Button Content="Выйти без сохранения" Template="{StaticResource beautifulButton}" Width="200"/>
+
+
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,0 +1,736 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище Testing_ToolModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AmountOfUsers">
+    <Key>
+      <PropertyRef Name="AmountID" />
+    </Key>
+    <Property Name="AmountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AmountLowerBound" Type="int" Nullable="false" />
+    <Property Name="AmountUpperBound" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BugPriority">
+    <Key>
+      <PropertyRef Name="BugPriorityID" />
+    </Key>
+    <Property Name="BugPriorityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BugPriorityName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="BugPriorityNameTranslation" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BugReport">
+    <Key>
+      <PropertyRef Name="BugReportID" />
+    </Key>
+    <Property Name="BugReportID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BugReportSummary" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="BugEnvironment" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="BugSteps" Type="text" Nullable="false" />
+    <Property Name="BugExpectedResult" Type="text" Nullable="false" />
+    <Property Name="BugActualResult" Type="text" Nullable="false" />
+    <Property Name="BugPreconditions" Type="nvarchar" MaxLength="255" />
+    <Property Name="BugTestData" Type="nvarchar" MaxLength="255" />
+    <Property Name="BugAttachment" Type="nvarchar" MaxLength="255" />
+    <Property Name="BugSeverityID" Type="int" />
+    <Property Name="BugPriorityID" Type="int" />
+    <Property Name="BRStatusID" Type="int" />
+    <Property Name="ProjectID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="DateOfCreation" Type="date" Nullable="false" />
+    <Property Name="BugReportRemark" Type="text" />
+    <Property Name="BugComponentOfSW" Type="nvarchar" MaxLength="255" />
+    <Property Name="BugVersionOfSW" Type="nvarchar" MaxLength="100" />
+    <Property Name="TestCaseID" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="BugReportStatus">
+    <Key>
+      <PropertyRef Name="BRStatusID" />
+    </Key>
+    <Property Name="BRStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BRStatusName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="BRStatusNameTranslation" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BugSeverity">
+    <Key>
+      <PropertyRef Name="BugSeverityID" />
+    </Key>
+    <Property Name="BugSeverityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BugSeverityName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="BugSeverityNameTranslation" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CheckList">
+    <Key>
+      <PropertyRef Name="CheckListID" />
+    </Key>
+    <Property Name="CheckListID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CLSummary" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="ProjectID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CLDescription" Type="nvarchar" MaxLength="255" />
+    <Property Name="CLPersentageOfPassed" Type="decimal" Precision="3" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CheckListItem">
+    <Key>
+      <PropertyRef Name="CheckListItemID" />
+    </Key>
+    <Property Name="CheckListItemID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CheckListItemDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
+    <Property Name="CLStatusID" Type="int" Nullable="false" />
+    <Property Name="CLComment" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="CheckListID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CLAttachment" Type="nvarchar" MaxLength="255" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="DataOfExecution" Type="date" />
+    <Property Name="CLPriorityID" Type="int" />
+  </EntityType>
+  <EntityType Name="CheckListPriority">
+    <Key>
+      <PropertyRef Name="CLPriorityID" />
+    </Key>
+    <Property Name="CLPriorityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CLPriorityDescription" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="CLPriorityDescriptionTranslation" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CheckListStatus">
+    <Key>
+      <PropertyRef Name="CLStatusID" />
+    </Key>
+    <Property Name="CLStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CLStatusDescription" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="CLStatusDescriptionTranslation" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="CompanyID" />
+    </Key>
+    <Property Name="CompanyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="CompanyLabel" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="CountryID" Type="int" Nullable="false" />
+    <Property Name="AmountID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="CountryID" />
+    </Key>
+    <Property Name="CountryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CountryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CountryNameTranslation" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerFirstName" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="CustomerLastName" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="CustomerPhone" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="CustomerEmail" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CustomerNotes" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+    </Key>
+    <Property Name="ProjectID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="CompanyID" Type="int" Nullable="false" />
+    <Property Name="ProjectDateOfCreation" Type="date" Nullable="false" />
+    <Property Name="ProjectDateOfDeadLine" Type="date" />
+    <Property Name="ProjectNotes" Type="nvarchar" MaxLength="500" />
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectDocumentation">
+    <Key>
+      <PropertyRef Name="ProjectDocumentationID" />
+    </Key>
+    <Property Name="ProjectDocumentationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProjectDocumentationAttachment" Type="nvarchar" MaxLength="500" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="RoleNameTranslation" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TestCase">
+    <Key>
+      <PropertyRef Name="TestCaseID" />
+    </Key>
+    <Property Name="TestCaseID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TestCaseSummary" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="TestCaseDescription" Type="nvarchar" MaxLength="1000" />
+    <Property Name="TestCaseSteps" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="TestCaseExpectedResult" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="TestCaseActualResult" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="TCStatusID" Type="int" Nullable="false" />
+    <Property Name="TestCaseTestData" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="TestSuiteID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreatorUserID" Type="int" Nullable="false" />
+    <Property Name="TestCaseCreationDate" Type="date" Nullable="false" />
+    <Property Name="ExecutorUserID" Type="int" Nullable="false" />
+    <Property Name="TestCaseExecutionDate" Type="date" Nullable="false" />
+    <Property Name="TestCaseEnvironment" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="TCTypeID" Type="int" />
+    <Property Name="TCBehaviorID" Type="int" />
+    <Property Name="TCPriorityID" Type="int" />
+    <Property Name="TCSeverityID" Type="int" />
+    <Property Name="ProjectID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TestCaseAttachment" Type="nvarchar" MaxLength="255" />
+    <Property Name="TestCasePrecondition" Type="nvarchar" MaxLength="255" />
+    <Property Name="TestCasePostcondition" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="TestCaseBehavior">
+    <Key>
+      <PropertyRef Name="TCBehaviorID" />
+    </Key>
+    <Property Name="TCBehaviorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TCBehaviorDescription" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="TCBehaviorDescriptionTranlation" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TestCasePriority">
+    <Key>
+      <PropertyRef Name="TCPriorityID" />
+    </Key>
+    <Property Name="TCPriorityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TCPriorityDescription" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="TCPriorityDescriptionTranslation" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TestCaseSeverity">
+    <Key>
+      <PropertyRef Name="TCSeverityID" />
+    </Key>
+    <Property Name="TCSeverityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TCSeverityDescription" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="TCSeverityDescriptionTranslation" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TestCaseStatus">
+    <Key>
+      <PropertyRef Name="TCStatusID" />
+    </Key>
+    <Property Name="TCStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TCStatusDescription" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="TCStatusDescriptionTranlation" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TestCaseType">
+    <Key>
+      <PropertyRef Name="TCTypeID" />
+    </Key>
+    <Property Name="TCTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TCTypeDescription" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="TCTypeDescriptionTranlation" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TestSuite">
+    <Key>
+      <PropertyRef Name="TestSuiteID" />
+    </Key>
+    <Property Name="TestSuiteID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TestSuiteSummary" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="TestSuiteDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
+    <Property Name="TestSuiteLabel" Type="char" MaxLength="3" Nullable="false" />
+    <Property Name="TestSuitePreconditions" Type="nvarchar" MaxLength="255" />
+    <Property Name="TestSuiteParentID" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProjectID" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Userinfo">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="Login" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="CompanyID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__BugReport__BRSta__6FE99F9F">
+    <End Role="BugReportStatus" Type="Self.BugReportStatus" Multiplicity="0..1" />
+    <End Role="BugReport" Type="Self.BugReport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BugReportStatus">
+        <PropertyRef Name="BRStatusID" />
+      </Principal>
+      <Dependent Role="BugReport">
+        <PropertyRef Name="BRStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BugReport__BugPr__6EF57B66">
+    <End Role="BugPriority" Type="Self.BugPriority" Multiplicity="0..1" />
+    <End Role="BugReport" Type="Self.BugReport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BugPriority">
+        <PropertyRef Name="BugPriorityID" />
+      </Principal>
+      <Dependent Role="BugReport">
+        <PropertyRef Name="BugPriorityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BugReport__BugSe__6E01572D">
+    <End Role="BugSeverity" Type="Self.BugSeverity" Multiplicity="0..1" />
+    <End Role="BugReport" Type="Self.BugReport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BugSeverity">
+        <PropertyRef Name="BugSeverityID" />
+      </Principal>
+      <Dependent Role="BugReport">
+        <PropertyRef Name="BugSeverityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BugReport__Proje__6D0D32F4">
+    <End Role="Project" Type="Self.Project" Multiplicity="1" />
+    <End Role="BugReport" Type="Self.BugReport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="BugReport">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BugReport__TestC__6C190EBB">
+    <End Role="TestCase" Type="Self.TestCase" Multiplicity="0..1" />
+    <End Role="BugReport" Type="Self.BugReport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TestCase">
+        <PropertyRef Name="TestCaseID" />
+      </Principal>
+      <Dependent Role="BugReport">
+        <PropertyRef Name="TestCaseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BugReport__UserI__6B24EA82">
+    <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="1" />
+    <End Role="BugReport" Type="Self.BugReport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Userinfo">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="BugReport">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CheckList__Check__5535A963">
+    <End Role="CheckList" Type="Self.CheckList" Multiplicity="1" />
+    <End Role="CheckListItem" Type="Self.CheckListItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CheckList">
+        <PropertyRef Name="CheckListID" />
+      </Principal>
+      <Dependent Role="CheckListItem">
+        <PropertyRef Name="CheckListID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CheckList__CLPri__534D60F1">
+    <End Role="CheckListPriority" Type="Self.CheckListPriority" Multiplicity="0..1" />
+    <End Role="CheckListItem" Type="Self.CheckListItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CheckListPriority">
+        <PropertyRef Name="CLPriorityID" />
+      </Principal>
+      <Dependent Role="CheckListItem">
+        <PropertyRef Name="CLPriorityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CheckList__CLSta__5441852A">
+    <End Role="CheckListStatus" Type="Self.CheckListStatus" Multiplicity="1" />
+    <End Role="CheckListItem" Type="Self.CheckListItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CheckListStatus">
+        <PropertyRef Name="CLStatusID" />
+      </Principal>
+      <Dependent Role="CheckListItem">
+        <PropertyRef Name="CLStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CheckList__Proje__4E88ABD4">
+    <End Role="Project" Type="Self.Project" Multiplicity="1" />
+    <End Role="CheckList" Type="Self.CheckList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="CheckList">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CheckList__UserI__5165187F">
+    <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+    <End Role="CheckListItem" Type="Self.CheckListItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Userinfo">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="CheckListItem">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Company__AmountI__3F466844">
+    <End Role="AmountOfUsers" Type="Self.AmountOfUsers" Multiplicity="1" />
+    <End Role="Company" Type="Self.Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AmountOfUsers">
+        <PropertyRef Name="AmountID" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="AmountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Company__Country__3E52440B">
+    <End Role="Country" Type="Self.Country" Multiplicity="1" />
+    <End Role="Company" Type="Self.Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CountryID" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="CountryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Project__Company__48CFD27E">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="Project" Type="Self.Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyID" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="CompanyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Project__Custome__47DBAE45">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Project" Type="Self.Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProjectDo__Proje__4BAC3F29">
+    <End Role="Project" Type="Self.Project" Multiplicity="1" />
+    <End Role="ProjectDocumentation" Type="Self.ProjectDocumentation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="ProjectDocumentation">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TestCase__Creato__5EBF139D">
+    <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="1" />
+    <End Role="TestCase" Type="Self.TestCase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Userinfo">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TestCase">
+        <PropertyRef Name="CreatorUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TestCase__Execut__5FB337D6">
+    <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="1" />
+    <End Role="TestCase" Type="Self.TestCase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Userinfo">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TestCase">
+        <PropertyRef Name="ExecutorUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TestCase__Projec__5CD6CB2B">
+    <End Role="Project" Type="Self.Project" Multiplicity="1" />
+    <End Role="TestCase" Type="Self.TestCase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="TestCase">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TestCase__TCBeha__628FA481">
+    <End Role="TestCaseBehavior" Type="Self.TestCaseBehavior" Multiplicity="0..1" />
+    <End Role="TestCase" Type="Self.TestCase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TestCaseBehavior">
+        <PropertyRef Name="TCBehaviorID" />
+      </Principal>
+      <Dependent Role="TestCase">
+        <PropertyRef Name="TCBehaviorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TestCase__TCPrio__6383C8BA">
+    <End Role="TestCasePriority" Type="Self.TestCasePriority" Multiplicity="0..1" />
+    <End Role="TestCase" Type="Self.TestCase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TestCasePriority">
+        <PropertyRef Name="TCPriorityID" />
+      </Principal>
+      <Dependent Role="TestCase">
+        <PropertyRef Name="TCPriorityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TestCase__TCSeve__6477ECF3">
+    <End Role="TestCaseSeverity" Type="Self.TestCaseSeverity" Multiplicity="0..1" />
+    <End Role="TestCase" Type="Self.TestCase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TestCaseSeverity">
+        <PropertyRef Name="TCSeverityID" />
+      </Principal>
+      <Dependent Role="TestCase">
+        <PropertyRef Name="TCSeverityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TestCase__TCStat__60A75C0F">
+    <End Role="TestCaseStatus" Type="Self.TestCaseStatus" Multiplicity="1" />
+    <End Role="TestCase" Type="Self.TestCase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TestCaseStatus">
+        <PropertyRef Name="TCStatusID" />
+      </Principal>
+      <Dependent Role="TestCase">
+        <PropertyRef Name="TCStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TestCase__TCType__619B8048">
+    <End Role="TestCaseType" Type="Self.TestCaseType" Multiplicity="0..1" />
+    <End Role="TestCase" Type="Self.TestCase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TestCaseType">
+        <PropertyRef Name="TCTypeID" />
+      </Principal>
+      <Dependent Role="TestCase">
+        <PropertyRef Name="TCTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TestCase__TestSu__5DCAEF64">
+    <End Role="TestSuite" Type="Self.TestSuite" Multiplicity="1" />
+    <End Role="TestCase" Type="Self.TestCase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TestSuite">
+        <PropertyRef Name="TestSuiteID" />
+      </Principal>
+      <Dependent Role="TestCase">
+        <PropertyRef Name="TestSuiteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TestSuite__Proje__59063A47">
+    <End Role="Project" Type="Self.Project" Multiplicity="1" />
+    <End Role="TestSuite" Type="Self.TestSuite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="TestSuite">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TestSuite__TestS__59FA5E80">
+    <End Role="TestSuite" Type="Self.TestSuite" Multiplicity="0..1" />
+    <End Role="TestSuite1" Type="Self.TestSuite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TestSuite">
+        <PropertyRef Name="TestSuiteID" />
+      </Principal>
+      <Dependent Role="TestSuite1">
+        <PropertyRef Name="TestSuiteParentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Userinfo__Compan__4316F928">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyID" />
+      </Principal>
+      <Dependent Role="Userinfo">
+        <PropertyRef Name="CompanyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Userinfo__RoleID__4222D4EF">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="Userinfo">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище Testing_ToolModelContainer">
+    <EntitySet Name="AmountOfUsers" EntityType="Self.AmountOfUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BugPriority" EntityType="Self.BugPriority" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BugReport" EntityType="Self.BugReport" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BugReportStatus" EntityType="Self.BugReportStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BugSeverity" EntityType="Self.BugSeverity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CheckList" EntityType="Self.CheckList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CheckListItem" EntityType="Self.CheckListItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CheckListPriority" EntityType="Self.CheckListPriority" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CheckListStatus" EntityType="Self.CheckListStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProjectDocumentation" EntityType="Self.ProjectDocumentation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TestCase" EntityType="Self.TestCase" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TestCaseBehavior" EntityType="Self.TestCaseBehavior" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TestCasePriority" EntityType="Self.TestCasePriority" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TestCaseSeverity" EntityType="Self.TestCaseSeverity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TestCaseStatus" EntityType="Self.TestCaseStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TestCaseType" EntityType="Self.TestCaseType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TestSuite" EntityType="Self.TestSuite" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Userinfo" EntityType="Self.Userinfo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__BugReport__BRSta__6FE99F9F" Association="Self.FK__BugReport__BRSta__6FE99F9F">
+      <End Role="BugReportStatus" EntitySet="BugReportStatus" />
+      <End Role="BugReport" EntitySet="BugReport" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BugReport__BugPr__6EF57B66" Association="Self.FK__BugReport__BugPr__6EF57B66">
+      <End Role="BugPriority" EntitySet="BugPriority" />
+      <End Role="BugReport" EntitySet="BugReport" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BugReport__BugSe__6E01572D" Association="Self.FK__BugReport__BugSe__6E01572D">
+      <End Role="BugSeverity" EntitySet="BugSeverity" />
+      <End Role="BugReport" EntitySet="BugReport" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BugReport__Proje__6D0D32F4" Association="Self.FK__BugReport__Proje__6D0D32F4">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="BugReport" EntitySet="BugReport" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BugReport__TestC__6C190EBB" Association="Self.FK__BugReport__TestC__6C190EBB">
+      <End Role="TestCase" EntitySet="TestCase" />
+      <End Role="BugReport" EntitySet="BugReport" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BugReport__UserI__6B24EA82" Association="Self.FK__BugReport__UserI__6B24EA82">
+      <End Role="Userinfo" EntitySet="Userinfo" />
+      <End Role="BugReport" EntitySet="BugReport" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CheckList__Check__5535A963" Association="Self.FK__CheckList__Check__5535A963">
+      <End Role="CheckList" EntitySet="CheckList" />
+      <End Role="CheckListItem" EntitySet="CheckListItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CheckList__CLPri__534D60F1" Association="Self.FK__CheckList__CLPri__534D60F1">
+      <End Role="CheckListPriority" EntitySet="CheckListPriority" />
+      <End Role="CheckListItem" EntitySet="CheckListItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CheckList__CLSta__5441852A" Association="Self.FK__CheckList__CLSta__5441852A">
+      <End Role="CheckListStatus" EntitySet="CheckListStatus" />
+      <End Role="CheckListItem" EntitySet="CheckListItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CheckList__Proje__4E88ABD4" Association="Self.FK__CheckList__Proje__4E88ABD4">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="CheckList" EntitySet="CheckList" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CheckList__UserI__5165187F" Association="Self.FK__CheckList__UserI__5165187F">
+      <End Role="Userinfo" EntitySet="Userinfo" />
+      <End Role="CheckListItem" EntitySet="CheckListItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Company__AmountI__3F466844" Association="Self.FK__Company__AmountI__3F466844">
+      <End Role="AmountOfUsers" EntitySet="AmountOfUsers" />
+      <End Role="Company" EntitySet="Company" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Company__Country__3E52440B" Association="Self.FK__Company__Country__3E52440B">
+      <End Role="Country" EntitySet="Country" />
+      <End Role="Company" EntitySet="Company" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Project__Company__48CFD27E" Association="Self.FK__Project__Company__48CFD27E">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Project__Custome__47DBAE45" Association="Self.FK__Project__Custome__47DBAE45">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProjectDo__Proje__4BAC3F29" Association="Self.FK__ProjectDo__Proje__4BAC3F29">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="ProjectDocumentation" EntitySet="ProjectDocumentation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TestCase__Creato__5EBF139D" Association="Self.FK__TestCase__Creato__5EBF139D">
+      <End Role="Userinfo" EntitySet="Userinfo" />
+      <End Role="TestCase" EntitySet="TestCase" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TestCase__Execut__5FB337D6" Association="Self.FK__TestCase__Execut__5FB337D6">
+      <End Role="Userinfo" EntitySet="Userinfo" />
+      <End Role="TestCase" EntitySet="TestCase" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TestCase__Projec__5CD6CB2B" Association="Self.FK__TestCase__Projec__5CD6CB2B">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="TestCase" EntitySet="TestCase" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TestCase__TCBeha__628FA481" Association="Self.FK__TestCase__TCBeha__628FA481">
+      <End Role="TestCaseBehavior" EntitySet="TestCaseBehavior" />
+      <End Role="TestCase" EntitySet="TestCase" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TestCase__TCPrio__6383C8BA" Association="Self.FK__TestCase__TCPrio__6383C8BA">
+      <End Role="TestCasePriority" EntitySet="TestCasePriority" />
+      <End Role="TestCase" EntitySet="TestCase" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TestCase__TCSeve__6477ECF3" Association="Self.FK__TestCase__TCSeve__6477ECF3">
+      <End Role="TestCaseSeverity" EntitySet="TestCaseSeverity" />
+      <End Role="TestCase" EntitySet="TestCase" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TestCase__TCStat__60A75C0F" Association="Self.FK__TestCase__TCStat__60A75C0F">
+      <End Role="TestCaseStatus" EntitySet="TestCaseStatus" />
+      <End Role="TestCase" EntitySet="TestCase" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TestCase__TCType__619B8048" Association="Self.FK__TestCase__TCType__619B8048">
+      <End Role="TestCaseType" EntitySet="TestCaseType" />
+      <End Role="TestCase" EntitySet="TestCase" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TestCase__TestSu__5DCAEF64" Association="Self.FK__TestCase__TestSu__5DCAEF64">
+      <End Role="TestSuite" EntitySet="TestSuite" />
+      <End Role="TestCase" EntitySet="TestCase" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TestSuite__Proje__59063A47" Association="Self.FK__TestSuite__Proje__59063A47">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="TestSuite" EntitySet="TestSuite" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TestSuite__TestS__59FA5E80" Association="Self.FK__TestSuite__TestS__59FA5E80">
+      <End Role="TestSuite" EntitySet="TestSuite" />
+      <End Role="TestSuite1" EntitySet="TestSuite" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Userinfo__Compan__4316F928" Association="Self.FK__Userinfo__Compan__4316F928">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="Userinfo" EntitySet="Userinfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Userinfo__RoleID__4222D4EF" Association="Self.FK__Userinfo__RoleID__4222D4EF">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Userinfo" EntitySet="Userinfo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище Testing_ToolModelContainer" CdmEntityContainer="Testing_ToolEntities">
+    <EntitySetMapping Name="AmountOfUsers">
+      <EntityTypeMapping TypeName="Testing_ToolModel.AmountOfUsers">
+        <MappingFragment StoreEntitySet="AmountOfUsers">
+          <ScalarProperty Name="AmountID" ColumnName="AmountID" />
+          <ScalarProperty Name="AmountLowerBound" ColumnName="AmountLowerBound" />
+          <ScalarProperty Name="AmountUpperBound" ColumnName="AmountUpperBound" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BugPriority">
+      <EntityTypeMapping TypeName="Testing_ToolModel.BugPriority">
+        <MappingFragment StoreEntitySet="BugPriority">
+          <ScalarProperty Name="BugPriorityID" ColumnName="BugPriorityID" />
+          <ScalarProperty Name="BugPriorityName" ColumnName="BugPriorityName" />
+          <ScalarProperty Name="BugPriorityNameTranslation" ColumnName="BugPriorityNameTranslation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BugReport">
+      <EntityTypeMapping TypeName="Testing_ToolModel.BugReport">
+        <MappingFragment StoreEntitySet="BugReport">
+          <ScalarProperty Name="BugReportID" ColumnName="BugReportID" />
+          <ScalarProperty Name="BugReportSummary" ColumnName="BugReportSummary" />
+          <ScalarProperty Name="BugEnvironment" ColumnName="BugEnvironment" />
+          <ScalarProperty Name="BugSteps" ColumnName="BugSteps" />
+          <ScalarProperty Name="BugExpectedResult" ColumnName="BugExpectedResult" />
+          <ScalarProperty Name="BugActualResult" ColumnName="BugActualResult" />
+          <ScalarProperty Name="BugPreconditions" ColumnName="BugPreconditions" />
+          <ScalarProperty Name="BugTestData" ColumnName="BugTestData" />
+          <ScalarProperty Name="BugAttachment" ColumnName="BugAttachment" />
+          <ScalarProperty Name="BugSeverityID" ColumnName="BugSeverityID" />
+          <ScalarProperty Name="BugPriorityID" ColumnName="BugPriorityID" />
+          <ScalarProperty Name="BRStatusID" ColumnName="BRStatusID" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="DateOfCreation" ColumnName="DateOfCreation" />
+          <ScalarProperty Name="BugReportRemark" ColumnName="BugReportRemark" />
+          <ScalarProperty Name="BugComponentOfSW" ColumnName="BugComponentOfSW" />
+          <ScalarProperty Name="BugVersionOfSW" ColumnName="BugVersionOfSW" />
+          <ScalarProperty Name="TestCaseID" ColumnName="TestCaseID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BugReportStatus">
+      <EntityTypeMapping TypeName="Testing_ToolModel.BugReportStatus">
+        <MappingFragment StoreEntitySet="BugReportStatus">
+          <ScalarProperty Name="BRStatusID" ColumnName="BRStatusID" />
+          <ScalarProperty Name="BRStatusName" ColumnName="BRStatusName" />
+          <ScalarProperty Name="BRStatusNameTranslation" ColumnName="BRStatusNameTranslation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BugSeverity">
+      <EntityTypeMapping TypeName="Testing_ToolModel.BugSeverity">
+        <MappingFragment StoreEntitySet="BugSeverity">
+          <ScalarProperty Name="BugSeverityID" ColumnName="BugSeverityID" />
+          <ScalarProperty Name="BugSeverityName" ColumnName="BugSeverityName" />
+          <ScalarProperty Name="BugSeverityNameTranslation" ColumnName="BugSeverityNameTranslation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CheckList">
+      <EntityTypeMapping TypeName="Testing_ToolModel.CheckList">
+        <MappingFragment StoreEntitySet="CheckList">
+          <ScalarProperty Name="CheckListID" ColumnName="CheckListID" />
+          <ScalarProperty Name="CLSummary" ColumnName="CLSummary" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="CLDescription" ColumnName="CLDescription" />
+          <ScalarProperty Name="CLPersentageOfPassed" ColumnName="CLPersentageOfPassed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CheckListItem">
+      <EntityTypeMapping TypeName="Testing_ToolModel.CheckListItem">
+        <MappingFragment StoreEntitySet="CheckListItem">
+          <ScalarProperty Name="CheckListItemID" ColumnName="CheckListItemID" />
+          <ScalarProperty Name="CheckListItemDescription" ColumnName="CheckListItemDescription" />
+          <ScalarProperty Name="CLStatusID" ColumnName="CLStatusID" />
+          <ScalarProperty Name="CLComment" ColumnName="CLComment" />
+          <ScalarProperty Name="CheckListID" ColumnName="CheckListID" />
+          <ScalarProperty Name="CLAttachment" ColumnName="CLAttachment" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="DataOfExecution" ColumnName="DataOfExecution" />
+          <ScalarProperty Name="CLPriorityID" ColumnName="CLPriorityID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CheckListPriority">
+      <EntityTypeMapping TypeName="Testing_ToolModel.CheckListPriority">
+        <MappingFragment StoreEntitySet="CheckListPriority">
+          <ScalarProperty Name="CLPriorityID" ColumnName="CLPriorityID" />
+          <ScalarProperty Name="CLPriorityDescription" ColumnName="CLPriorityDescription" />
+          <ScalarProperty Name="CLPriorityDescriptionTranslation" ColumnName="CLPriorityDescriptionTranslation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CheckListStatus">
+      <EntityTypeMapping TypeName="Testing_ToolModel.CheckListStatus">
+        <MappingFragment StoreEntitySet="CheckListStatus">
+          <ScalarProperty Name="CLStatusID" ColumnName="CLStatusID" />
+          <ScalarProperty Name="CLStatusDescription" ColumnName="CLStatusDescription" />
+          <ScalarProperty Name="CLStatusDescriptionTranslation" ColumnName="CLStatusDescriptionTranslation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Company">
+      <EntityTypeMapping TypeName="Testing_ToolModel.Company">
+        <MappingFragment StoreEntitySet="Company">
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="CompanyLabel" ColumnName="CompanyLabel" />
+          <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+          <ScalarProperty Name="AmountID" ColumnName="AmountID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Country">
+      <EntityTypeMapping TypeName="Testing_ToolModel.Country">
+        <MappingFragment StoreEntitySet="Country">
+          <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+          <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+          <ScalarProperty Name="CountryNameTranslation" ColumnName="CountryNameTranslation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customer">
+      <EntityTypeMapping TypeName="Testing_ToolModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="CustomerFirstName" ColumnName="CustomerFirstName" />
+          <ScalarProperty Name="CustomerLastName" ColumnName="CustomerLastName" />
+          <ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
+          <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
+          <ScalarProperty Name="CustomerNotes" ColumnName="CustomerNotes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Project">
+      <EntityTypeMapping TypeName="Testing_ToolModel.Project">
+        <MappingFragment StoreEntitySet="Project">
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+          <ScalarProperty Name="ProjectDateOfCreation" ColumnName="ProjectDateOfCreation" />
+          <ScalarProperty Name="ProjectDateOfDeadLine" ColumnName="ProjectDateOfDeadLine" />
+          <ScalarProperty Name="ProjectNotes" ColumnName="ProjectNotes" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectDocumentation">
+      <EntityTypeMapping TypeName="Testing_ToolModel.ProjectDocumentation">
+        <MappingFragment StoreEntitySet="ProjectDocumentation">
+          <ScalarProperty Name="ProjectDocumentationID" ColumnName="ProjectDocumentationID" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="ProjectDocumentationAttachment" ColumnName="ProjectDocumentationAttachment" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Role">
+      <EntityTypeMapping TypeName="Testing_ToolModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="RoleNameTranslation" ColumnName="RoleNameTranslation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestCase">
+      <EntityTypeMapping TypeName="Testing_ToolModel.TestCase">
+        <MappingFragment StoreEntitySet="TestCase">
+          <ScalarProperty Name="TestCaseID" ColumnName="TestCaseID" />
+          <ScalarProperty Name="TestCaseSummary" ColumnName="TestCaseSummary" />
+          <ScalarProperty Name="TestCaseDescription" ColumnName="TestCaseDescription" />
+          <ScalarProperty Name="TestCaseSteps" ColumnName="TestCaseSteps" />
+          <ScalarProperty Name="TestCaseExpectedResult" ColumnName="TestCaseExpectedResult" />
+          <ScalarProperty Name="TestCaseActualResult" ColumnName="TestCaseActualResult" />
+          <ScalarProperty Name="TCStatusID" ColumnName="TCStatusID" />
+          <ScalarProperty Name="TestCaseTestData" ColumnName="TestCaseTestData" />
+          <ScalarProperty Name="TestSuiteID" ColumnName="TestSuiteID" />
+          <ScalarProperty Name="CreatorUserID" ColumnName="CreatorUserID" />
+          <ScalarProperty Name="TestCaseCreationDate" ColumnName="TestCaseCreationDate" />
+          <ScalarProperty Name="ExecutorUserID" ColumnName="ExecutorUserID" />
+          <ScalarProperty Name="TestCaseExecutionDate" ColumnName="TestCaseExecutionDate" />
+          <ScalarProperty Name="TestCaseEnvironment" ColumnName="TestCaseEnvironment" />
+          <ScalarProperty Name="TCTypeID" ColumnName="TCTypeID" />
+          <ScalarProperty Name="TCBehaviorID" ColumnName="TCBehaviorID" />
+          <ScalarProperty Name="TCPriorityID" ColumnName="TCPriorityID" />
+          <ScalarProperty Name="TCSeverityID" ColumnName="TCSeverityID" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="TestCaseAttachment" ColumnName="TestCaseAttachment" />
+          <ScalarProperty Name="TestCasePrecondition" ColumnName="TestCasePrecondition" />
+          <ScalarProperty Name="TestCasePostcondition" ColumnName="TestCasePostcondition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestCaseBehavior">
+      <EntityTypeMapping TypeName="Testing_ToolModel.TestCaseBehavior">
+        <MappingFragment StoreEntitySet="TestCaseBehavior">
+          <ScalarProperty Name="TCBehaviorID" ColumnName="TCBehaviorID" />
+          <ScalarProperty Name="TCBehaviorDescription" ColumnName="TCBehaviorDescription" />
+          <ScalarProperty Name="TCBehaviorDescriptionTranlation" ColumnName="TCBehaviorDescriptionTranlation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestCasePriority">
+      <EntityTypeMapping TypeName="Testing_ToolModel.TestCasePriority">
+        <MappingFragment StoreEntitySet="TestCasePriority">
+          <ScalarProperty Name="TCPriorityID" ColumnName="TCPriorityID" />
+          <ScalarProperty Name="TCPriorityDescription" ColumnName="TCPriorityDescription" />
+          <ScalarProperty Name="TCPriorityDescriptionTranslation" ColumnName="TCPriorityDescriptionTranslation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestCaseSeverity">
+      <EntityTypeMapping TypeName="Testing_ToolModel.TestCaseSeverity">
+        <MappingFragment StoreEntitySet="TestCaseSeverity">
+          <ScalarProperty Name="TCSeverityID" ColumnName="TCSeverityID" />
+          <ScalarProperty Name="TCSeverityDescription" ColumnName="TCSeverityDescription" />
+          <ScalarProperty Name="TCSeverityDescriptionTranslation" ColumnName="TCSeverityDescriptionTranslation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestCaseStatus">
+      <EntityTypeMapping TypeName="Testing_ToolModel.TestCaseStatus">
+        <MappingFragment StoreEntitySet="TestCaseStatus">
+          <ScalarProperty Name="TCStatusID" ColumnName="TCStatusID" />
+          <ScalarProperty Name="TCStatusDescription" ColumnName="TCStatusDescription" />
+          <ScalarProperty Name="TCStatusDescriptionTranlation" ColumnName="TCStatusDescriptionTranlation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestCaseType">
+      <EntityTypeMapping TypeName="Testing_ToolModel.TestCaseType">
+        <MappingFragment StoreEntitySet="TestCaseType">
+          <ScalarProperty Name="TCTypeID" ColumnName="TCTypeID" />
+          <ScalarProperty Name="TCTypeDescription" ColumnName="TCTypeDescription" />
+          <ScalarProperty Name="TCTypeDescriptionTranlation" ColumnName="TCTypeDescriptionTranlation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestSuite">
+      <EntityTypeMapping TypeName="Testing_ToolModel.TestSuite">
+        <MappingFragment StoreEntitySet="TestSuite">
+          <ScalarProperty Name="TestSuiteID" ColumnName="TestSuiteID" />
+          <ScalarProperty Name="TestSuiteSummary" ColumnName="TestSuiteSummary" />
+          <ScalarProperty Name="TestSuiteDescription" ColumnName="TestSuiteDescription" />
+          <ScalarProperty Name="TestSuiteLabel" ColumnName="TestSuiteLabel" />
+          <ScalarProperty Name="TestSuitePreconditions" ColumnName="TestSuitePreconditions" />
+          <ScalarProperty Name="TestSuiteParentID" ColumnName="TestSuiteParentID" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Userinfo">
+      <EntityTypeMapping TypeName="Testing_ToolModel.Userinfo">
+        <MappingFragment StoreEntitySet="Userinfo">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

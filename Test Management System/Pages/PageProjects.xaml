@@ -1,0 +1,73 @@
+﻿<Page x:Class="Test_Management_System.Pages.PageProjects"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Test_Management_System.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1100"
+      Title="Проекты" Background="#353535">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DataGrid Name="GridProjects" Margin="10" Grid.Row="0" ItemsSource="{Binding Project}" SelectedItem="{Binding SelectedProject}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название проекта" Width="300" Binding="{Binding ProjectName}"/>
+                <DataGridTextColumn Header="Дата начала проекта" Width="200" Binding="{Binding ProjectDateOfCreation}"/>
+                <DataGridTextColumn Header="Дата окончания проекта" Width="200" Binding="{Binding ProjectDateOfDeadLine}"/>
+                <DataGridTextColumn Header="Заметки" Width="400" Binding="{Binding ProjectNotes}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" Height="100">
+            <Label Content="Документация: " Style="{StaticResource normLabel}"/>
+            <ListBox  SelectionMode="Multiple" Margin="10" Width="947">
+                <!-- привязка к коллекции вложений в модели представления -->
+                <ListBox ItemsSource="{Binding Attachments}" Width="671" Margin="10, 0, 0, 0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <!-- отображение имени файла в списке вложений -->
+                                <TextBlock Text="{Binding FileName}" />
+                                <Button Template="{StaticResource beautifulButton}" Content="Просмотреть файл" Command="{Binding DataContext.LookAttachmentCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ListBox>
+        </StackPanel>
+
+        
+        <StackPanel Name="CustomerInfo1" Grid.Row="2" Orientation="Horizontal" Margin="10">
+            <Label Style="{StaticResource normLabel}" Content="Информация о заказчике:" FontSize="16" FontWeight="Bold"/>
+            <Label Style="{StaticResource normLabel}" Content="Заметки о заказчике:" Margin="428, 0, 0, 0" FontSize="16" FontWeight="Bold"/>
+        </StackPanel>
+
+        <StackPanel Name="CustomerInfo2" Grid.Row="3" Orientation="Horizontal" Margin="10">
+            <Label Style="{StaticResource normLabel}" Content="Фамилия:" VerticalAlignment="Center" />
+            <TextBox x:Name="txtLastName" Width="200" Margin="10, 0, 10, 0" VerticalAlignment="Center" />
+            <Label Style="{StaticResource normLabel}" Content="Имя:"  VerticalAlignment="Center" />
+            <TextBox x:Name="txtFirstName" Width="200" Margin="107, 0, 0, 0" VerticalAlignment="Center"/>
+        </StackPanel>
+        <TextBox Name="CustomerInfo3" Grid.Row="3" Grid.RowSpan="2" Margin="665,10,10,10" />
+
+        <StackPanel Name="CustomerInfo4" Grid.Row="4" Orientation="Horizontal" Margin="10">
+            <Label Style="{StaticResource normLabel}" Content="Телефон:" VerticalAlignment="Center" />
+            <TextBox x:Name="txtPhone" Width="200"  Margin="13, 0, 10, 0"   VerticalAlignment="Center" />
+            <Label Style="{StaticResource normLabel}" Content="Электронная почта:" VerticalAlignment="Center" />
+            <TextBox x:Name="txtEmail"  Margin="10, 0, 10, 0"  Width="200" VerticalAlignment="Center" />
+        </StackPanel>
+        <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="10, 20, 10, 10" HorizontalAlignment="Right">
+            <Button Template="{StaticResource beautifulButton}" Width="210" Padding="10" Content="Добавить проект" Name="AddNewProject" Click="AddNewProject_Click" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+            <Button Template="{StaticResource beautifulButton}" Width="210" Padding="10"  Content="Редактировать информацию" Click="SaveCustomer_Click" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+            <Button Template="{StaticResource beautifulButton}" Width="210" Padding="10"  Content="Выйти"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+        </StackPanel>
+    </Grid>
+</Page>

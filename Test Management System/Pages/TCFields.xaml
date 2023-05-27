@@ -1,0 +1,38 @@
+﻿<Window x:Class="Test_Management_System.Pages.TCFields"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Test_Management_System.Pages"
+        mc:Ignorable="d" 
+        Title="Выбор полей для отображения" Height="350" Width="640" Background="#FF252525" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Text="Выбор полей для отображения" FontSize="20" Margin="10" Grid.Row="0" />
+        <WrapPanel Grid.Row="1" Margin="10">
+                <CheckBox Content="Критичность" Margin="10" Name="severityCheckBox" IsChecked="{Binding IsSeveritySelected}" VerticalContentAlignment="Center" />
+                <CheckBox Content="Приоритет" Margin="10" Name="priorityCheckBox" IsChecked="{Binding IsPrioritySelected}" VerticalContentAlignment="Center" />
+                <CheckBox Content="Тип" Margin="10" Name="typeCheckBox"  IsChecked="{Binding IsTypeSelected}" VerticalContentAlignment="Center"/>
+                <CheckBox Content="Поведение" Margin="10" Name="behaviorCheckBox" IsChecked="{Binding IsBehaviorSelected}" VerticalContentAlignment="Center" />
+                <CheckBox Content="Описание" Margin="10" Name="descriptionCheckBox" IsChecked="{Binding IsDescriptionSelected}" VerticalContentAlignment="Center"/>
+                <CheckBox Content="Дата создания" Margin="10" Name="creationDateCheckBox" IsChecked="{Binding IsCreationDateSelected}" VerticalContentAlignment="Center" />
+                <CheckBox Content="Дата выполнения" Margin="10" Name="executionDateCheckBox" IsChecked="{Binding IsExecutionDateSelected}" VerticalContentAlignment="Center"/>
+                <CheckBox Content="Предусловия" Margin="10" Name="preconditionCheckBox" IsChecked="{Binding IsPreconditionSelected}" VerticalContentAlignment="Center" />
+                <CheckBox Content="Постусловия" Margin="10" Name="postconditionCheckBox" IsChecked="{Binding IsPostconditionSelected}" VerticalContentAlignment="Center" />
+                <CheckBox Content="Вложения" Margin="10" Name="attachmentCheckBox" IsChecked="{Binding IsAttachmentSelected}" VerticalContentAlignment="Center"/>
+                <CheckBox Content="Среда" Margin="10" Name="environmentCheckBox" IsChecked="{Binding IsEnvironmentSelected}" VerticalContentAlignment="Center"/>
+                <CheckBox Content="Тестовые данные" Margin="10" Name="testdataCheckBox" IsChecked="{Binding IsTestDataSelected}" VerticalContentAlignment="Center"/>
+
+            <!-- Добавьте остальные поля, которые можно выбирать для отображения -->
+            </WrapPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+            <Button Content="Сохранить" Name="SaveTCFields" Click="SaveTCFields_Click" Template="{StaticResource beautifulButton}"/>
+            <Button Content="Отмена" Name="CancelTCFields" Click="CancelTCFields_Click" Template="{StaticResource beautifulButton}"/>
+        </StackPanel>
+    </Grid>
+</Window>
