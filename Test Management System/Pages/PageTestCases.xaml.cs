@@ -16,6 +16,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Test_Management_System.Classes;
 using Test_Management_System.Entities;
 using static Test_Management_System.Pages.PageTestCases;
 using CheckBox = System.Windows.Controls.CheckBox;
@@ -33,8 +34,9 @@ namespace Test_Management_System.Pages
         Testing_ToolEntity db = new Testing_ToolEntity();
         public int testStuiteID;
         public int testCaseID;
+        UserContext UserContext { get; set; }
 
-        public PageTestCases(int testStuiteID)
+        public PageTestCases(UserContext userContext, int testStuiteID)
         {
             InitializeComponent();
             testCaseGrid.ItemsSource = db.TestCase.ToList();
@@ -55,6 +57,7 @@ namespace Test_Management_System.Pages
             addFieldsList.ItemsSource = columnSelectionItems;
             UpdateDataGridColumns();
             this.testStuiteID = testStuiteID;
+            this.UserContext = userContext;
             //List<TestSuite> ts = ;
             
             HeaderTestCasesView.Content = db.TestSuite.Where(x => x.TestSuiteID == testStuiteID).FirstOrDefault().TestSuiteSummary;
@@ -144,22 +147,25 @@ namespace Test_Management_System.Pages
 
         private void AddTestCaseItem_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new PageNewTestCase());
+            NavigationService.Navigate(new PageNewTestCase(UserContext, testStuiteID, 0));
         }
 
         private void EditTestCaseItem_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new PageNewTestCase(UserContext, testStuiteID, testCaseID));
         }
 
         private void DeleteTestCase_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void SaveTestCaseChanges_Click(object sender, RoutedEventArgs e)
-        {
-
+            var dialog = MessageBox.Show("Вы действительно хотите удалить выбранный тест-кейс?", "Удалить?", MessageBoxButton.YesNo);
+            if (dialog == MessageBoxResult.Yes)
+            {
+                var testCase = db.TestCase.FirstOrDefault(x => x.TestCaseID == testCaseID);
+                db.TestCase.Remove(testCase);
+                db.SaveChanges();
+            }
+            else
+                return;
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)

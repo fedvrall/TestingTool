@@ -45,7 +45,7 @@ namespace Test_Management_System.Pages
 
         private void WatchTestCases_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new PageTestCases(TestSuiteID));
+            NavigationService.Navigate(new PageTestCases(UserContext, TestSuiteID));
         }
 
         private void dgvTestSuites_SelectionChanged(object sender, SelectionChangedEventArgs e)
