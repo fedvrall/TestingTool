@@ -29,12 +29,12 @@ namespace Test_Management_System.Pages
             GridProjects.ItemsSource = db.Project.ToList();
         }
 
-        private void SaveCustomer_Click(object sender, RoutedEventArgs e)
+        private void AddNewProject_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new PageNewProject());
         }
 
-        private void AddNewProject_Click(object sender, RoutedEventArgs e)
+        private void EditProject_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new PageNewProject());
         }

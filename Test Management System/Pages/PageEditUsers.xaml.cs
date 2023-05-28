@@ -30,6 +30,7 @@ namespace Test_Management_System.Pages
         private bool isEditUser = false;
         private bool isAddUser = false;
         private int userID;
+        TextBoxChecking checking = new TextBoxChecking();
         public UserContext UserContext { get; set; }
         public PageEditUsers(UserContext userContext)
         {
@@ -312,36 +313,23 @@ namespace Test_Management_System.Pages
             }
         }
 
-        private void CheckRuSymb(string input) // Проверка символов русского алфавита
-        {
-            var rus = new Regex(@"[а-яА-ЯёЁ -]");
-            if (!rus.IsMatch(input))
-                MessageBox.Show("Пожалуйста, введите данные на русском языке!");
-        }
-
-        private void CheckLatSymb(string input) // Проверка символов латинского алфавита
-        {
-            var rus = new Regex(@"[a-zA-Z0-9]");
-            if (!rus.IsMatch(input))
-                MessageBox.Show("Пожалуйста, используйте только латиницу и цифры!");
-        }
         private void FirstNameTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            CheckRuSymb(FirstNameTextBox.Text.ToString());
+            checking.CheckRuSymb(FirstNameTextBox.Text.ToString());
             if (FirstNameTextBox.Text.Length >= 50)
                 MessageBox.Show("Сократите, пожалуйста, имя!");
         }
 
         private void LastNameTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            CheckRuSymb(LastNameTextBox.Text.ToString());
+            checking.CheckRuSymb(LastNameTextBox.Text.ToString());
             if (LastNameTextBox.Text.Length >= 50)
                 MessageBox.Show("Сократите, пожалуйста, фамилию!");
         }
 
         private void LoginTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            CheckLatSymb(LoginTextBox.Text.ToString());
+            checking.CheckLatSymb(LoginTextBox.Text.ToString());
             if (LoginTextBox.Text.Length >= 20)
                 MessageBox.Show("Сократите, пожалуйста, логин!");
         }

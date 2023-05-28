@@ -20,69 +20,68 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Добавление нового проекта" FontSize="18" Margin="10"/>
+        <Label Style="{StaticResource normLabel}" Content="Добавление нового проекта" FontSize="18" Margin="10"/>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="10">
-            <TextBlock Text="Документация: " />
-            <ListBox  SelectionMode="Multiple" Margin="10" Width="793" Height="117">
-                <!-- привязка к коллекции вложений в модели представления -->
-                <ListBox ItemsSource="{Binding Attachments}" Width="567" Margin="10, 0, 0, 0">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <!-- отображение имени файла в списке вложений -->
-                                <TextBlock Text="{Binding FileName}" />
-                                <!-- кнопка удаления вложения -->
-                                <Button Template="{StaticResource beautifulButton}" Content="Удалить" Command="{Binding DataContext.RemoveAttachmentCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+            <Label Style="{StaticResource normLabel}" Content="Документация: " />
+            <ListBox Width="710" Height="117" Margin="124, 0, 10, 0"  x:Name="AttachmentsListBox">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding}" Margin="10" FontSize="14" FontFamily="Courier" />
+                            <Button Content="Удалить" Click="RemoveAttachment_Click" Margin="10, 0" Width="100" Template="{StaticResource beautifulButton}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
-            <Button Content="Добавить вложение" Margin="10, 10, 10,10" Width="180" Command="{Binding AddAttachmentCommand}" Template="{StaticResource beautifulButton}" Height="44" />
+            <Button Content="Добавить вложение" Margin="10, 10, 10,10" Width="200" Name="AddAttachment" Click="AddAttachment_Click" Template="{StaticResource beautifulButton}" Height="44" />
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">
-            <TextBlock Text="Название:" />
-            <TextBox x:Name="txtName" Width="923" Margin="123, 10, 10, 10"/>
-        </StackPanel>
+        <Label Grid.Row="1" Margin="10" HorizontalAlignment="Left" Style="{StaticResource normLabel}" Content="Название:" />
+        <TextBox Grid.Row="1" HorizontalAlignment="Right" x:Name="txtName" Width="930" Margin="123, 10, 10, 10"/>
 
-        <TextBlock Grid.Row="2" Text="Заметки:" Margin="555, 15, 10, 0"/>
-        <TextBox Grid.Row="2" Grid.RowSpan="2" Margin="645,10,10,10" Text="Текстовое поле, объединяющее две строки"/>
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
-            <TextBlock Text="Дата начала проекта:" VerticalAlignment="Center" />
-            <DatePicker  x:Name="dpStartDate" Width="200" VerticalAlignment="Center" Margin="50,0, 10, 0" />
+            <Label Style="{StaticResource normLabel}" Content="Дата начала проекта:" VerticalAlignment="Center" />
+            <DatePicker  x:Name="dpStartDate" Width="200" VerticalAlignment="Center" Margin="87,0, 10, 0" >
+                <TextBlock.FontSize>15</TextBlock.FontSize>
+                <DatePicker.Background>#ffffff</DatePicker.Background>
+            </DatePicker>
         </StackPanel>
+        
+        <Label Style="{StaticResource normLabel}"  Grid.Row="2" Content="Заметки:" Margin="555, 10, 10, 0"/>
+        <TextBox Grid.Row="2" Grid.RowSpan="2" Margin="645,10,10,10"/>
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10">
-            <TextBlock Text="Дата окончания (если есть):" VerticalAlignment="Center" />
-            <DatePicker x:Name="dpEndDate" Width="200" VerticalAlignment="Center" Margin="10,0, 0, 0"/>
+            <Label Style="{StaticResource normLabel}" Content="Дата окончания (если есть):" VerticalAlignment="Center" />
+            <DatePicker x:Name="dpEndDate" Width="200" VerticalAlignment="Center" Margin="45,0, 0, 0">
+                <TextBlock.FontSize>15</TextBlock.FontSize>
+                <DatePicker.Background>#ffffff</DatePicker.Background>
+            </DatePicker>
         </StackPanel>
-        <TextBlock Text="Информация о заказчике проекта" Grid.Row="5" FontSize="18" Margin="10"/>
+        <Label Style="{StaticResource normLabel}" Content="Информация о заказчике проекта" Grid.Row="5" FontSize="18" Margin="10"/>
         <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="10">
-            <TextBlock Text="Имя заканчика:" />
-            <TextBox x:Name="customerNameTB" Width="200" Margin="10,0, 0, 0"/>
-            <TextBlock Text="Фамилия:" Margin="10,0, 0, 0"/>
-            <TextBox x:Name="customerLastNameTB" Width="200"  Margin="10,0, 0, 0"/>
+            <Label Style="{StaticResource normLabel}" Content="Имя заканчика:" />
+            <TextBox x:Name="customerNameTB" Width="200" Margin="125,0, 0, 0"/>
+            <Label Style="{StaticResource normLabel}" Content="Фамилия:" Margin="113,0, 0, 0"/>
+            <TextBox x:Name="customerLastNameTB" Width="200"  Margin="20,0, 0, 0"/>
         </StackPanel>
+        
         <StackPanel Grid.Row="7" Orientation="Horizontal" Margin="10">
-            <TextBlock Text="Электронная почта:" VerticalAlignment="Center" />
-            <TextBox x:Name="customerEmailTB" Width="200" VerticalAlignment="Center" Margin="10,0, 0, 0"/>
-            <TextBlock Text="Телефон:" VerticalAlignment="Center" />
-            <TextBox x:Name="customerPhoneTB" Width="200" VerticalAlignment="Center" Margin="10,0, 0, 0"/>
+            <Label Style="{StaticResource normLabel}" Content="Электронная почта:" VerticalAlignment="Center" />
+            <TextBox x:Name="customerEmailTB" Width="200" VerticalAlignment="Center" Margin="98,0, 113, 0" LostFocus="customerEmailTB_LostFocus"/>
+            <Label Style="{StaticResource normLabel}" Content="Телефон:" VerticalAlignment="Center" />
+            <TextBox x:Name="customerPhoneTB" Width="200" VerticalAlignment="Center" Margin="23,0, 0, 0" LostFocus="customerPhoneTB_LostFocus"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="10">
-            <TextBlock Text="Дополнительная информация:" />
-            <TextBox x:Name="customerNotesTB" Width="889" Margin="10,0, 0, 0" Height="115"/>
-        </StackPanel>
+        <Label Grid.Row="8" HorizontalAlignment="Left" Margin="10" Style="{StaticResource normLabel}" Content="Дополнительная информация:" />
+        <TextBox Grid.Row="8" HorizontalAlignment="Right" Margin="10" x:Name="customerNotesTB" Width="930" Height="115"/>
 
-        <StackPanel Grid.Row="9" Orientation="Horizontal" Margin="10" HorizontalAlignment="Right">
-            <Button Content="Добавить проект" Template="{StaticResource beautifulButton}" Width="200"/>
-            <Button Content="Сохранить изменения" Template="{StaticResource beautifulButton}" Width="200"/>
-            <Button Content="Выйти без сохранения" Template="{StaticResource beautifulButton}" Width="200"/>
+        <StackPanel Grid.Row="9" Orientation="Horizontal" Margin="0, 10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Content="Добавить проект" Template="{StaticResource beautifulButton}" Padding="10" Name="ConfirmAdding" Click="ConfirmAdding_Click" Width="200"/>
+            <Button Content="Сохранить изменения" Template="{StaticResource beautifulButton}" Padding="10" Name="SaveProjectChanges" Click="SaveProjectChanges_Click" Width="200"/>
+            <Button Content="Выйти без сохранения" Template="{StaticResource beautifulButton}" Padding="10" Name="ExitWithoutSave" Click="ExitWithoutSave_Click" Width="200"/>
 
 
         </StackPanel>

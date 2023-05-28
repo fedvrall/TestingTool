@@ -64,9 +64,9 @@
             <TextBox x:Name="txtEmail"  Margin="10, 0, 10, 0"  Width="200" VerticalAlignment="Center" />
         </StackPanel>
         <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="10, 20, 10, 10" HorizontalAlignment="Right">
-            <Button Template="{StaticResource beautifulButton}" Width="210" Padding="10" Content="Добавить проект" Name="AddNewProject" Click="AddNewProject_Click" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            <Button Template="{StaticResource beautifulButton}" Width="210" Padding="10"  Content="Редактировать информацию" Click="SaveCustomer_Click" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            <Button Template="{StaticResource beautifulButton}" Width="210" Padding="10"  Content="Выйти"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
+            <Button Template="{StaticResource beautifulButton}" Width="150" Padding="10" Content="Добавить проект" Name="AddNewProject" Click="AddNewProject_Click" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+            <Button Template="{StaticResource beautifulButton}" Width="150" Padding="10"  Content="Редактировать" Name="EditProject" Click="EditProject_Click" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+            <Button Template="{StaticResource beautifulButton}" Width="150" Padding="10"  Content="Выйти"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
 
         </StackPanel>
     </Grid>

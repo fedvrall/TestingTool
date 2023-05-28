@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\Варвара\Desktop\Test Management System\obj\Debug\
+D:\Data\TestingTool\Test Management System\obj\Debug\
 Test_Management_System
 none
 false
 DEBUG;TRACE
-C:\Users\Варвара\Desktop\Test Management System\Pages\App.xaml
+D:\Data\TestingTool\Test Management System\Pages\App.xaml
 21-591023041
 2-760155241
-53810460064
-59-64247892
+541729240166
+591768353070
 Pages\ComboboxStyle.xaml;Pages\Theme.xaml;Pages\LightTheme.xaml;Pages\PageMain.xaml;Pages\TCFields.xaml;Pages\WorkView.xaml;Pages\Auth.xaml;Pages\PageAdminSettings.xaml;Pages\PageBugReports.xaml;Pages\PageCheckListItems.xaml;Pages\PageCheckLists.xaml;Pages\PageEditUsers.xaml;Pages\PageNewBugReport.xaml;Pages\PageNewCheckList.xaml;Pages\PageNewProject.xaml;Pages\PageNewTestCase.xaml;Pages\PageNewTestSuite.xaml;Pages\PageProjects.xaml;Pages\PageTestCases.xaml;Pages\PageTestSuites.xaml;Pages\PageUserSettings.xaml;
 
 False

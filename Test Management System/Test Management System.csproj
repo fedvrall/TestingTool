@@ -205,6 +205,7 @@
     </Page>
     <Compile Include="Classes\PriorityColorConverter.cs" />
     <Compile Include="Classes\GenerateID.cs" />
+    <Compile Include="Classes\TextBoxChecking.cs" />
     <Compile Include="Pages\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
