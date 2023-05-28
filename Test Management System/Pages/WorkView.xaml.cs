@@ -73,9 +73,9 @@ namespace Test_Management_System
                 case "Тест-сьюты":
                     FrameContent.Navigate(new PageTestSuites(userContext));
                     break;
-                case "Тест-кейсы":
-                    FrameContent.Navigate(new PageTestCases());
-                    break;
+                //case "Тест-кейсы":
+                //    FrameContent.Navigate(new PageTestCases(userContext, 0));
+                //    break;
                 case "Пользователи":
                     FrameContent.Navigate(new PageEditUsers(userContext));
                     break;

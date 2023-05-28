@@ -63,9 +63,9 @@
         <Label Style="{StaticResource normLabel}" Content="Информация о заказчике проекта" Grid.Row="5" FontSize="18" Margin="10"/>
         <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="10">
             <Label Style="{StaticResource normLabel}" Content="Имя заканчика:" />
-            <TextBox x:Name="customerNameTB" Width="200" Margin="125,0, 0, 0"/>
+            <TextBox x:Name="customerNameTB" Width="200" Margin="125,0, 0, 0" LostFocus="customerNameTB_LostFocus"/>
             <Label Style="{StaticResource normLabel}" Content="Фамилия:" Margin="113,0, 0, 0"/>
-            <TextBox x:Name="customerLastNameTB" Width="200"  Margin="20,0, 0, 0"/>
+            <TextBox x:Name="customerLastNameTB" Width="200"  Margin="20,0, 0, 0" LostFocus="customerLastNameTB_LostFocus"/>
         </StackPanel>
         
         <StackPanel Grid.Row="7" Orientation="Horizontal" Margin="10">
@@ -80,7 +80,7 @@
 
         <StackPanel Grid.Row="9" Orientation="Horizontal" Margin="0, 10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Button Content="Добавить проект" Template="{StaticResource beautifulButton}" Padding="10" Name="ConfirmAdding" Click="ConfirmAdding_Click" Width="200"/>
-            <Button Content="Сохранить изменения" Template="{StaticResource beautifulButton}" Padding="10" Name="SaveProjectChanges" Click="SaveProjectChanges_Click" Width="200"/>
+            <Button Content="Сохранить изменения" Template="{StaticResource beautifulButton}" Padding="10" Name="SaveProjectChanges" IsEnabled="False" Click="SaveProjectChanges_Click" Width="200"/>
             <Button Content="Выйти без сохранения" Template="{StaticResource beautifulButton}" Padding="10" Name="ExitWithoutSave" Click="ExitWithoutSave_Click" Width="200"/>
         </StackPanel>
     </Grid>

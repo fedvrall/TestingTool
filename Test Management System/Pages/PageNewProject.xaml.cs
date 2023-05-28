@@ -67,11 +67,6 @@ namespace Test_Management_System.Pages
             string filePath = attachmentsList.FirstOrDefault(path => System.IO.Path.GetFileName(path) == fileName);
             attachmentsList.Remove(filePath);
             AttachmentsListBox.Items.Remove(fileName);
-
-            /*            Button removeButton = (Button)sender;
-                        string fileName = removeButton.DataContext as string;
-                        attachmentsList.Remove(filePath);
-                        AttachmentsListBox.Items.Remove(fileName);*/
         }
 
         private void customerPhoneTB_LostFocus(object sender, RoutedEventArgs e)
@@ -79,10 +74,7 @@ namespace Test_Management_System.Pages
             if (!checking.CheckPhoneValue(customerPhoneTB.Text))
             {
                 customerPhoneTB.Text = string.Empty;
-                 //customerPhoneTB.Focus();
-            }
-
-            
+            }   
         }
 
         private void customerEmailTB_LostFocus(object sender, RoutedEventArgs e)
@@ -90,7 +82,24 @@ namespace Test_Management_System.Pages
             if (!checking.CheckEmailValue(customerEmailTB.Text))
             {
                 customerEmailTB.Text = string.Empty;
-                //customerPhoneTB.Focus();
+            }
+        }
+
+        private void customerNameTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (checking.CheckOnlyCirSymb(customerNameTB.Text) != null)
+            {
+                customerNameTB.Text = checking.CheckOnlyCirSymb(customerNameTB.Text);
+                customerEmailTB.Text = string.Empty;
+            }
+        }
+
+        private void customerLastNameTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (checking.CheckOnlyCirSymb(customerLastNameTB.Text) != null)
+            {
+                customerLastNameTB.Text = checking.CheckOnlyCirSymb(customerLastNameTB.Text);
+                customerLastNameTB.Text = string.Empty;
             }
         }
     }

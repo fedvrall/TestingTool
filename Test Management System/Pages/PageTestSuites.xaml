@@ -38,7 +38,7 @@
                                         <Image Source="/Pages/edit.png" Height="30" Width="30"/>
                                     </Button.Content>
                                 </Button>
-                                <Button Name="DeleteTestSuite" Click="DeleteTestSuite_Click" Template="{StaticResource beautifulButton}" Margin="5">
+                                <Button Name="DeleteTestSuite" Click="DeleteTestSuite_Click"  Template="{StaticResource beautifulButton}" Margin="5">
                                     <Button.Content>
                                         <Image Source="/Pages/delete.png" Height="30" Width="30"/>
                                     </Button.Content>

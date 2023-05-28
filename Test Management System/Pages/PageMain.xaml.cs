@@ -47,7 +47,7 @@ namespace Test_Management_System.Pages
                 userContext.projectID = project.ProjectID;
                 WorkView main = new WorkView(userContext);
                 userContext.isProjectSelected = true;
-                GenerateID generateID = new GenerateID(userContext);
+                //GenerateID generateID = new GenerateID(userContext);
             }
             else
             {
@@ -55,8 +55,6 @@ namespace Test_Management_System.Pages
                 userContext.projectID = 0;
                 userContext.isProjectSelected = false;
             }
-
-
         }
     }
 }

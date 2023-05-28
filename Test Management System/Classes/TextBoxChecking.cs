@@ -19,11 +19,22 @@ namespace Test_Management_System.Classes
 
         public void CheckLatSymb(string input) // Проверка символов латинского алфавита
         {
-            var rus = new Regex(@"[a-zA-Z0-9]");
-            if (!rus.IsMatch(input))
+            var lat = new Regex(@"[a-zA-Z0-9]");
+            if (!lat.IsMatch(input))
                 MessageBox.Show("Пожалуйста, используйте только латиницу и цифры!");
         }
 
+
+        public string CheckOnlyCirSymb(string input) // Проверка символов киррилицы
+        {
+            var rus = new Regex(@"[а-яА-ЯёЁ]");
+            string result = null;
+            if (!rus.IsMatch(input)) 
+                MessageBox.Show("Пожалуйста, используйте только кириллицу!");
+            else
+                result = input.Substring(0, 1).ToUpper() + input.Substring(1);
+            return result;
+        }
 
         public bool CheckEmailValue(string input) // Оба варианта работают, выбирай - не хочу
         {

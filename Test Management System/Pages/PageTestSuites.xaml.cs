@@ -35,12 +35,17 @@ namespace Test_Management_System.Pages
 
         private void NewTestSuiteButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new PageNewTestSuite(UserContext, TestSuiteID));
+            NavigationService.Navigate(new PageNewTestSuite(UserContext, 0));
         }
 
         private void EditTestSuite_Click(object sender, RoutedEventArgs e)
         {
+            NavigationService.Navigate(new PageNewTestSuite(UserContext, TestSuiteID));
+        }
 
+        private void DeleteTestSuite_Click(object sender, RoutedEventArgs e)
+        {
+            // Удаление со всеми тест-кейсами
         }
 
         private void WatchTestCases_Click(object sender, RoutedEventArgs e)
@@ -62,5 +67,7 @@ namespace Test_Management_System.Pages
                 EditTestSuite.IsEnabled = false;
             }
         }
+
+
     }
 }

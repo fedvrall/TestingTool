@@ -32,12 +32,12 @@ namespace Test_Management_System.Pages
 
         private void AddNewProject_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new PageNewProject());
+            NavigationService.Navigate(new PageNewProject(0));
         }
 
         private void EditProject_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new PageNewProject());
+            NavigationService.Navigate(new PageNewProject(projectID));
         }
 
         private void GridProjects_SelectionChanged(object sender, SelectionChangedEventArgs e)
