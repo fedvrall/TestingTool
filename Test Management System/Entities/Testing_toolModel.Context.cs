@@ -13,10 +13,10 @@ namespace Test_Management_System.Entities
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Testing_ToolEntities : DbContext
+    public partial class Testing_ToolEntity : DbContext
     {
-        public Testing_ToolEntities()
-            : base("name=Testing_ToolEntities")
+        public Testing_ToolEntity()
+            : base("name=Testing_ToolEntity")
         {
         }
     
@@ -39,6 +39,7 @@ namespace Test_Management_System.Entities
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Project> Project { get; set; }
         public virtual DbSet<ProjectDocumentation> ProjectDocumentation { get; set; }
+        public virtual DbSet<ProjectUser> ProjectUser { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<TestCase> TestCase { get; set; }
         public virtual DbSet<TestCaseBehavior> TestCaseBehavior { get; set; }

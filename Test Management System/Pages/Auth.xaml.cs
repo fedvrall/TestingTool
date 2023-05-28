@@ -32,7 +32,7 @@ namespace Test_Management_System.Pages
             string login = textBoxLogin.Text;
             string password = PasswordBox.Password;
 
-            using (Testing_ToolEntities db = new Testing_ToolEntities())
+            using (Testing_ToolEntity db = new Testing_ToolEntity())
             {
                 var user = db.Userinfo.FirstOrDefault(x => x.Login == login && x.Password == password);
                 if (user != null)

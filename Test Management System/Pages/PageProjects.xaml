@@ -17,7 +17,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <DataGrid Name="GridProjects" Margin="10" Grid.Row="0" ItemsSource="{Binding Project}" SelectedItem="{Binding SelectedProject}" AutoGenerateColumns="False">
+        <DataGrid Name="GridProjects" Margin="10" Grid.Row="0" ItemsSource="{Binding Project}" SelectionChanged="GridProjects_SelectionChanged" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название проекта" Width="300" Binding="{Binding ProjectName}"/>
                 <DataGridTextColumn Header="Дата начала проекта" Width="200" Binding="{Binding ProjectDateOfCreation}"/>
@@ -65,7 +65,7 @@
         </StackPanel>
         <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="10, 20, 10, 10" HorizontalAlignment="Right">
             <Button Template="{StaticResource beautifulButton}" Width="150" Padding="10" Content="Добавить проект" Name="AddNewProject" Click="AddNewProject_Click" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            <Button Template="{StaticResource beautifulButton}" Width="150" Padding="10"  Content="Редактировать" Name="EditProject" Click="EditProject_Click" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+            <Button Template="{StaticResource beautifulButton}" Width="150" Padding="10" IsEnabled="False" Content="Редактировать" Name="EditProject" Click="EditProject_Click" VerticalAlignment="Center" HorizontalAlignment="Right"/>
             <Button Template="{StaticResource beautifulButton}" Width="150" Padding="10"  Content="Выйти"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
 
         </StackPanel>

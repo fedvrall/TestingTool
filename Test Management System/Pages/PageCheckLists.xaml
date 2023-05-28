@@ -61,7 +61,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="1">
-            <Button Template="{StaticResource beautifulButton}" Content="Добавить новый чек-лист" Command="{Binding AddChecklistCommand}" Width="200" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" />
+            <Button Template="{StaticResource beautifulButton}" Padding="10" Content="Добавить новый чек-лист" Command="{Binding AddChecklistCommand}" Width="200" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" />
 
         </StackPanel>
     </Grid>

@@ -26,7 +26,7 @@ namespace Test_Management_System.Pages
         public PageCheckLists()
         {
             InitializeComponent();
-            Testing_ToolEntities db = new Testing_ToolEntities();
+            Testing_ToolEntity db = new Testing_ToolEntity();
             CheckListGrid.ItemsSource = db.CheckList.ToList();
 
         }

@@ -21,13 +21,13 @@ namespace Test_Management_System.Entities
             this.TestSuite1 = new HashSet<TestSuite>();
         }
     
-        public string TestSuiteID { get; set; }
+        public int TestSuiteID { get; set; }
         public string TestSuiteSummary { get; set; }
         public string TestSuiteDescription { get; set; }
         public string TestSuiteLabel { get; set; }
         public string TestSuitePreconditions { get; set; }
-        public string TestSuiteParentID { get; set; }
-        public string ProjectID { get; set; }
+        public Nullable<int> TestSuiteParentID { get; set; }
+        public int ProjectID { get; set; }
     
         public virtual Project Project { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

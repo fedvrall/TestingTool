@@ -22,10 +22,11 @@ namespace Test_Management_System.Pages
     /// </summary>
     public partial class PageProjects : Page
     {
+        public int projectID;
         public PageProjects()
         {
             InitializeComponent();
-            Testing_ToolEntities db = new Testing_ToolEntities();
+            Testing_ToolEntity db = new Testing_ToolEntity();
             GridProjects.ItemsSource = db.Project.ToList();
         }
 
@@ -37,6 +38,19 @@ namespace Test_Management_System.Pages
         private void EditProject_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new PageNewProject());
+        }
+
+        private void GridProjects_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (GridProjects.SelectedItem != null)
+            {
+                projectID = ((Project)GridProjects.SelectedItem).ProjectID;
+                EditProject.IsEnabled = true;
+            }
+            else
+            {
+                EditProject.IsEnabled = false;
+            }
         }
     }
 }

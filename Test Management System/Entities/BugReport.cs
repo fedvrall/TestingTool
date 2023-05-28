@@ -14,7 +14,7 @@ namespace Test_Management_System.Entities
     
     public partial class BugReport
     {
-        public string BugReportID { get; set; }
+        public int BugReportID { get; set; }
         public string BugReportSummary { get; set; }
         public string BugEnvironment { get; set; }
         public string BugSteps { get; set; }
@@ -26,19 +26,19 @@ namespace Test_Management_System.Entities
         public Nullable<int> BugSeverityID { get; set; }
         public Nullable<int> BugPriorityID { get; set; }
         public Nullable<int> BRStatusID { get; set; }
-        public string ProjectID { get; set; }
+        public int ProjectID { get; set; }
         public int UserID { get; set; }
         public System.DateTime DateOfCreation { get; set; }
         public string BugReportRemark { get; set; }
         public string BugComponentOfSW { get; set; }
         public string BugVersionOfSW { get; set; }
-        public string TestCaseID { get; set; }
+        public Nullable<int> TestCaseID { get; set; }
     
         public virtual BugPriority BugPriority { get; set; }
-        public virtual BugReportStatus BugReportStatus { get; set; }
-        public virtual BugSeverity BugSeverity { get; set; }
         public virtual Project Project { get; set; }
         public virtual TestCase TestCase { get; set; }
+        public virtual BugReportStatus BugReportStatus { get; set; }
+        public virtual BugSeverity BugSeverity { get; set; }
         public virtual Userinfo Userinfo { get; set; }
     }
 }

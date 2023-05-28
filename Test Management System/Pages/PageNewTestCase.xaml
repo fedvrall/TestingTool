@@ -82,22 +82,17 @@
             
         <StackPanel Orientation="Horizontal" Grid.Row="9">
             <Label Style="{StaticResource normLabel}"  Content="Вложения" Margin="10, 0, 10, 0"/>
-            <ListBox  SelectionMode="Multiple" Background="#c0c0c0" Margin="100,10,10,10" Width="734" Height="80">
-                <!-- привязка к коллекции вложений в модели представления -->
-                <ListBox ItemsSource="{Binding Attachments}" Width="463" Background="#c0c0c0" Height="4">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <!-- отображение имени файла в списке вложений -->
-                                <TextBlock Text="{Binding FileName}" />
-                                <!-- кнопка удаления вложения -->
-                                <Button Content="Удалить" Template="{StaticResource beautifulButton}" Command="{Binding DataContext.RemoveAttachmentCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+            <ListBox Width="734" Height="80" Margin="100, 10, 10, 10"  x:Name="AttachmentsListBox">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding}" Margin="10" FontSize="14" FontFamily="Courier" />
+                            <Button Content="Удалить" Click="RemoveAttachment_Click"  Margin="10, 0" Width="100" Template="{StaticResource beautifulButton}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
-            <Button Template="{StaticResource beautifulButton}" Padding="10" Width="200" Content="Добавить вложение" Margin="20, 10, 10, 10" VerticalAlignment="Center" Command="{Binding AddAttachmentCommand}" />
+            <Button Template="{StaticResource beautifulButton}" Padding="10" Width="200" Content="Добавить вложение" Margin="20, 10, 10, 10" VerticalAlignment="Center" Name="AddAttachment" Click="AddAttachment_Click" />
         </StackPanel>
 
         <StackPanel Grid.Row="10" Orientation="Horizontal" Margin="10">

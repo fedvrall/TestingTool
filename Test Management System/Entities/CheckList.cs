@@ -20,11 +20,10 @@ namespace Test_Management_System.Entities
             this.CheckListItem = new HashSet<CheckListItem>();
         }
     
-        public string CheckListID { get; set; }
+        public int CheckListID { get; set; }
         public string CLSummary { get; set; }
-        public string ProjectID { get; set; }
+        public int ProjectID { get; set; }
         public string CLDescription { get; set; }
-        public decimal CLPersentageOfPassed { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CheckListItem> CheckListItem { get; set; }

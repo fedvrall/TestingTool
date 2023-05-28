@@ -14,7 +14,7 @@ namespace Test_Management_System.Classes
         {
             var rus = new Regex(@"[а-яА-ЯёЁ -]");
             if (!rus.IsMatch(input))
-                MessageBox.Show("Пожалуйста, введите данные на русском языке!");
+                MessageBox.Show("Пожалуйста, вводите данные на русском языке!");
         }
 
         public void CheckLatSymb(string input) // Проверка символов латинского алфавита
@@ -23,6 +23,7 @@ namespace Test_Management_System.Classes
             if (!rus.IsMatch(input))
                 MessageBox.Show("Пожалуйста, используйте только латиницу и цифры!");
         }
+
 
         public bool CheckEmailValue(string input) // Оба варианта работают, выбирай - не хочу
         {

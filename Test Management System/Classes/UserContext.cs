@@ -15,7 +15,7 @@ namespace Test_Management_System.Classes
         public int roleId { get; set; }
         public string companyLabel { get; set; }
         public int companyID { get; set; }
-        public string projectID { get; set; }
+        public int projectID { get; set; }
         public string projectLabel { get; set; }
         public bool isProjectSelected {get; set; }
 

@@ -32,7 +32,7 @@ namespace Test_Management_System
             int userID = userContext.userId;
             string username = userContext.userName;
             int roleID = userContext.roleId;
-            string projectID = userContext.projectID;
+            int projectID = userContext.projectID;
             InitializeComponent();
             FrameContent.Navigate(new PageMain(userContext));
             /*            CreateDB_MSSql createnewdb = new CreateDB_MSSql();

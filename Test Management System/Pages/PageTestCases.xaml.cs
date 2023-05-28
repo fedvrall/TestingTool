@@ -28,15 +28,15 @@ namespace Test_Management_System.Pages
     /// </summary>
     public partial class PageTestCases : Page
     {
-        public ICommand ToggleElementCommand { get; }
-        /*        private ObservableCollection<string> availableFields;
-                private List<string> selectedFields;*/
+       // public ICommand ToggleElementCommand { get; }
         List<ColumnSelectionItem> columnSelectionItems = new List<ColumnSelectionItem>();
+        Testing_ToolEntity db = new Testing_ToolEntity();
+        public int testStuiteID;
+        public int testCaseID;
 
-        public PageTestCases()
+        public PageTestCases(int testStuiteID)
         {
             InitializeComponent();
-            Testing_ToolEntities db = new Testing_ToolEntities();
             testCaseGrid.ItemsSource = db.TestCase.ToList();
 
             columnSelectionItems.Add(new ColumnSelectionItem("Описание"));
@@ -54,7 +54,10 @@ namespace Test_Management_System.Pages
 
             addFieldsList.ItemsSource = columnSelectionItems;
             UpdateDataGridColumns();
-
+            this.testStuiteID = testStuiteID;
+            //List<TestSuite> ts = ;
+            
+            HeaderTestCasesView.Content = db.TestSuite.Where(x => x.TestSuiteID == testStuiteID).FirstOrDefault().TestSuiteSummary;
         }
 
 
@@ -116,10 +119,6 @@ namespace Test_Management_System.Pages
 
         private void ChoseTCFields_Click(object sender, RoutedEventArgs e)
         {
-            /*            if(ChoseTCFields.Content.ToString() == "Просмотреть поля")
-                        {*/
-
-
             if (FormContainer.Visibility == Visibility.Visible)
             {
                 FormContainer.Visibility = Visibility.Collapsed;
@@ -171,6 +170,21 @@ namespace Test_Management_System.Pages
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             UpdateDataGridColumns();
+        }
+
+        private void testCaseGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (testCaseGrid.SelectedItem != null)
+            {
+                testCaseID = ((TestCase)testCaseGrid.SelectedItem).TestCaseID;
+                EditTestCaseItem.IsEnabled = true;
+                DeleteTestCase.IsEnabled = true;
+            }
+            else
+            {
+                EditTestCaseItem.IsEnabled = true;
+                DeleteTestCase.IsEnabled = true;
+            }
         }
     }
 }

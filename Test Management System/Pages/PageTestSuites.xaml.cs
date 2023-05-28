@@ -23,8 +23,8 @@ namespace Test_Management_System.Pages
     public partial class PageTestSuites : Page
     {
         public UserContext UserContext { get; set; }
-        public string TestSuiteID = "";
-        Testing_ToolEntities db = new Testing_ToolEntities();
+        public int TestSuiteID = 0;
+        Testing_ToolEntity db = new Testing_ToolEntity();
 
         public PageTestSuites(UserContext userContext)
         {
@@ -43,15 +43,24 @@ namespace Test_Management_System.Pages
 
         }
 
-
-        private void DeleteTestSuite_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void WatchTestCases_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new PageTestCases());
+            NavigationService.Navigate(new PageTestCases(TestSuiteID));
+        }
+
+        private void dgvTestSuites_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dgvTestSuites.SelectedItem != null)
+            {
+                TestSuiteID = ((TestSuite)dgvTestSuites.SelectedItem).TestSuiteID;
+                EditTestSuite.IsEnabled = true;
+                NewTestSuiteButton.IsEnabled = false;
+            }
+            else
+            {
+                NewTestSuiteButton.IsEnabled = true;
+                EditTestSuite.IsEnabled = false;
+            }
         }
     }
 }

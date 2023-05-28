@@ -17,7 +17,7 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0, 10, 10, 10" HorizontalAlignment="Left">
             <Label Content="Просмотр тест-сьютов" FontSize="18" Style="{StaticResource normLabel}"/>
         </StackPanel>
-        <DataGrid CanUserAddRows="False" Name="dgvTestSuites" Grid.Row="1" Margin="10" ItemsSource="{Binding TestSuite}" AutoGenerateColumns="False">
+        <DataGrid CanUserAddRows="False" Name="dgvTestSuites" SelectionChanged="dgvTestSuites_SelectionChanged" Grid.Row="1" Margin="10" ItemsSource="{Binding TestSuite}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Заголовок" Width="150" Binding="{Binding TestSuiteSummary}" />
                 <DataGridTextColumn Header="Описание" Width="250" Binding="{Binding TestSuiteDescription}" />
@@ -52,8 +52,6 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10" HorizontalAlignment="Right">
             <Button Width="200" Content="Добавить новый тест-сьют" Name="NewTestSuiteButton" Click="NewTestSuiteButton_Click" Padding="10" Template="{StaticResource beautifulButton}"/>
             <Button Width="200" Content="Редактировать выбранный" Name="EditTestSuite" Click="EditTestSuite_Click" IsEnabled="False" Padding="10" Template="{StaticResource beautifulButton}"/>
-            <Button Width="200" Content="Выйти" Padding="10" Template="{StaticResource beautifulButton}"/>
-
         </StackPanel>
     </Grid>
 </Page>

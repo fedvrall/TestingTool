@@ -15,7 +15,7 @@ namespace Test_Management_System.Entities
     public partial class ProjectDocumentation
     {
         public int ProjectDocumentationID { get; set; }
-        public string ProjectID { get; set; }
+        public int ProjectID { get; set; }
         public string ProjectDocumentationAttachment { get; set; }
     
         public virtual Project Project { get; set; }

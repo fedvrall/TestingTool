@@ -36,7 +36,7 @@ namespace Test_Management_System.Pages
         {
             this.UserContext = userContext;
             InitializeComponent();
-            Testing_ToolEntities db = new Testing_ToolEntities();
+            Testing_ToolEntity db = new Testing_ToolEntity();
             dgvUsers.ItemsSource = db.Userinfo.ToList();
             RoleComboBox.Items.Clear();
             RoleComboBox.Items.Add("");
@@ -150,7 +150,7 @@ namespace Test_Management_System.Pages
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            using (Testing_ToolEntities db = new Testing_ToolEntities())
+            using (Testing_ToolEntity db = new Testing_ToolEntity())
             {
                 if (isAddUser)
                 {

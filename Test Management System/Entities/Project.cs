@@ -20,11 +20,11 @@ namespace Test_Management_System.Entities
             this.BugReport = new HashSet<BugReport>();
             this.CheckList = new HashSet<CheckList>();
             this.ProjectDocumentation = new HashSet<ProjectDocumentation>();
-            this.TestCase = new HashSet<TestCase>();
             this.TestSuite = new HashSet<TestSuite>();
+            this.ProjectUser = new HashSet<ProjectUser>();
         }
     
-        public string ProjectID { get; set; }
+        public int ProjectID { get; set; }
         public string ProjectName { get; set; }
         public int CompanyID { get; set; }
         public System.DateTime ProjectDateOfCreation { get; set; }
@@ -41,8 +41,8 @@ namespace Test_Management_System.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectDocumentation> ProjectDocumentation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TestCase> TestCase { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TestSuite> TestSuite { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProjectUser> ProjectUser { get; set; }
     }
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8dfd1141ad5549e387ca37a5bb2f2641" Name="Diagram1">
+        <EntityTypeShape EntityType="Testing_ToolModel.AmountOfUsers" Width="1.5" PointX="0.75" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.BugPriority" Width="1.5" PointX="8.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.BugReport" Width="1.5" PointX="10.5" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.BugReportStatus" Width="1.5" PointX="8.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.BugSeverity" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.CheckList" Width="1.5" PointX="7.5" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.CheckListItem" Width="1.5" PointX="13.5" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.CheckListPriority" Width="1.5" PointX="11.25" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.CheckListStatus" Width="1.5" PointX="11.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.Company" Width="1.5" PointX="3" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.Country" Width="1.5" PointX="0.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.Customer" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.Project" Width="1.5" PointX="5.25" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.ProjectDocumentation" Width="1.5" PointX="7.5" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.ProjectUser" Width="1.5" PointX="13.5" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.Role" Width="1.5" PointX="6" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.TestCase" Width="1.5" PointX="10.5" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.TestCaseBehavior" Width="1.5" PointX="8.25" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.TestCasePriority" Width="1.5" PointX="8.25" PointY="29.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.TestCaseSeverity" Width="1.5" PointX="8.25" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.TestCaseStatus" Width="1.5" PointX="8.25" PointY="34.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.TestCaseType" Width="1.5" PointX="8.25" PointY="36.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.TestSuite" Width="1.5" PointX="7.5" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Testing_ToolModel.Userinfo" Width="1.5" PointX="8.25" PointY="15.625" IsExpanded="true" />
+        <AssociationConnector Association="Testing_ToolModel.FK__Company__AmountI__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK_BugReport_BugPriority" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK__BugReport__Proje__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK__BugReport__TestC__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK_BugReport_BugReportStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK_BugReport_BugSeverity" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK_BugReport_Userinfo" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK__CheckList__Check__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK__CheckList__Proje__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK__CheckList__CLPri__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK__CheckList__CLSta__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK__CheckList__UserI__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK__Company__Country__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK__Userinfo__Compan__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK_Project_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK_Project_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK__ProjectDo__Proje__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK__TestSuite__Proje__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK_ProjectUser_Project" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK_ProjectUser_Userinfo" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK__Userinfo__RoleID__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK__TestCase__TestSu__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK_TestCase_TestCaseBehavior" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK_TestCase_TestCasePriority" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK_TestCase_TestCaseSeverity" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK_TestCase_TestCaseStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK_TestCase_TestCaseType" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK_TestCase_Userinfo" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK_TestCase_Userinfo1" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK__TestSuite__TestS__59FA5E80" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

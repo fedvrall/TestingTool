@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Test_Management_System.Entities;
 using Test_Management_System.Classes;
+using Microsoft.Win32;
 
 namespace Test_Management_System.Pages
 {
@@ -22,11 +23,13 @@ namespace Test_Management_System.Pages
     /// </summary>
     public partial class PageNewTestCase : Page
     {
-        PriorityColorConverter cc = new PriorityColorConverter();
+        private List<string> attachmentsList = new List<string>();
+
+        //PriorityColorConverter cc = new PriorityColorConverter();
         public PageNewTestCase()
         {
             InitializeComponent();
-            Testing_ToolEntities db = new Testing_ToolEntities();
+            Testing_ToolEntity db = new Testing_ToolEntity();
             ComboStatusTC.ItemsSource = db.TestCaseStatus.ToList();
             ComboBehaviorTC.ItemsSource = db.TestCaseBehavior.ToList();
             ComboPriorityTC.ItemsSource = db.TestCasePriority.ToList();
@@ -47,6 +50,27 @@ namespace Test_Management_System.Pages
         private void NoSaveBackToTestCasePageButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void RemoveAttachment_Click(object sender, RoutedEventArgs e)
+        {
+            Button removeButton = (Button)sender;
+            string fileName = removeButton.DataContext as string;
+            string filePath = attachmentsList.FirstOrDefault(path => System.IO.Path.GetFileName(path) == fileName);
+            attachmentsList.Remove(filePath);
+            AttachmentsListBox.Items.Remove(fileName);
+        }
+
+        private void AddAttachment_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string filePath = openFileDialog.FileName;
+                string fileName = System.IO.Path.GetFileName(filePath);
+                attachmentsList.Add(filePath);
+                AttachmentsListBox.Items.Add(fileName);
+            }
         }
     }
 }

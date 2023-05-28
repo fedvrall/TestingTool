@@ -20,7 +20,7 @@ namespace Test_Management_System.Entities
             this.BugReport = new HashSet<BugReport>();
         }
     
-        public string TestCaseID { get; set; }
+        public int TestCaseID { get; set; }
         public string TestCaseSummary { get; set; }
         public string TestCaseDescription { get; set; }
         public string TestCaseSteps { get; set; }
@@ -28,31 +28,29 @@ namespace Test_Management_System.Entities
         public string TestCaseActualResult { get; set; }
         public int TCStatusID { get; set; }
         public string TestCaseTestData { get; set; }
-        public string TestSuiteID { get; set; }
+        public int TestSuiteID { get; set; }
         public int CreatorUserID { get; set; }
         public System.DateTime TestCaseCreationDate { get; set; }
-        public int ExecutorUserID { get; set; }
-        public System.DateTime TestCaseExecutionDate { get; set; }
+        public Nullable<int> ExecutorUserID { get; set; }
+        public Nullable<System.DateTime> TestCaseExecutionDate { get; set; }
         public string TestCaseEnvironment { get; set; }
         public Nullable<int> TCTypeID { get; set; }
         public Nullable<int> TCBehaviorID { get; set; }
         public Nullable<int> TCPriorityID { get; set; }
         public Nullable<int> TCSeverityID { get; set; }
-        public string ProjectID { get; set; }
         public string TestCaseAttachment { get; set; }
         public string TestCasePrecondition { get; set; }
         public string TestCasePostcondition { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BugReport> BugReport { get; set; }
-        public virtual Project Project { get; set; }
-        public virtual Userinfo Userinfo { get; set; }
-        public virtual Userinfo Userinfo1 { get; set; }
+        public virtual TestSuite TestSuite { get; set; }
         public virtual TestCaseBehavior TestCaseBehavior { get; set; }
         public virtual TestCasePriority TestCasePriority { get; set; }
         public virtual TestCaseSeverity TestCaseSeverity { get; set; }
         public virtual TestCaseStatus TestCaseStatus { get; set; }
         public virtual TestCaseType TestCaseType { get; set; }
-        public virtual TestSuite TestSuite { get; set; }
+        public virtual Userinfo Userinfo { get; set; }
+        public virtual Userinfo Userinfo1 { get; set; }
     }
 }

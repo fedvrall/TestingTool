@@ -12,21 +12,13 @@ namespace Test_Management_System.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class CheckListItem
+    public partial class ProjectUser
     {
-        public int CheckListItemID { get; set; }
-        public string CheckListItemDescription { get; set; }
-        public int CLStatusID { get; set; }
-        public string CLComment { get; set; }
-        public int CheckListID { get; set; }
-        public string CLAttachment { get; set; }
-        public Nullable<int> UserID { get; set; }
-        public Nullable<System.DateTime> DataOfExecution { get; set; }
-        public Nullable<int> CLPriorityID { get; set; }
+        public int ProjectUserID { get; set; }
+        public int ProjectID { get; set; }
+        public int UserID { get; set; }
     
-        public virtual CheckList CheckList { get; set; }
-        public virtual CheckListPriority CheckListPriority { get; set; }
-        public virtual CheckListStatus CheckListStatus { get; set; }
+        public virtual Project Project { get; set; }
         public virtual Userinfo Userinfo { get; set; }
     }
 }

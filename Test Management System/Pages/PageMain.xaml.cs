@@ -25,7 +25,7 @@ namespace Test_Management_System.Pages
     {
         public UserContext userContext { get; set; }
 
-        Testing_ToolEntities db = new Testing_ToolEntities();
+        Testing_ToolEntity db = new Testing_ToolEntity();
         
         public PageMain(UserContext userContext)
         {
@@ -52,9 +52,8 @@ namespace Test_Management_System.Pages
             else
             {
                 MessageBox.Show("Вы ничего не выбрали, для начала выберите проект");
-                userContext.projectID = null;
+                userContext.projectID = 0;
                 userContext.isProjectSelected = false;
-
             }
 
 

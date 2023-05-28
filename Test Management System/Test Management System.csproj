@@ -206,6 +206,93 @@
     <Compile Include="Classes\PriorityColorConverter.cs" />
     <Compile Include="Classes\GenerateID.cs" />
     <Compile Include="Classes\TextBoxChecking.cs" />
+    <Compile Include="Entities\AmountOfUsers.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\BugPriority.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\BugReport.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\BugReportStatus.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\BugSeverity.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CheckList.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CheckListItem.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CheckListPriority.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CheckListStatus.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Company.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Country.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Customer.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Project.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ProjectDocumentation.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ProjectUser.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Role.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\TestCase.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\TestCaseBehavior.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\TestCasePriority.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\TestCaseSeverity.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\TestCaseStatus.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\TestCaseType.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Testing_toolModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Testing_toolModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Testing_toolModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Testing_toolModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Testing_toolModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\TestSuite.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Userinfo.cs">
+      <DependentUpon>Testing_toolModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Pages\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -213,90 +300,6 @@
     <Compile Include="Classes\CreateDB.cs" />
     <Compile Include="Classes\CreateDB_MSSql.cs" />
     <Compile Include="Classes\UserContext.cs" />
-    <Compile Include="Entities\AmountOfUsers.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\BugPriority.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\BugReport.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\BugReportStatus.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\BugSeverity.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\CheckList.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\CheckListItem.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\CheckListPriority.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\CheckListStatus.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Company.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Country.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Customer.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\ModelDB.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDB.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\ModelDB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\ModelDB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDB.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Project.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\ProjectDocumentation.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Role.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\TestCase.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\TestCaseBehavior.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\TestCasePriority.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\TestCaseSeverity.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\TestCaseStatus.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\TestCaseType.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\TestSuite.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Userinfo.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Pages\PageMain.xaml.cs">
       <DependentUpon>PageMain.xaml</DependentUpon>
     </Compile>
@@ -431,12 +434,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Entities\ModelDB.edmx">
+    <EntityDeploy Include="Entities\Testing_toolModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>Testing_toolModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Entities\ModelDB.edmx.diagram">
-      <DependentUpon>ModelDB.edmx</DependentUpon>
+    <None Include="Entities\Testing_toolModel.edmx.diagram">
+      <DependentUpon>Testing_toolModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -447,18 +450,19 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="Entities\ModelDB.Context.tt">
+    <Content Include="Entities\Testing_toolModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ModelDB.Context.cs</LastGenOutput>
-      <DependentUpon>ModelDB.edmx</DependentUpon>
+      <DependentUpon>Testing_toolModel.edmx</DependentUpon>
+      <LastGenOutput>Testing_toolModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Entities\ModelDB.tt">
+    <Content Include="Entities\Testing_toolModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelDB.edmx</DependentUpon>
-      <LastGenOutput>ModelDB.cs</LastGenOutput>
+      <DependentUpon>Testing_toolModel.edmx</DependentUpon>
+      <LastGenOutput>Testing_toolModel.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Pages\delete.png" />
     <Resource Include="Pages\edit.png" />
     <Resource Include="Pages\watch.png" />
