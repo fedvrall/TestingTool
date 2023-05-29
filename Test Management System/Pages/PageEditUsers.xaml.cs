@@ -112,6 +112,7 @@ namespace Test_Management_System.Pages
             {
                 NewPassTextBox.Text = NewPass.Password;
                 NewPassAgreementTextBox.Text = NewPassAgreement.Password;
+
                 NewPassTextBox.Visibility = Visibility.Visible;
                 NewPassAgreementTextBox.Visibility = Visibility.Visible;
                 NewPass.Visibility = Visibility.Collapsed;
@@ -132,6 +133,7 @@ namespace Test_Management_System.Pages
             {
                 NewPass.Password = NewPassTextBox.Text;
                 NewPassAgreement.Password = NewPassAgreementTextBox.Text;
+
                 NewPassTextBox.Visibility = Visibility.Collapsed;
                 NewPassAgreementTextBox.Visibility = Visibility.Collapsed;
                 NewPass.Visibility = Visibility.Visible;
@@ -146,6 +148,35 @@ namespace Test_Management_System.Pages
             reminder1.Visibility = Visibility.Visible;
             reminder2.Visibility = Visibility.Visible;
             reminder3.Visibility = Visibility.Visible;
+        }
+
+        private void ClearFields()
+        {
+            LoginTextBox.Text = "";
+            FirstNameTextBox.Text = "";
+            LastNameTextBox.Text = "";
+
+            NewPass.Password = "";
+            NewPassTextBox.Text = "";
+            NewPassAgreement.Password = "";
+            NewPassAgreementTextBox.Text = "";
+
+            NewPassBlock.Visibility = Visibility.Collapsed;
+            reminder1.Visibility = Visibility.Collapsed;
+            reminder2.Visibility = Visibility.Collapsed;
+            reminder3.Visibility = Visibility.Collapsed;
+
+            RoleComboBox.SelectedIndex = 0;
+
+            ShowNewPass.IsChecked = false;
+
+            AddButton.IsEnabled = true;
+            SaveButton.IsEnabled = false;
+
+            PassLabel.Visibility = Visibility.Visible;
+            PassBox.Visibility = Visibility.Visible;
+            PassTextBox.Visibility = Visibility.Visible;
+            HideCurrentPass.Visibility = Visibility.Visible;
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -170,12 +201,16 @@ namespace Test_Management_System.Pages
                         {
                             db.Userinfo.Add(user);
                             db.SaveChanges();
-                            MessageBox.Show("Пользователь был добавлен");
                             //dgvUsers.Items.Refresh();
                         }
-                        catch (Exception ex)
+                        catch
                         {
                             MessageBox.Show("Пользователь не был добавлен");
+                        }
+                        finally
+                        {
+                            MessageBox.Show("Пользователь был добавлен");
+                            ClearFields();
                         }
                     }
                     else
@@ -197,32 +232,19 @@ namespace Test_Management_System.Pages
                             findUser.CompanyID = findUser.CompanyID;
                             db.SaveChanges();
                         }
-                        catch (Exception ex)
+                        catch
                         {
-                            MessageBox.Show("Данные пользователя не были сохранены");
+                            MessageBox.Show("Данные пользователя не были сохранены.");
+                        }
+                        finally
+                        {
+                            MessageBox.Show("Данные пользователя изменены.");
+                            ClearFields();
                         }
                     }
                     else
                         return;
                 }
-                LoginTextBox.Text = "";
-                FirstNameTextBox.Text = "";
-                LastNameTextBox.Text = "";
-                NewPass.Password = "";
-                NewPassAgreement.Password = "";
-                NewPassAgreementTextBox.Text = "";
-                NewPassTextBox.Text = "";
-                ShowNewPass.IsChecked = false;
-                RoleComboBox.SelectedIndex = 0;
-                AddButton.IsEnabled = true;
-                SaveButton.IsEnabled = false;
-                PassLabel.Visibility = Visibility.Visible;
-                PassBox.Visibility = Visibility.Visible;
-                PassTextBox.Visibility = Visibility.Visible;
-                HideCurrentPass.Visibility = Visibility.Visible;
-                reminder1.Visibility = Visibility.Collapsed;
-                reminder2.Visibility = Visibility.Collapsed;
-                reminder3.Visibility = Visibility.Collapsed;
             }          
         }
 
@@ -315,14 +337,22 @@ namespace Test_Management_System.Pages
 
         private void FirstNameTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            checking.CheckRuSymb(FirstNameTextBox.Text.ToString());
+            if (checking.CheckOnlyCirSymb(FirstNameTextBox.Text) != null)
+            {
+                FirstNameTextBox.Text = checking.CheckOnlyCirSymb(FirstNameTextBox.Text);
+                FirstNameTextBox.Text = string.Empty;
+            }
             if (FirstNameTextBox.Text.Length >= 50)
                 MessageBox.Show("Сократите, пожалуйста, имя!");
         }
 
         private void LastNameTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            checking.CheckRuSymb(LastNameTextBox.Text.ToString());
+            if (checking.CheckOnlyCirSymb(LastNameTextBox.Text) != null)
+            {
+                FirstNameTextBox.Text = checking.CheckOnlyCirSymb(LastNameTextBox.Text);
+                LastNameTextBox.Text = string.Empty;
+            }
             if (LastNameTextBox.Text.Length >= 50)
                 MessageBox.Show("Сократите, пожалуйста, фамилию!");
         }

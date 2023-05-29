@@ -65,6 +65,7 @@
     <EntitySetMapping Name="CheckList">
       <EntityTypeMapping TypeName="Testing_ToolModel.CheckList">
         <MappingFragment StoreEntitySet="CheckList">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="CheckListID" ColumnName="CheckListID" />
           <ScalarProperty Name="CLSummary" ColumnName="CLSummary" />
           <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />

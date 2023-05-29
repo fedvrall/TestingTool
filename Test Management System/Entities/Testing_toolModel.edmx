@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище Testing_ToolModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище Testing_ToolModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AmountOfUsers">
           <Key>
             <PropertyRef Name="AmountID" />
@@ -69,6 +69,7 @@
           <Property Name="CLSummary" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="ProjectID" Type="int" Nullable="false" />
           <Property Name="CLDescription" Type="nvarchar" MaxLength="255" />
+          <Property Name="UserID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="CheckListItem">
           <Key>
@@ -483,6 +484,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CheckList_Userinfo">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="1" />
+          <End Role="CheckList" Type="Self.CheckList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="CheckList">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Project_Company">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
           <End Role="Project" Type="Self.Project" Multiplicity="*" />
@@ -716,6 +729,10 @@
             <End Role="Userinfo" EntitySet="Userinfo" />
             <End Role="BugReport" EntitySet="BugReport" />
           </AssociationSet>
+          <AssociationSet Name="FK_CheckList_Userinfo" Association="Self.FK_CheckList_Userinfo">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="CheckList" EntitySet="CheckList" />
+          </AssociationSet>
           <AssociationSet Name="FK_Project_Company" Association="Self.FK_Project_Company">
             <End Role="Company" EntitySet="Company" />
             <End Role="Project" EntitySet="Project" />
@@ -761,8 +778,7 @@
             <End Role="TestCase" EntitySet="TestCase" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Testing_ToolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -842,6 +858,8 @@
           <Property Name="CLDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CheckListItem" Relationship="Self.FK__CheckList__Check__5535A963" FromRole="CheckList" ToRole="CheckListItem" />
           <NavigationProperty Name="Project" Relationship="Self.FK__CheckList__Proje__4E88ABD4" FromRole="CheckList" ToRole="Project" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Userinfo" Relationship="Testing_ToolModel.FK_CheckList_Userinfo" FromRole="CheckList" ToRole="Userinfo" />
         </EntityType>
         <EntityType Name="CheckListItem">
           <Key>
@@ -1075,6 +1093,7 @@
           <NavigationProperty Name="Role" Relationship="Self.FK__Userinfo__RoleID__4222D4EF" FromRole="Userinfo" ToRole="Role" />
           <NavigationProperty Name="TestCase" Relationship="Self.FK_TestCase_Userinfo" FromRole="Userinfo" ToRole="TestCase" />
           <NavigationProperty Name="TestCase1" Relationship="Self.FK_TestCase_Userinfo1" FromRole="Userinfo" ToRole="TestCase" />
+          <NavigationProperty Name="CheckList" Relationship="Testing_ToolModel.FK_CheckList_Userinfo" FromRole="Userinfo" ToRole="CheckList" />
         </EntityType>
         <Association Name="FK__Company__AmountI__3F466844">
           <End Role="AmountOfUsers" Type="Self.AmountOfUsers" Multiplicity="1" />
@@ -1581,7 +1600,23 @@
             <End Role="TestSuite" EntitySet="TestSuite" />
             <End Role="TestSuite1" EntitySet="TestSuite" />
           </AssociationSet>
+          <AssociationSet Name="FK_CheckList_Userinfo" Association="Testing_ToolModel.FK_CheckList_Userinfo">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="CheckList" EntitySet="CheckList" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_CheckList_Userinfo">
+          <End Type="Testing_ToolModel.Userinfo" Role="Userinfo" Multiplicity="1" />
+          <End Type="Testing_ToolModel.CheckList" Role="CheckList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="CheckList">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1652,6 +1687,7 @@
           <EntitySetMapping Name="CheckList">
             <EntityTypeMapping TypeName="Testing_ToolModel.CheckList">
               <MappingFragment StoreEntitySet="CheckList">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="CheckListID" ColumnName="CheckListID" />
                 <ScalarProperty Name="CLSummary" ColumnName="CLSummary" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />

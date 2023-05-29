@@ -16,6 +16,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using Test_Management_System.Classes;
+using Test_Management_System.Entities;
+using System.ComponentModel.Design;
 
 namespace Test_Management_System.Pages
 {
@@ -26,18 +28,177 @@ namespace Test_Management_System.Pages
     {
         private List<string> attachmentsList = new List<string>();
         TextBoxChecking checking = new TextBoxChecking();
-        public PageNewProject()
+        private bool isEdit;
+        private int projectID;
+        Testing_ToolEntity db = new Testing_ToolEntity();
+        UserContext userContext { get; set; }
+
+        public PageNewProject(UserContext userContext, int projectID)
         {
             InitializeComponent();
+            this.projectID = projectID;
+            if (projectID == 0)
+                isEdit = false;
+            else
+                isEdit = true;
+
         }
 
         private void ConfirmAdding_Click(object sender, RoutedEventArgs e)
         {
-
+            AddOrEditProject();
         }
 
         private void SaveProjectChanges_Click(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        private bool AreFieldsFilled()
+        {
+            bool isValid = true;
+
+            foreach (var textBox in customerFields.Children.OfType<TextBox>())
+            {
+                if (string.IsNullOrWhiteSpace(textBox.Text))
+                {
+                    textBox.Style = (Style)FindResource("InvalidFieldStyle");
+                    isValid = false;
+                }
+                else
+                {
+                    textBox.Style = null; // Восстановление стиля по умолчанию
+                }
+            }
+
+            return isValid;
+        }
+
+        private void AddOrEditProject()
+        {
+            var attString = string.Join(";", attachmentsList);
+            
+            if (AreFieldsFilled())
+            {
+                if (!isEdit)
+                {
+                    Customer customer = new Customer()
+                    {
+                        CustomerFirstName = customerNameTB.Text,
+                        CustomerLastName = customerLastNameTB.Text,
+                        CustomerEmail = customerEmailTB.Text,
+                        CustomerPhone = customerPhoneTB.Text,
+                        CustomerNotes = customerNotesTB.Text
+                    };
+                    try
+                    {
+                        db.Customer.Add(customer);
+                        db.SaveChanges();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Не удалось создать заказчика");
+                    }
+                    finally
+                    {
+                        MessageBox.Show("Заказчик был добавлен");
+                    }
+
+                    int custID = db.Customer.Where(x => x.CustomerPhone == customerPhoneTB.Text).FirstOrDefault().CustomerID;
+
+                    Project project = new Project()
+                    {
+                        ProjectName = TBProjectName.Text,
+                        ProjectDateOfCreation = dpStartDate.DisplayDate,
+                        ProjectDateOfDeadLine = dpEndDate.DisplayDate,
+                        ProjectNotes = TBProjectNotes.Text,
+                        CompanyID = userContext.companyID,
+                        CustomerID = custID
+                    };
+
+                    try
+                    {
+                        db.Project.Add(project);
+                        db.SaveChanges();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Не удалось создать проект");
+                    }
+                    finally
+                    {
+                        MessageBox.Show("Проект был добавлен");
+                    }
+
+                    if (AttachmentsListBox.Items.Count > 0)
+                    {
+                        ProjectDocumentation projectDocumentation = new ProjectDocumentation()
+                        {
+                            ProjectID = projectID,
+                            ProjectDocumentationAttachment = attString
+                        };
+                        try
+                        {
+                            db.ProjectDocumentation.Add(projectDocumentation);
+                            db.SaveChanges();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Не удалось добавить документацию");
+                        }
+                        finally
+                        {
+                            MessageBox.Show("Документация была добавлена");
+                        }
+                    }
+                }
+                else
+                {
+                    int customerID = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().CustomerID;
+
+                    try
+                    {
+                        var editCust = db.Customer.Find(customerID);
+                        editCust.CustomerFirstName = customerNameTB.Text;
+                        editCust.CustomerLastName = customerLastNameTB.Text;
+                        editCust.CustomerEmail = customerEmailTB.Text;
+                        editCust.CustomerPhone = customerPhoneTB.Text;
+                        editCust.CustomerNotes = customerNotesTB.Text;
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Не удалось отредактировать заказчика");
+                    }
+                    finally
+                    {
+                        MessageBox.Show("Заказчик отредактирован");
+                    }
+
+                    try
+                    {
+                        var editProj = db.Project.Find(projectID);
+                        editProj.ProjectName = TBProjectName.Text;
+                        editProj.ProjectDateOfCreation = dpStartDate.DisplayDate;
+                        editProj.ProjectDateOfDeadLine = dpEndDate.DisplayDate;
+                        editProj.ProjectNotes = TBProjectNotes.Text;
+                        editProj.CompanyID = userContext.companyID;
+                        editProj.CustomerID = customerID;
+                        db.SaveChanges();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Не удалось отредактировать заказчика");
+                    }
+                    finally
+                    {
+                        MessageBox.Show("Заказчик отредактирован");
+                    }
+
+                }
+            }
+
+            else
+                MessageBox.Show("Пожалуйста, заполните поля!");
 
         }
 
@@ -90,8 +251,10 @@ namespace Test_Management_System.Pages
             if (checking.CheckOnlyCirSymb(customerNameTB.Text) != null)
             {
                 customerNameTB.Text = checking.CheckOnlyCirSymb(customerNameTB.Text);
-                customerEmailTB.Text = string.Empty;
+                
             }
+            else
+                customerNameTB.Text = string.Empty;
         }
 
         private void customerLastNameTB_LostFocus(object sender, RoutedEventArgs e)
@@ -99,8 +262,10 @@ namespace Test_Management_System.Pages
             if (checking.CheckOnlyCirSymb(customerLastNameTB.Text) != null)
             {
                 customerLastNameTB.Text = checking.CheckOnlyCirSymb(customerLastNameTB.Text);
-                customerLastNameTB.Text = string.Empty;
+                //customerLastNameTB.Text = string.Empty;
             }
+            else
+                customerLastNameTB.Text = string.Empty;
         }
     }
 }

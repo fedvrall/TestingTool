@@ -23,21 +23,23 @@ namespace Test_Management_System.Pages
     public partial class PageProjects : Page
     {
         public int projectID;
-        public PageProjects()
+        UserContext userContext { get; set; }
+        public PageProjects(UserContext userContext)
         {
             InitializeComponent();
             Testing_ToolEntity db = new Testing_ToolEntity();
             GridProjects.ItemsSource = db.Project.ToList();
+            this.userContext = userContext;
         }
 
         private void AddNewProject_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new PageNewProject(0));
+            NavigationService.Navigate(new PageNewProject(userContext, 0));
         }
 
         private void EditProject_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new PageNewProject(projectID));
+            NavigationService.Navigate(new PageNewProject(userContext, projectID));
         }
 
         private void GridProjects_SelectionChanged(object sender, SelectionChangedEventArgs e)

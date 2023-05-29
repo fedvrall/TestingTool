@@ -22,6 +22,7 @@ namespace Test_Management_System.Entities
             this.ProjectUser = new HashSet<ProjectUser>();
             this.TestCase = new HashSet<TestCase>();
             this.TestCase1 = new HashSet<TestCase>();
+            this.CheckList = new HashSet<CheckList>();
         }
     
         public int UserID { get; set; }
@@ -44,5 +45,7 @@ namespace Test_Management_System.Entities
         public virtual ICollection<TestCase> TestCase { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TestCase> TestCase1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CheckList> CheckList { get; set; }
     }
 }

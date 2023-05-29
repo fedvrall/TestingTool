@@ -38,29 +38,29 @@ namespace Test_Management_System.Classes
 
         public bool CheckEmailValue(string input) // Оба варианта работают, выбирай - не хочу
         {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(input);
+            /*            try
+                        {
+                            var addr = new System.Net.Mail.MailAddress(input);
 
-                if (addr.Address == input)
-                    return true;
-                else
-                    return false;
-            }
-            catch
+                            if (addr.Address == input)
+                                return true;
+                            else
+                                return false;
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Введите действующий Email, пожалуйста!");
+                            return false;
+                        }*/
+            string pattern = "[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}";
+            Match isMatch = Regex.Match(input, pattern, RegexOptions.IgnoreCase);
+            if (!isMatch.Success)
             {
                 MessageBox.Show("Введите действующий Email, пожалуйста!");
                 return false;
             }
-            /*            string pattern = "[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}";
-                        Match isMatch = Regex.Match(input, pattern, RegexOptions.IgnoreCase);
-                        if (!isMatch.Success)
-                        {
-                            MessageBox.Show("Введите действующий Email, пожалуйста!");
-                            return false;
-                        }
-                        else
-                            return true;*/
+            else
+                return true;
         }
 
         public bool CheckPhoneValue(string input) // Проверка ввода телефона

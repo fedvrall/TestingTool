@@ -59,6 +59,7 @@
         <AssociationConnector Association="Testing_ToolModel.FK_TestCase_Userinfo" ManuallyRouted="false" />
         <AssociationConnector Association="Testing_ToolModel.FK_TestCase_Userinfo1" ManuallyRouted="false" />
         <AssociationConnector Association="Testing_ToolModel.FK__TestSuite__TestS__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="Testing_ToolModel.FK_CheckList_Userinfo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

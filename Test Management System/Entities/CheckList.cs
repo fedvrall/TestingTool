@@ -24,9 +24,11 @@ namespace Test_Management_System.Entities
         public string CLSummary { get; set; }
         public int ProjectID { get; set; }
         public string CLDescription { get; set; }
+        public int UserID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CheckListItem> CheckListItem { get; set; }
         public virtual Project Project { get; set; }
+        public virtual Userinfo Userinfo { get; set; }
     }
 }

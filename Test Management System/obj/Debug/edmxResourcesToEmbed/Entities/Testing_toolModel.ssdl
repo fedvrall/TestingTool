@@ -64,6 +64,7 @@
     <Property Name="CLSummary" Type="nvarchar" MaxLength="255" Nullable="false" />
     <Property Name="ProjectID" Type="int" Nullable="false" />
     <Property Name="CLDescription" Type="nvarchar" MaxLength="255" />
+    <Property Name="UserID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="CheckListItem">
     <Key>
@@ -478,6 +479,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_CheckList_Userinfo">
+    <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="1" />
+    <End Role="CheckList" Type="Self.CheckList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Userinfo">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="CheckList">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Project_Company">
     <End Role="Company" Type="Self.Company" Multiplicity="1" />
     <End Role="Project" Type="Self.Project" Multiplicity="*" />
@@ -710,6 +723,10 @@
     <AssociationSet Name="FK_BugReport_Userinfo" Association="Self.FK_BugReport_Userinfo">
       <End Role="Userinfo" EntitySet="Userinfo" />
       <End Role="BugReport" EntitySet="BugReport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CheckList_Userinfo" Association="Self.FK_CheckList_Userinfo">
+      <End Role="Userinfo" EntitySet="Userinfo" />
+      <End Role="CheckList" EntitySet="CheckList" />
     </AssociationSet>
     <AssociationSet Name="FK_Project_Company" Association="Self.FK_Project_Company">
       <End Role="Company" EntitySet="Company" />

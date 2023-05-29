@@ -40,7 +40,7 @@
         </StackPanel>
 
         <Label Grid.Row="1" Margin="10" HorizontalAlignment="Left" Style="{StaticResource normLabel}" Content="Название:" />
-        <TextBox Grid.Row="1" HorizontalAlignment="Right" x:Name="txtName" Width="930" Margin="123, 10, 10, 10"/>
+        <TextBox Grid.Row="1" HorizontalAlignment="Right" x:Name="TBProjectName" Width="930" Margin="123, 10, 10, 10"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
             <Label Style="{StaticResource normLabel}" Content="Дата начала проекта:" VerticalAlignment="Center" />
@@ -51,7 +51,7 @@
         </StackPanel>
         
         <Label Style="{StaticResource normLabel}"  Grid.Row="2" Content="Заметки:" Margin="555, 10, 10, 0"/>
-        <TextBox Grid.Row="2" Grid.RowSpan="2" Margin="645,10,10,10"/>
+        <TextBox Grid.Row="2" Name="TBProjectNotes" Grid.RowSpan="2" Margin="645,10,10,10"/>
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10">
             <Label Style="{StaticResource normLabel}" Content="Дата окончания (если есть):" VerticalAlignment="Center" />
@@ -61,19 +61,30 @@
             </DatePicker>
         </StackPanel>
         <Label Style="{StaticResource normLabel}" Content="Информация о заказчике проекта" Grid.Row="5" FontSize="18" Margin="10"/>
-        <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="10">
-            <Label Style="{StaticResource normLabel}" Content="Имя заканчика:" />
-            <TextBox x:Name="customerNameTB" Width="200" Margin="125,0, 0, 0" LostFocus="customerNameTB_LostFocus"/>
-            <Label Style="{StaticResource normLabel}" Content="Фамилия:" Margin="113,0, 0, 0"/>
-            <TextBox x:Name="customerLastNameTB" Width="200"  Margin="20,0, 0, 0" LostFocus="customerLastNameTB_LostFocus"/>
-        </StackPanel>
-        
-        <StackPanel Grid.Row="7" Orientation="Horizontal" Margin="10">
-            <Label Style="{StaticResource normLabel}" Content="Электронная почта:" VerticalAlignment="Center" />
-            <TextBox x:Name="customerEmailTB" Width="200" VerticalAlignment="Center" Margin="98,0, 113, 0" LostFocus="customerEmailTB_LostFocus"/>
-            <Label Style="{StaticResource normLabel}" Content="Телефон:" VerticalAlignment="Center" />
-            <TextBox  x:Name="customerPhoneTB" Width="200" VerticalAlignment="Center" Margin="23,0, 0, 0" LostFocus="customerPhoneTB_LostFocus"/>
-        </StackPanel>
+
+
+        <Grid Grid.Row="6" Name="customerFields">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Style="{StaticResource normLabel}" Content="Имя заканчика:" Margin="10" />
+            <TextBox Grid.Row="0" x:Name="customerNameTB" Width="200" Margin="245,10, 0, 10" HorizontalAlignment="Left" LostFocus="customerNameTB_LostFocus"/>
+
+            <Label Grid.Row="0" Style="{StaticResource normLabel}" Content="Фамилия:" Margin="553, 10, 10, 10"/>
+            <TextBox Grid.Row="0" x:Name="customerLastNameTB" Width="200" HorizontalAlignment="Left" Margin="645,10, 0, 10" LostFocus="customerLastNameTB_LostFocus"/>
+
+            <Label Grid.Row="1" Style="{StaticResource normLabel}" Content="Электронная почта:" Margin="10" VerticalAlignment="Center" />
+            <TextBox Grid.Row="1" x:Name="customerEmailTB" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="245,10, 0, 10" LostFocus="customerEmailTB_LostFocus"/>
+
+            <Label Grid.Row="1" Style="{StaticResource normLabel}" Content="Телефон:" Margin="553, 10, 10, 10" VerticalAlignment="Center" />
+            <TextBox Grid.Row="1" x:Name="customerPhoneTB" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="645,10, 0, 10" LostFocus="customerPhoneTB_LostFocus"/>
+        </Grid>
+        <!--<StackPanel Orientation="Vertical" Grid.Row="6" Name="customerFields">
+
+        </StackPanel>-->
+
 
         <Label Grid.Row="8" HorizontalAlignment="Left" Margin="10" Style="{StaticResource normLabel}" Content="Дополнительная информация:" />
         <TextBox Grid.Row="8" HorizontalAlignment="Right" Margin="10" x:Name="customerNotesTB" Width="930" Height="115"/>

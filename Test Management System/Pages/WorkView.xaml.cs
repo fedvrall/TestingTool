@@ -59,7 +59,7 @@ namespace Test_Management_System
                     FrameContent.Navigate(new PageMain(userContext));
                     break;
                 case "Проекты":
-                    FrameContent.Navigate(new PageProjects());
+                    FrameContent.Navigate(new PageProjects(userContext));
                     break;
                 case "Все баг-репорты":
                     FrameContent.Navigate(new PageBugReports());

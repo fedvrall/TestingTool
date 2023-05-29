@@ -76,6 +76,8 @@
     <Property Name="CLDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="CheckListItem" Relationship="Self.FK__CheckList__Check__5535A963" FromRole="CheckList" ToRole="CheckListItem" />
     <NavigationProperty Name="Project" Relationship="Self.FK__CheckList__Proje__4E88ABD4" FromRole="CheckList" ToRole="Project" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Userinfo" Relationship="Testing_ToolModel.FK_CheckList_Userinfo" FromRole="CheckList" ToRole="Userinfo" />
   </EntityType>
   <EntityType Name="CheckListItem">
     <Key>
@@ -309,6 +311,7 @@
     <NavigationProperty Name="Role" Relationship="Self.FK__Userinfo__RoleID__4222D4EF" FromRole="Userinfo" ToRole="Role" />
     <NavigationProperty Name="TestCase" Relationship="Self.FK_TestCase_Userinfo" FromRole="Userinfo" ToRole="TestCase" />
     <NavigationProperty Name="TestCase1" Relationship="Self.FK_TestCase_Userinfo1" FromRole="Userinfo" ToRole="TestCase" />
+    <NavigationProperty Name="CheckList" Relationship="Testing_ToolModel.FK_CheckList_Userinfo" FromRole="Userinfo" ToRole="CheckList" />
   </EntityType>
   <Association Name="FK__Company__AmountI__3F466844">
     <End Role="AmountOfUsers" Type="Self.AmountOfUsers" Multiplicity="1" />
@@ -815,5 +818,21 @@
       <End Role="TestSuite" EntitySet="TestSuite" />
       <End Role="TestSuite1" EntitySet="TestSuite" />
     </AssociationSet>
+    <AssociationSet Name="FK_CheckList_Userinfo" Association="Testing_ToolModel.FK_CheckList_Userinfo">
+      <End Role="Userinfo" EntitySet="Userinfo" />
+      <End Role="CheckList" EntitySet="CheckList" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK_CheckList_Userinfo">
+    <End Type="Testing_ToolModel.Userinfo" Role="Userinfo" Multiplicity="1" />
+    <End Type="Testing_ToolModel.CheckList" Role="CheckList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Userinfo">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="CheckList">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

@@ -57,6 +57,15 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
 
+        <Style x:Key="InvalidFieldStyle" TargetType="TextBox">
+            <Setter Property="BorderBrush" Value="Red" />
+            <Setter Property="Background" Value="LightPink" />
+            <Setter Property="Padding" Value="10, 10, 0, 10"/>
+            <Setter Property="Foreground" Value="#000000"/>
+            <Setter Property="FontFamily" Value="Courier"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
         <Style TargetType="{x:Type TextBlock}" x:Key="textblock">
             <Setter Property="Foreground" Value="#ffffff"/>
             <Setter Property="Background" Value="#909090"/>
