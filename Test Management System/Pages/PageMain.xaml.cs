@@ -24,6 +24,9 @@ namespace Test_Management_System.Pages
     public partial class PageMain : Page
     {
         public UserContext userContext { get; set; }
+        public bool IsMenuEnabled { get; set; }
+
+        public event EventHandler MainPageClicked;
 
         Testing_ToolEntity db = new Testing_ToolEntity();
         
@@ -34,7 +37,9 @@ namespace Test_Management_System.Pages
             ChooseProjectCombo.Items.Clear();
             List<Project> projects = db.Project.ToList();
             ChooseProjectCombo.ItemsSource = projects;
+
         }
+
 
         private void AdmitChosenProject_Click(object sender, RoutedEventArgs e)
         {
@@ -45,15 +50,14 @@ namespace Test_Management_System.Pages
                 DateOfProjectCreation.Content = project.ProjectDateOfCreation.ToString();
                 DateOfProjectEnd.Content = project.ProjectDateOfDeadLine.ToString();
                 userContext.projectID = project.ProjectID;
-                WorkView main = new WorkView(userContext);
-                userContext.isProjectSelected = true;
-                //GenerateID generateID = new GenerateID(userContext);
+
+                IsMenuEnabled = true;
+                MainPageClicked?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 MessageBox.Show("Вы ничего не выбрали, для начала выберите проект");
-                userContext.projectID = 0;
-                userContext.isProjectSelected = false;
+                IsMenuEnabled = false;
             }
         }
     }

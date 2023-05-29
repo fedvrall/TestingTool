@@ -16,6 +16,7 @@ using Test_Management_System.Classes;
 using Test_Management_System.Pages;
 using MahApps.Metro.Controls;
 using System.IO.Packaging;
+using Test_Management_System.Entities;
 
 namespace Test_Management_System
 {
@@ -44,11 +45,28 @@ namespace Test_Management_System
             {
                 AdminSetting.Visibility = Visibility.Visible;
             }
-/*            if (userContext.isProjectSelected)
-                MainMenu.IsEnabled = true;
-            else 
-                MainMenu.IsEnabled = false;*/
+            /*            if (userContext.isProjectSelected)
+                            MainMenu.IsEnabled = true;
+                        else 
+                            MainMenu.IsEnabled = false;*/
+            FrameContent.Navigated += FrameContent_Navigated;
         }
+
+        private void FrameContent_Navigated(object sender, NavigationEventArgs e)
+        {
+            if (e.Content is PageMain mainPage)
+            {
+                mainPage.MainPageClicked += MainPage_MainPageClicked;
+            }
+        }
+
+        private void MainPage_MainPageClicked(object sender, EventArgs e)
+        {
+            MainMenu.IsEnabled = true;
+        }
+
+        
+
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -64,18 +82,15 @@ namespace Test_Management_System
                 case "Все баг-репорты":
                     FrameContent.Navigate(new PageBugReports());
                     break;
-                case "Новый баг-репорт":
-                    FrameContent.Navigate(new PageNewBugReport(userContext));
-                    break;
+                //case "Новый баг-репорт":
+                //    FrameContent.Navigate(new PageNewBugReport(userContext, projectID));
+                //    break;
                 case "Чек-листы":
-                    FrameContent.Navigate(new PageCheckLists());
+                    FrameContent.Navigate(new PageCheckLists(userContext));
                     break;
                 case "Тест-сьюты":
                     FrameContent.Navigate(new PageTestSuites(userContext));
                     break;
-                //case "Тест-кейсы":
-                //    FrameContent.Navigate(new PageTestCases(userContext, 0));
-                //    break;
                 case "Пользователи":
                     FrameContent.Navigate(new PageEditUsers(userContext));
                     break;

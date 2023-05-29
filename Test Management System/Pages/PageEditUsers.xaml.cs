@@ -343,7 +343,7 @@ namespace Test_Management_System.Pages
                 FirstNameTextBox.Text = string.Empty;
             }
             if (FirstNameTextBox.Text.Length >= 50)
-                MessageBox.Show("Сократите, пожалуйста, имя!");
+                MessageBox.Show("Слишком длинное имя");
         }
 
         private void LastNameTextBox_LostFocus(object sender, RoutedEventArgs e)
@@ -354,7 +354,7 @@ namespace Test_Management_System.Pages
                 LastNameTextBox.Text = string.Empty;
             }
             if (LastNameTextBox.Text.Length >= 50)
-                MessageBox.Show("Сократите, пожалуйста, фамилию!");
+                MessageBox.Show("Слишком длинная фамилия");
         }
 
         private void LoginTextBox_LostFocus(object sender, RoutedEventArgs e)

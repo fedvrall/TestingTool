@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Test_Management_System.Classes;
 
 namespace Test_Management_System.Pages
 {
@@ -20,8 +21,12 @@ namespace Test_Management_System.Pages
     /// </summary>
     public partial class PageNewCheckList : Page
     {
-        public PageNewCheckList()
+        UserContext UserContext { get; set; }
+        private int projectID;
+        public PageNewCheckList(UserContext userContext)
         {
+            this.projectID = userContext.projectID;
+            this.UserContext = userContext;
             InitializeComponent();
         }
     }

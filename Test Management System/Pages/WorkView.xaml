@@ -14,9 +14,9 @@
         </Grid.ColumnDefinitions>
         <Border BorderBrush="#FFA6A6A6" BorderThickness="1" >
             <Menu Name="MainMenu" Grid.Column="0" Background="#353535" Margin="0,150,0,10" 
-                  TextBlock.Foreground="#ffffff" Grid.IsSharedSizeScope="True" FontFamily="Courier" FontSize="14" >
+                  TextBlock.Foreground="#ffffff" Grid.IsSharedSizeScope="True" IsEnabled="false" FontFamily="Courier" FontSize="14" >
 
-            <Menu.ItemsPanel>
+            <Menu.ItemsPanel >
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel Orientation="Vertical"/>
                 </ItemsPanelTemplate>
@@ -30,9 +30,8 @@
 
             <MenuItem Header="Чек-листы" Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}" />
             <MenuItem Header="Тест-сьюты" Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}" />
-            <MenuItem Header="Тест-кейсы" Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}" />
             <MenuItem Header="Настройки"  Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}" />
-                <MenuItem Header="Руководство" Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}" >
+            <MenuItem Header="Руководство" Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}" >
                 <MenuItem Header="Введение в тестовую документацию" Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}" />
                 <MenuItem Header="Инструкция по работе с программой" Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}"/>
             </MenuItem>

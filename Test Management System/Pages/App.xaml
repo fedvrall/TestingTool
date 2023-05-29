@@ -73,6 +73,15 @@
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Padding" Value="10"/>
         </Style>
+
+        <Style TargetType="TextBox" x:Key="ClassicTB">
+            <Setter Property="Background" Value="#909090"/>
+            <Setter Property="Padding" Value="10, 10, 0, 10"/>
+            <Setter Property="Foreground" Value="#ffffff"/>
+            <Setter Property="FontFamily" Value="Courier"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
         <Style TargetType="TextBox">
             <Setter Property="Background" Value="#909090"/>
             <Setter Property="Padding" Value="10, 10, 0, 10"/>

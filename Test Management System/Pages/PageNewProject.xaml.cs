@@ -30,18 +30,21 @@ namespace Test_Management_System.Pages
         TextBoxChecking checking = new TextBoxChecking();
         private bool isEdit;
         private int projectID;
+        private int companyID;
         Testing_ToolEntity db = new Testing_ToolEntity();
         UserContext userContext { get; set; }
+
+
 
         public PageNewProject(UserContext userContext, int projectID)
         {
             InitializeComponent();
             this.projectID = projectID;
+            this.companyID = userContext.companyID;
             if (projectID == 0)
                 isEdit = false;
             else
                 isEdit = true;
-
         }
 
         private void ConfirmAdding_Click(object sender, RoutedEventArgs e)
@@ -51,11 +54,13 @@ namespace Test_Management_System.Pages
 
         private void SaveProjectChanges_Click(object sender, RoutedEventArgs e)
         {
-
+            AddOrEditProject();
         }
 
         private bool AreFieldsFilled()
         {
+            // Ограничения полей по длине
+            // Тут нет полей, относящихся к проекту
             bool isValid = true;
 
             foreach (var textBox in customerFields.Children.OfType<TextBox>())
@@ -67,7 +72,7 @@ namespace Test_Management_System.Pages
                 }
                 else
                 {
-                    textBox.Style = null; // Восстановление стиля по умолчанию
+                    textBox.Style = (Style)FindResource("ClassicTB");
                 }
             }
 
@@ -112,7 +117,7 @@ namespace Test_Management_System.Pages
                         ProjectDateOfCreation = dpStartDate.DisplayDate,
                         ProjectDateOfDeadLine = dpEndDate.DisplayDate,
                         ProjectNotes = TBProjectNotes.Text,
-                        CompanyID = userContext.companyID,
+                        CompanyID = companyID,
                         CustomerID = custID
                     };
 
@@ -181,17 +186,44 @@ namespace Test_Management_System.Pages
                         editProj.ProjectDateOfCreation = dpStartDate.DisplayDate;
                         editProj.ProjectDateOfDeadLine = dpEndDate.DisplayDate;
                         editProj.ProjectNotes = TBProjectNotes.Text;
-                        editProj.CompanyID = userContext.companyID;
+                        editProj.CompanyID = companyID;
                         editProj.CustomerID = customerID;
                         db.SaveChanges();
                     }
                     catch
                     {
-                        MessageBox.Show("Не удалось отредактировать заказчика");
+                        MessageBox.Show("Не удалось отредактировать проект");
                     }
                     finally
                     {
-                        MessageBox.Show("Заказчик отредактирован");
+                        MessageBox.Show("Проект отредактирован");
+                    }
+
+                    try
+                    {
+                        var projectDocID = db.ProjectDocumentation.Where(x => x.ProjectID == projectID).FirstOrDefault().ProjectDocumentationID;
+                        if (projectDocID > 0)
+                        {
+                            var editProjDoc = db.ProjectDocumentation.Find(projectDocID);
+                            editProjDoc.ProjectDocumentationAttachment = attString;
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            ProjectDocumentation projectDocumentation = new ProjectDocumentation()
+                            {
+                                ProjectID = projectID,
+                                ProjectDocumentationAttachment = attString
+                            };
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Не удалось отредактировать вложения");
+                    }
+                    finally
+                    {
+                        MessageBox.Show("Вложения отредактирован");
                     }
 
                 }
