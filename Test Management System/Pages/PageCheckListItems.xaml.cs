@@ -138,5 +138,34 @@ namespace Test_Management_System.Pages
             attachmentsList.Remove(filePath);
             AttachmentsListBox.Items.Remove(fileName);
         }
+
+        private void DeleteCheckListItem(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.Button deleteButton = (System.Windows.Controls.Button)sender;
+            CheckListItem selItem = (CheckListItem)deleteButton.Tag;
+
+            var result = MessageBox.Show("Вы действительно хотите удалить этот элемент?", "Удалить?", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    if (selItem != null)
+                    {
+                        checklistManager.DeleteChecklistItem(selItem);
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Не удалось удалить пункт");
+                }
+                finally
+                {
+                    MessageBox.Show("Пункт успешно удалён");
+                }
+            }
+            else
+                return;
+
+        }
     }
 }

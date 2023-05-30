@@ -47,12 +47,23 @@ namespace Test_Management_System.Pages
 
         private void EditCheckList_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new PageCheckListItems(userContext, checklistID));
         }
 
         private void DeleteCheckList_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
 
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
         }
 
         private void AddNewCheckList_Click(object sender, RoutedEventArgs e)

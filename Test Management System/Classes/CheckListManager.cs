@@ -42,5 +42,12 @@ namespace Test_Management_System.Classes
             db.CheckListItem.Add(newItem);
             db.SaveChanges();
         }
+
+        public void DeleteChecklistItem(CheckListItem item)
+        {
+            allChecklistItems.Remove(item);
+            db.CheckListItem.Remove(item);
+            db.SaveChanges();
+        }
     }
 }
