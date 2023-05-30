@@ -203,6 +203,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Classes\CheckListManager.cs" />
     <Compile Include="Classes\PriorityColorConverter.cs" />
     <Compile Include="Classes\GenerateID.cs" />
     <Compile Include="Classes\TextBoxChecking.cs" />

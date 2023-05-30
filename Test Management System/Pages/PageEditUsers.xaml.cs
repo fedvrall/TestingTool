@@ -29,17 +29,19 @@ namespace Test_Management_System.Pages
     {
         private bool isEditUser = false;
         private bool isAddUser = false;
-        private int userID;
+        private int userID, companyID;
         TextBoxChecking checking = new TextBoxChecking();
         public UserContext UserContext { get; set; }
         public PageEditUsers(UserContext userContext)
         {
             this.UserContext = userContext;
+            this.companyID = userContext.companyID;
             InitializeComponent();
             Testing_ToolEntity db = new Testing_ToolEntity();
-            dgvUsers.ItemsSource = db.Userinfo.ToList();
+            dgvUsers.ItemsSource = db.Userinfo.Where(x=> x.CompanyID == companyID).ToList();
             RoleComboBox.Items.Clear();
             RoleComboBox.Items.Add("");
+
             List<Role> roles = db.Role.ToList();
             foreach(var item in roles)
             {

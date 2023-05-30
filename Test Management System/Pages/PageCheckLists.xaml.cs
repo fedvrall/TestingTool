@@ -28,7 +28,7 @@ namespace Test_Management_System.Pages
     {
         UserContext userContext {  get; set; }
         Testing_ToolEntity db = new Testing_ToolEntity();
-        private int projectID, userID;
+        private int projectID, userID, checklistID;
         public PageCheckLists(UserContext userContext)
         {
             this.userContext = userContext;
@@ -42,6 +42,7 @@ namespace Test_Management_System.Pages
         private void WatchCheckList_Click(object sender, RoutedEventArgs e)
         {
 
+            NavigationService.Navigate(new PageCheckListItems(userContext, checklistID));
         }
 
         private void EditCheckList_Click(object sender, RoutedEventArgs e)
@@ -56,15 +57,17 @@ namespace Test_Management_System.Pages
 
         private void AddNewCheckList_Click(object sender, RoutedEventArgs e)
         {
-            //NavigationService.Navigate(new PageNewCheckList(userContext));
-
             FormContainer.Visibility = Visibility.Visible;
             DoubleAnimation animation = new DoubleAnimation();
             animation.From = 0;
             animation.To = 300;
             animation.Duration = TimeSpan.FromSeconds(0.3);
             FormContainer.BeginAnimation(Border.WidthProperty, animation);
-            //ChoseTCFields.Content = "Просмотреть поля";
+        }
+
+        private void CheckListGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            checklistID = ((CheckList)CheckListGrid.SelectedItem).CheckListID;
         }
 
         private void CloseAdding_Click(object sender, RoutedEventArgs e)
@@ -105,6 +108,7 @@ namespace Test_Management_System.Pages
                 finally
                 {
                     MessageBox.Show("Чек-лист добавлен");
+                    CheckListGrid.ItemsSource = db.CheckList.Where(x => x.ProjectID == projectID).ToList();
                 }
             }
         }

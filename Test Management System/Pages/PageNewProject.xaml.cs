@@ -34,8 +34,6 @@ namespace Test_Management_System.Pages
         Testing_ToolEntity db = new Testing_ToolEntity();
         UserContext userContext { get; set; }
 
-
-
         public PageNewProject(UserContext userContext, int projectID)
         {
             InitializeComponent();
