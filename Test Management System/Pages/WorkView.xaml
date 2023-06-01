@@ -6,43 +6,42 @@
         xmlns:local="clr-namespace:Test_Management_System"
         mc:Ignorable="d"
 
-        Title="MainWindow" Height="800" Width="1400" Background="#353535" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="800" Width="1400" Style="{DynamicResource CustomWindowStyle}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Border BorderBrush="#FFA6A6A6" BorderThickness="1" >
-            <Menu Name="MainMenu" Grid.Column="0" Background="#353535" Margin="0,150,0,10" 
+            <Menu Name="MainMenu" Grid.Column="0"  Margin="0,150,0,10" 
                   TextBlock.Foreground="#ffffff" Grid.IsSharedSizeScope="True" IsEnabled="false" FontFamily="Courier" FontSize="14" >
 
-            <Menu.ItemsPanel >
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel Orientation="Vertical"/>
-                </ItemsPanelTemplate>
-            </Menu.ItemsPanel>
-            <MenuItem Header="Главная" Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}" />
-                <MenuItem Header="Проекты" Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}" />
-                <MenuItem Header="Баг-репорты" Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}">
-                    <MenuItem Header="Все баг-репорты" Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}"/>
-                    <MenuItem Header="Новый баг-репорт" Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}"/>
-            </MenuItem >
+                <Menu.ItemsPanel >
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>
+                <MenuItem Header="Главная" Click="MenuItem_Click" /> <!--Style="{StaticResource SubMenuItemStyle}" />-->
+                <MenuItem Header="Проекты" Click="MenuItem_Click" /> <!--Style="{StaticResource SubMenuItemStyle}" />-->
+                <MenuItem Header="Баг-репорты" Click="MenuItem_Click" >
+                    <MenuItem Header="Все баг-репорты" Click="MenuItem_Click" />
+                    <MenuItem Header="Новый баг-репорт" Click="MenuItem_Click" />
+                </MenuItem >
 
-            <MenuItem Header="Чек-листы" Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}" />
-            <MenuItem Header="Тест-сьюты" Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}" />
-            <MenuItem Header="Настройки"  Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}" />
-            <MenuItem Header="Руководство" Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}" >
-                <MenuItem Header="Введение в тестовую документацию" Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}" />
-                <MenuItem Header="Инструкция по работе с программой" Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}"/>
-            </MenuItem>
-                <MenuItem Header="Панель администратора" Name="AdminSetting" Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}" >
-                <MenuItem Header="Пользователи" Click="MenuItem_Click" Style="{StaticResource SubMenuItemStyle}" />
-            </MenuItem>
-
+                <MenuItem Header="Чек-листы" Click="MenuItem_Click" />
+                <MenuItem Header="Тест-сьюты" Click="MenuItem_Click" />
+                <MenuItem Header="Настройки"  Click="MenuItem_Click"  />
+                <MenuItem Header="Руководство" Click="MenuItem_Click"  >
+                    <MenuItem Header="Введение в тестовую документацию" Click="MenuItem_Click"  />
+                    <MenuItem Header="Инструкция по работе с программой" Click="MenuItem_Click" />
+                </MenuItem>
+                <MenuItem Header="Панель администратора" Name="AdminSetting" Click="MenuItem_Click"  >
+                    <MenuItem Header="Пользователи" Click="MenuItem_Click" />
+                </MenuItem>
+                <CheckBox Content="Тёмная тема" Name="Theme" VerticalContentAlignment="Center" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
             </Menu>
         </Border>
-
-            <ScrollViewer Grid.Column="1">
+        <ScrollViewer Grid.Column="1">
             <Border BorderBrush="#FFA6A6A6" BorderThickness="2" >
                 <Grid>
                     <Frame Name="FrameContent" Grid.Column="1" NavigationUIVisibility="Hidden"  />

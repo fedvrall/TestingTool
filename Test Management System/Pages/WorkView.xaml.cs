@@ -17,6 +17,7 @@ using Test_Management_System.Pages;
 using MahApps.Metro.Controls;
 using System.IO.Packaging;
 using Test_Management_System.Entities;
+using Test_Management_System.Themes;
 
 namespace Test_Management_System
 {
@@ -26,6 +27,7 @@ namespace Test_Management_System
     public partial class WorkView : Window
     {
         public UserContext userContext { get; set; }
+        public App CurrentApplication { get; set; }
 
         public WorkView(UserContext userContext)
         {
@@ -97,6 +99,20 @@ namespace Test_Management_System
                 default:
                     break;
             }
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            ThemeController.SetTheme(ThemeController.ThemeTypes.Dark);
+            Theme.Content = "Светлая тема";
+
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ThemeController.SetTheme(ThemeController.ThemeTypes.Light);
+            Theme.Content = "Тёмная тема";
+
         }
     }
 }

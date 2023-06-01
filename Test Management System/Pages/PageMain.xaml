@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Test_Management_System.Pages"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="Test_Management_System.Pages.PageMain"
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="1150" Background="#353535"
+      d:DesignHeight="800" d:DesignWidth="1150" 
       Title="PageMain">
     <Grid>
         <Grid.RowDefinitions>
@@ -16,7 +16,7 @@
 
         <!-- Заголовок -->
         <Border Background="#FF2C3E50" Grid.Row="0">
-            <Label Style="{StaticResource normLabel}" Content="Manage Testing" FontSize="24" Foreground="White" Margin="10"/>
+            <Label  Content="Manage Testing" FontSize="24" Foreground="White" Margin="10"/>
         </Border>
 
         <Grid Grid.Row="1">
@@ -27,18 +27,18 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="0">
-                <Label Style="{StaticResource normLabel}" Content="Выбрать проект: " Margin="10"/>
+                <Label  Content="Выбрать проект: " Margin="10"/>
                 <ComboBox x:Name="ChooseProjectCombo" Width="650" Margin="10" SelectedIndex="{Binding Project}"  DisplayMemberPath="ProjectName"/>
-                <Button Content="Подтвердить выбор" Margin="10" Width="300" Template="{StaticResource beautifulButton}" x:Name="AdmitChosenProject" Click="AdmitChosenProject_Click" />
+                <Button Content="Подтвердить выбор" Margin="10" Width="300"  x:Name="AdmitChosenProject" Click="AdmitChosenProject_Click" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10">
-                <Label Style="{StaticResource normLabel}" Content="Дата начала:" Margin="10"/>
-                <Label Style="{StaticResource normLabel}" x:Name="DateOfProjectCreation"  Width="200" Margin="38, 10, 10, 10" Content="{Binding ProjectDateOfCreation}"/>
-                <Label Style="{StaticResource normLabel}" Content="Дата окончания:" Margin="10"/>
-                <Label Style="{StaticResource normLabel}" x:Name="DateOfProjectEnd"  Width="200" Margin="48, 10, 10, 10" Content="{Binding ProjectDateOfDeadLine}" />
+                <Label  Content="Дата начала:" Margin="10"/>
+                <Label  x:Name="DateOfProjectCreation"  Width="200" Margin="38, 10, 10, 10" Content="{Binding ProjectDateOfCreation}"/>
+                <Label  Content="Дата окончания:" Margin="10"/>
+                <Label  x:Name="DateOfProjectEnd"  Width="200" Margin="48, 10, 10, 10" Content="{Binding ProjectDateOfDeadLine}" />
             </StackPanel>
-            <Button Template="{StaticResource beautifulButton}" Content="Показать проектную документацию" Height="36" Width="300" Margin="20" Grid.Row="2" HorizontalAlignment="Left"/>
+            <Button  Content="Показать проектную документацию" Height="36" Width="300" Margin="20" Grid.Row="2" HorizontalAlignment="Left"/>
             <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10" Height="100" Visibility="Hidden">
                 <ListBox  SelectionMode="Multiple" Margin="10" Width="1110">
                     <!-- привязка к коллекции вложений в модели представления -->
@@ -48,7 +48,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <!-- отображение имени файла в списке вложений -->
                                     <Label Content="{Binding FileName}" />
-                                    <Button Template="{StaticResource beautifulButton}" Content="Просмотреть файл" Command="{Binding DataContext.LookAttachmentCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}" />
+                                    <Button  Content="Просмотреть файл" Command="{Binding DataContext.LookAttachmentCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

@@ -290,8 +290,6 @@ D:\Data\TestingTool\Test Management System\bin\Debug\de\MahApps.Metro.resources.
 D:\Data\TestingTool\Test Management System\obj\Debug\Test Management System.csproj.AssemblyReference.cache
 D:\Data\TestingTool\Test Management System\obj\Debug\Test Management System.csproj.SuggestedBindingRedirects.cache
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\ComboboxStyle.baml
-D:\Data\TestingTool\Test Management System\obj\Debug\Pages\Theme.baml
-D:\Data\TestingTool\Test Management System\obj\Debug\Pages\LightTheme.baml
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageMain.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\TCFields.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\WorkView.g.cs
@@ -340,3 +338,8 @@ D:\Data\TestingTool\Test Management System\obj\Debug\Test Management System.cspr
 D:\Data\TestingTool\Test Management System\obj\Debug\Test Management System.csproj.CopyComplete
 D:\Data\TestingTool\Test Management System\obj\Debug\Test Management System.exe
 D:\Data\TestingTool\Test Management System\obj\Debug\Test Management System.pdb
+D:\Data\TestingTool\Test Management System\bin\Debug\PresentationFramework.Aero2.dll
+D:\Data\TestingTool\Test Management System\obj\Debug\Themes\DarkTheme.baml
+D:\Data\TestingTool\Test Management System\obj\Debug\Themes\LightTheme.baml
+D:\Data\TestingTool\Test Management System\obj\Debug\Themes\DarkTheme.g.cs
+D:\Data\TestingTool\Test Management System\obj\Debug\Themes\LightTheme.g.cs

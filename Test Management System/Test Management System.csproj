@@ -151,7 +151,9 @@
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
-    <Reference Include="PresentationFramework.Aero2" />
+    <Reference Include="PresentationFramework.Aero2, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\PresentationFramework.Aero2.1.0.1\lib\PresentationFramework.Aero2.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -179,15 +181,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Themes\DarkTheme.xaml.cs">
+      <DependentUpon>DarkTheme.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\LightTheme.xaml.cs">
+      <DependentUpon>LightTheme.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\ThemeController.cs" />
     <Page Include="Pages\ComboboxStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Theme.xaml">
+    <Page Include="Themes\DarkTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\LightTheme.xaml">
+    <Page Include="Themes\LightTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -462,6 +471,7 @@
       <DependentUpon>Testing_toolModel.edmx</DependentUpon>
       <LastGenOutput>Testing_toolModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Pages\image.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Pages\delete.png" />
