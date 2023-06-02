@@ -42,6 +42,8 @@ namespace Test_Management_System.Pages
             checklistManager = new CheckListManager(checklistID);
 
             checklistManager.LoadExistingChecklistItems();
+            
+            CLListView.Items.Clear();
             CLListView.ItemsSource = checklistManager.AllChecklistItems;
 
             ComboBoxPriority.ItemsSource = db.CheckListPriority.ToList();

@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Test_Management_System.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="700" d:DesignWidth="1150" Background="#353535" 
+      d:DesignHeight="700" d:DesignWidth="1150"
       Title="PageCheckLists">
 
     <Grid>
@@ -19,7 +19,7 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <Label Content="Просмотр всех чек-листов" Style="{StaticResource normLabel}" Margin="10" FontSize="16" FontWeight="DemiBold"/>
+        <Label Content="Просмотр всех чек-листов" Margin="10" FontSize="16" FontWeight="DemiBold"/>
         <DataGrid ItemsSource="{Binding Checklist}" Name="CheckListGrid" AutoGenerateColumns="False" Margin="10" Grid.Row="1" SelectionChanged="CheckListGrid_SelectionChanged" CanUserAddRows="False" HeadersVisibility="Column" IsReadOnly="True" CanUserResizeRows="False">
             <DataGrid.CellStyle>
                 <Style TargetType="DataGridCell">
@@ -46,7 +46,7 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Template="{StaticResource beautifulButton}" Margin="5" Padding="5" Name="WatchCheckList" Click="WatchCheckList_Click">
+                            <Button Style="{DynamicResource RoundedCorners}" Margin="5" Padding="5" Name="WatchCheckList" Click="WatchCheckList_Click">
                                 <Button.Content>
                                     <Image Source="/Pages/watch.png" Height="30" Width="30"/>
                                 </Button.Content>
@@ -58,7 +58,7 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Template="{StaticResource beautifulButton}" Margin="5" Padding="5" Name="EditCheckList" Click="EditCheckList_Click">
+                            <Button Style="{DynamicResource RoundedCorners}" Margin="5" Padding="5" Name="EditCheckList" Click="EditCheckList_Click">
                                 <Button.Content>
                                     <Image Source="/Pages/edit.png" Height="30" Width="30"/>
                                 </Button.Content>
@@ -70,7 +70,7 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Template="{StaticResource beautifulButton}" Margin="5" Padding="5" Name="DeleteCheckList" Click="DeleteCheckList_Click">
+                            <Button Style="{DynamicResource RoundedCorners}" Margin="5" Padding="5" Name="DeleteCheckList" Click="DeleteCheckList_Click">
                                 <Button.Content>
                                     <Image Source="/Pages/delete.png" Height="30" Width="30"/>
                                 </Button.Content>
@@ -81,31 +81,31 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Border x:Name="FormContainer" Grid.Row="1" Grid.Column="1" Background="#353535" Margin="10" CornerRadius="5" Width="300" Visibility="Collapsed" HorizontalAlignment="Right">
-            <Grid Cursor="">
+        <Border x:Name="FormContainer" Grid.Row="1" Grid.Column="1" Margin="10" CornerRadius="5" Width="300" Visibility="Collapsed" HorizontalAlignment="Right">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0"  Style="{StaticResource normLabel}" HorizontalAlignment="Left" Content="Добавление чек-листа" FontSize="16" Margin="0, 10" FontWeight="Bold"/>
-                    <Button Grid.Row="0" Margin="0, 10, 0, 10" Name="CloseAdding" HorizontalAlignment="Right" Template="{StaticResource beautifulButton}" Click="CloseAdding_Click" Padding="5, 0, 5, 0" Content=" X "/>
+                    <Label Grid.Row="0"  HorizontalAlignment="Left" Content="Добавление чек-листа" FontSize="16" Margin="0, 10" FontWeight="Bold"/>
+                <Button Grid.Row="0" Margin="0, 10, 0, 10" Name="CloseAdding" HorizontalAlignment="Right" Style="{DynamicResource RoundedCorners}" Click="CloseAdding_Click" Padding="5, 0, 5, 0" Content=" X "/>
 
                 <StackPanel Grid.Row="1" Orientation="Vertical" Margin="10">
-                    <Label Content="Название чек-листа" Style="{StaticResource normLabel}" Margin="0,10"/>
+                    <Label Content="Название чек-листа"  Margin="0,10"/>
                     <TextBox x:Name="TBNameCheckList" />
-                    <Label Content="Описание чек-листа" Style="{StaticResource normLabel}" Margin="0, 10"/>
+                    <Label Content="Описание чек-листа" Margin="0, 10"/>
                     <TextBox x:Name="TBDescrCheckList" TextWrapping="Wrap" Height="200"  />
                 </StackPanel>
-                
-                <Button Grid.Row="2" Content="Добавить" Name="AddCheckList" Margin="10" Width="130" HorizontalAlignment="Left" Padding="10" Template="{StaticResource beautifulButton}" Click="AddCheckList_Click"/>
-                <Button Grid.Row="2" Content="Отмена" Name="Cancel" Margin="10" Width="130" Padding="10" HorizontalAlignment="Right" Template="{StaticResource beautifulButton}" Click="CloseAdding_Click"/>
+
+                <Button Grid.Row="2" Content="Добавить" Name="AddCheckList" Margin="10" Width="130" HorizontalAlignment="Left" Padding="10" Style="{DynamicResource RoundedCorners}" Click="AddCheckList_Click"/>
+                <Button Grid.Row="2" Content="Отмена" Name="Cancel" Margin="10" Width="130" Padding="10" HorizontalAlignment="Right" Style="{DynamicResource RoundedCorners}" Click="CloseAdding_Click"/>
             </Grid>
         </Border>
 
         <StackPanel Grid.Row="2" Grid.Column="0">
-            <Button Template="{StaticResource beautifulButton}" Padding="10" Content="Добавить новый чек-лист" Name="AddNewCheckList" Click="AddNewCheckList_Click" Width="210" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" />
+            <Button Style="{DynamicResource RoundedCorners}" Padding="10" Content="Добавить новый чек-лист" Name="AddNewCheckList" Click="AddNewCheckList_Click" Width="210" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" />
         </StackPanel>
     </Grid>
 

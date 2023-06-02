@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Test_Management_System.Pages"
         mc:Ignorable="d"
-        Title="Авторизация" Height="470" Width="330" Style="{DynamicResource CustomWindowStyle}" WindowStartupLocation="CenterScreen">
+        Title="Авторизация" Height="470" Width="310" Style="{DynamicResource CustomWindowStyle}" WindowStartupLocation="CenterScreen" MaxWidth="310" MinWidth="310" MaxHeight="470" MinHeight="470">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -44,7 +44,7 @@
                 <TextBox Width="200" x:Name="UnmaskedPasswordTextBox" Visibility="Collapsed"/>
             </StackPanel>
         </StackPanel>
-        <CheckBox  Grid.Row="4" Content="Показать пароль" x:Name="ShowPasswordCheckBox" HorizontalAlignment="Center" Margin="10,10,10,10" Foreground="#ffffff"/>
-        <Button Padding="10" Grid.Row="5" Content="Войти" Name="LoginButton" Margin="20,10,20,10" Click="LoginButton_Click" />
+        <CheckBox  Grid.Row="4" Content="Показать пароль" x:Name="ShowPasswordCheckBox" HorizontalAlignment="Center" Margin="10,10,30,10" Foreground="#ffffff"/>
+        <Button Padding="10" Style="{DynamicResource RoundedCorners}" Grid.Row="5" Content="Войти" Name="LoginButton" Margin="20,10,20,10" Click="LoginButton_Click" />
     </Grid>
 </Window>

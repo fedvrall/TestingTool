@@ -27,15 +27,18 @@ namespace Test_Management_System
     public partial class WorkView : Window
     {
         public UserContext userContext { get; set; }
+        Testing_ToolEntity db = new Testing_ToolEntity();
         public App CurrentApplication { get; set; }
+        string username;
+        int projectID;
 
         public WorkView(UserContext userContext)
         {
             this.userContext = userContext;
             int userID = userContext.userId;
-            string username = userContext.userName;
+            this.username = userContext.userName;
             int roleID = userContext.roleId;
-            int projectID = userContext.projectID;
+            this.projectID = userContext.projectID;
             InitializeComponent();
             FrameContent.Navigate(new PageMain(userContext));
             /*            CreateDB_MSSql createnewdb = new CreateDB_MSSql();
@@ -52,6 +55,7 @@ namespace Test_Management_System
                         else 
                             MainMenu.IsEnabled = false;*/
             FrameContent.Navigated += FrameContent_Navigated;
+            User.Content = username;
         }
 
         private void FrameContent_Navigated(object sender, NavigationEventArgs e)
@@ -64,11 +68,9 @@ namespace Test_Management_System
 
         private void MainPage_MainPageClicked(object sender, EventArgs e)
         {
+            
             MainMenu.IsEnabled = true;
         }
-
-        
-
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -81,7 +83,7 @@ namespace Test_Management_System
                 case "Проекты":
                     FrameContent.Navigate(new PageProjects(userContext));
                     break;
-                case "Все баг-репорты":
+                case "Баг-репорты":
                     FrameContent.Navigate(new PageBugReports());
                     break;
                 //case "Новый баг-репорт":
@@ -104,15 +106,11 @@ namespace Test_Management_System
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
             ThemeController.SetTheme(ThemeController.ThemeTypes.Dark);
-            Theme.Content = "Светлая тема";
-
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             ThemeController.SetTheme(ThemeController.ThemeTypes.Light);
-            Theme.Content = "Тёмная тема";
-
         }
     }
 }

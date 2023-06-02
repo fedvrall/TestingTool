@@ -14,9 +14,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Заголовок -->
-        <Border Background="#FF2C3E50" Grid.Row="0">
-            <Label  Content="Manage Testing" FontSize="24" Foreground="White" Margin="10"/>
+        <Border Grid.Row="0">
+            <StackPanel>
+                <Label  Content="Добро пожаловать!" FontSize="20" Margin="10"/>
+                <Label  Content="Для начала работы выберите проект" FontSize="16" Margin="10"/>
+            </StackPanel>
         </Border>
 
         <Grid Grid.Row="1">
@@ -29,7 +31,7 @@
             <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="0">
                 <Label  Content="Выбрать проект: " Margin="10"/>
                 <ComboBox x:Name="ChooseProjectCombo" Width="650" Margin="10" SelectedIndex="{Binding Project}"  DisplayMemberPath="ProjectName"/>
-                <Button Content="Подтвердить выбор" Margin="10" Width="300"  x:Name="AdmitChosenProject" Click="AdmitChosenProject_Click" />
+                <Button Content="Подтвердить выбор" Margin="10" Width="300" Style="{DynamicResource RoundedCorners}"  x:Name="AdmitChosenProject" Click="AdmitChosenProject_Click" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10">
@@ -38,7 +40,7 @@
                 <Label  Content="Дата окончания:" Margin="10"/>
                 <Label  x:Name="DateOfProjectEnd"  Width="200" Margin="48, 10, 10, 10" Content="{Binding ProjectDateOfDeadLine}" />
             </StackPanel>
-            <Button  Content="Показать проектную документацию" Height="36" Width="300" Margin="20" Grid.Row="2" HorizontalAlignment="Left"/>
+            <Button  Content="Показать проектную документацию" Height="36" Width="300" Margin="20" Grid.Row="2" Style="{DynamicResource RoundedCorners}" HorizontalAlignment="Left"/>
             <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10" Height="100" Visibility="Hidden">
                 <ListBox  SelectionMode="Multiple" Margin="10" Width="1110">
                     <!-- привязка к коллекции вложений в модели представления -->

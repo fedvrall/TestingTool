@@ -92,8 +92,10 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Padding" Value="1" />
+        <Setter Property="Padding" Value="10" />
         <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Courier"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -143,8 +145,10 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Padding" Value="1" />
+        <Setter Property="Padding" Value="10" />
         <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Courier"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -155,7 +159,7 @@
                             SnapsToDevicePixels="true"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            CornerRadius="2">
+                            CornerRadius="5">
                         <ContentPresenter x:Name="contentPresenter"
                                           Focusable="False"
                                           Margin="{TemplateBinding Padding}"
@@ -376,6 +380,9 @@
         <Setter Property="BorderBrush" Value="{StaticResource ControlDefaultBorderBrush}" />
         <Setter Property="Foreground" Value="{StaticResource ControlDefaultForeground}" />
         <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Courier"/>
+        <!--<Setter Property="Padding" Value="5"/>-->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type CheckBox}">
@@ -463,6 +470,8 @@
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="IsTabStop" Value="false" />
         <Setter Property="Focusable" Value="false" />
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Courier"/>
         <Setter Property="ClickMode" Value="Press" />
         <Setter Property="Template">
             <Setter.Value>
@@ -637,6 +646,8 @@
         <Setter Property="AllowDrop" Value="true" />
         <Setter Property="MinWidth" Value="0" />
         <Setter Property="MinHeight" Value="0" />
+        <Setter Property="FontFamily" Value="Courier"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
@@ -744,6 +755,8 @@
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Courier"/>
         <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}" />
         <Style.Triggers>
             <Trigger Property="IsEditable" Value="true">
@@ -756,7 +769,9 @@
 
     <Style TargetType="{x:Type ComboBoxItem}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="Padding" Value="4,1" />
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Courier"/>
+        <Setter Property="Padding" Value="10"/>
         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
         <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
         <Setter Property="Foreground" Value="{StaticResource ControlDefaultForeground}" />
@@ -1230,6 +1245,8 @@
         <Setter Property="Padding" Value="5" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Top" />
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Courier"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Label}">
@@ -1260,6 +1277,8 @@
         <Setter Property="ScrollViewer.PanningMode" Value="Both" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         <Setter Property="VerticalContentAlignment" Value="Top" />
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Courier"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBox}">
@@ -1301,6 +1320,8 @@
         <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
         <Setter Property="ScrollViewer.PanningMode" Value="HorizontalFirst" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+        <Setter Property="FontFamily" Value="Courier"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
         <Setter Property="Template">
             <Setter.Value>
@@ -1339,6 +1360,8 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FontFamily" Value="Courier"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -1393,6 +1416,8 @@
         <Setter Property="ScrollViewer.PanningMode" Value="Both" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="Courier"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListView}">
@@ -1598,6 +1623,8 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FontFamily" Value="Courier"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -1689,6 +1716,8 @@
         <Setter Property="FontWeight" Value="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
         <Setter Property="Foreground" Value="{StaticResource ControlDefaultForeground}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="Courier"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Menu}">
@@ -1705,6 +1734,7 @@
     </Style>
 
     <Style TargetType="{x:Type MenuItem}">
+        <Setter Property="Padding" Value="10"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type MenuItem}">
@@ -1723,7 +1753,7 @@
                             <Popup x:Name="PART_Popup" AllowsTransparency="True" Focusable="False"
                                    IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}"
                                    PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}"
-                                   Placement="Bottom">
+                                   Placement="Right">
                                 <Themes:SystemDropShadowChrome Name="Shdw"
                                                                Themes:SystemDropShadowChrome.Color="#71000000"
                                                                Themes:SystemDropShadowChrome.CornerRadius="0"
@@ -1934,6 +1964,9 @@
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="AllowDrop" Value="true" />
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Courier"/>
+        <Setter Property="Padding" Value="5"/>
         <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         <Setter Property="Template">
@@ -3522,6 +3555,8 @@
         <Setter Property="TextWrapping" Value="NoWrap" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
         <Setter Property="TextAlignment" Value="Left" />
+        <!--<Setter Property="FontFamily" Value="Courier"/>
+        <Setter Property="FontSize" Value="14"/>-->
         <Setter Property="Foreground" Value="{StaticResource ControlDefaultForeground}" />
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="False">
@@ -3547,6 +3582,9 @@
         <Setter Property="VerticalContentAlignment" Value="Top" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="AllowDrop" Value="true" />
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Courier"/>
+        <Setter Property="Padding" Value="5"/>
         <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         <Setter Property="Template">
@@ -4031,10 +4069,10 @@
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
                             <Grid>
-                                <AdornerDecorator Margin="0,30,0,0">
+                                <AdornerDecorator Margin="0,40,0,0">
                                     <ContentPresenter />
                                 </AdornerDecorator>
-                                <Grid Height="30" x:Name="titlebar"
+                                <Grid Height="40" x:Name="titlebar"
                                       Background="{TemplateBinding BorderBrush}"
                                       VerticalAlignment="Top" Margin="0">
                                     <DockPanel Margin="0,0,130,0">
