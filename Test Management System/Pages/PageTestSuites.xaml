@@ -14,8 +14,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0, 10, 10, 10" HorizontalAlignment="Left">
-            <Label Content="Просмотр тест-сьютов" FontSize="18" Style="{StaticResource normLabel}"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10, 10, 10, 10" HorizontalAlignment="Left">
+            <Label Content="Просмотр тест-сьютов" FontSize="18" />
         </StackPanel>
         <DataGrid CanUserAddRows="False" Name="dgvTestSuites" SelectionChanged="dgvTestSuites_SelectionChanged" Grid.Row="1" Margin="10" ItemsSource="{Binding TestSuite}" AutoGenerateColumns="False">
             <DataGrid.Columns>
@@ -28,17 +28,17 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button Name="WatchTestCases"  Click="WatchTestCases_Click" Template="{StaticResource beautifulButton}"  Margin="5">
+                                <Button Name="WatchTestCases"  Click="WatchTestCases_Click" Style="{DynamicResource RoundedCorners}"  Margin="5">
                                     <Button.Content>
                                         <Image Source="/Pages/watch.png" Height="30" Width="30"/>
                                     </Button.Content>
                                 </Button>
-                                <Button Name="EditTestSuite" Click="EditTestSuite_Click" Template="{StaticResource beautifulButton}" Margin="5">
+                                <Button Name="EditTestSuite" Click="EditTestSuite_Click" Style="{DynamicResource RoundedCorners}" Margin="5">
                                     <Button.Content>
                                         <Image Source="/Pages/edit.png" Height="30" Width="30"/>
                                     </Button.Content>
                                 </Button>
-                                <Button Name="DeleteTestSuite" Click="DeleteTestSuite_Click"  Template="{StaticResource beautifulButton}" Margin="5">
+                                <Button Name="DeleteTestSuite" Click="DeleteTestSuite_Click"  Style="{DynamicResource RoundedCorners}" Margin="5">
                                     <Button.Content>
                                         <Image Source="/Pages/delete.png" Height="30" Width="30"/>
                                     </Button.Content>
@@ -50,8 +50,8 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10" HorizontalAlignment="Right">
-            <Button Width="200" Content="Добавить новый тест-сьют" Name="NewTestSuiteButton" Click="NewTestSuiteButton_Click" Padding="10" Template="{StaticResource beautifulButton}"/>
-            <Button Width="200" Content="Редактировать выбранный" Name="EditTestSuite" Click="EditTestSuite_Click" IsEnabled="False" Padding="10" Template="{StaticResource beautifulButton}"/>
+            <Button Width="200" Content="Добавить новый тест-сьют" Name="NewTestSuiteButton" Click="NewTestSuiteButton_Click" Margin="0, 0, 10, 0" Style="{DynamicResource RoundedCorners}"/>
+            <Button Width="200" Content="Редактировать выбранный" Name="EditTestSuite" Click="EditTestSuite_Click" IsEnabled="False"  Style="{DynamicResource RoundedCorners}"/>
         </StackPanel>
     </Grid>
 </Page>

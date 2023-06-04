@@ -20,16 +20,16 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <Label Style="{StaticResource normLabel}" Content="Просмотр тест-кейсов из " FontSize="18" Margin="10" Grid.Row="0" Grid.Column="0"/>
-        <Label Style="{StaticResource normLabel}" Content="" FontSize="18" Margin="230, 10, 10, 10" Grid.Row="0" Grid.Column="0" Name="HeaderTestCasesView"/>
-        <StackPanel Orientation="Horizontal" Margin="0, 20" Grid.Row="3" HorizontalAlignment="Right" Grid.Column="0">
-            <Button Content="Добавить" Template="{StaticResource beautifulButton}" Width="150" Padding="10" Name="AddTestCaseItem" Click="AddTestCaseItem_Click" />
-            <Button Content="Редактировать" Template="{StaticResource beautifulButton}" Width="150" Padding="10" IsEnabled="False" Name="EditTestCaseItem" Click="EditTestCaseItem_Click"/>
-            <Button Content="Удалить" Template="{StaticResource beautifulButton}" Width="150" Padding="10"  IsEnabled="False" Name="DeleteTestCase" Click="DeleteTestCase_Click"/>
+        <Label  Content="Просмотр тест-кейсов из " FontSize="18" Margin="10" Grid.Row="0" Grid.Column="0"/>
+        <Label  Content="" FontSize="18" Margin="230, 10, 10, 10" Grid.Row="0" Grid.Column="0" Name="HeaderTestCasesView"/>
+        <StackPanel Orientation="Horizontal" Margin="0, 20, 10, 20" Grid.Row="3" HorizontalAlignment="Right" Grid.Column="0">
+            <Button Content="Добавить" Style="{DynamicResource RoundedCorners}" Width="150" Margin="0, 0, 10, 0" Name="AddTestCaseItem" Click="AddTestCaseItem_Click" />
+            <Button Content="Редактировать" Style="{DynamicResource RoundedCorners}" Width="150" Margin="0, 0, 10, 0"  IsEnabled="False" Name="EditTestCaseItem" Click="EditTestCaseItem_Click"/>
+            <Button Content="Удалить" Style="{DynamicResource RoundedCorners}" Width="150"   IsEnabled="False" Name="DeleteTestCase" Click="DeleteTestCase_Click"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" Grid.Column="0">
-            <Label Style="{StaticResource normLabel}" Content="Сортировать по "/>
+            <Label Content="Сортировать по "/>
             <ComboBox Width="400" Margin="10, 0, 0, 0">
                 <ComboBoxItem Content="дате (от новых к старым)"/>
                 <ComboBoxItem Content="дате (от старых к новым)"/>
@@ -40,7 +40,7 @@
                 <ComboBoxItem Content="критичности (от блокирующей к тривиальной)"/>
             </ComboBox>
         </StackPanel>
-        <Button Content="Просмотреть поля" HorizontalAlignment="Right" Margin="10, 10, 10, 10" Width="150" Name="ChoseTCFields" Click="ChoseTCFields_Click" Template="{StaticResource beautifulButton}" Grid.Column="0" Grid.Row="1" />
+        <Button Content="Просмотреть поля" HorizontalAlignment="Right" Margin="10, 10, 10, 10" Width="150" Name="ChoseTCFields" Click="ChoseTCFields_Click" Style="{DynamicResource RoundedCorners}" Grid.Column="0" Grid.Row="1" />
 
         <Border x:Name="FormContainer" Grid.Row="2" Grid.Column="1" Background="#808080" Margin="10" CornerRadius="5" Visibility="Collapsed" HorizontalAlignment="Right">
             <Grid Cursor="">
@@ -75,19 +75,6 @@
                 <DataGridTextColumn Header="Фактический результат" Binding="{Binding TestCaseActualResult}" Visibility="Visible" />
                 <DataGridTextColumn Header="Создатель" Binding="{Binding Userinfo.LastName}" Visibility="Visible" />
                 <DataGridTextColumn Header="Исполнитель" Binding="{Binding Userinfo.LastName}" Visibility="Visible" />
-
-                <!--<DataGridTextColumn Header="Критичность" Binding="{Binding TestCaseSeverity.TCSeverityDescriptionTranslation}" Visibility="{Binding SeverityColumnVisibility}" />
-                <DataGridTextColumn Header="Приоритет" Binding="{Binding TestCasePriority.TCPriorityDescriptionTranslation}" Visibility="{Binding PriorityColumnVisibility}"/>
-                <DataGridTextColumn Header="Описание" Binding="{Binding TestCaseDescription}" Visibility="{Binding DescriptionColumnVisibility}" />
-                <DataGridTextColumn Header="Тип" Binding="{Binding TestCaseType.TCTypeDescriptionTranlation}" Visibility="{Binding TypeColumnVisibility}" />
-                <DataGridTextColumn Header="Поведение" Binding="{Binding TestCaseBehavior.TCBehaviorDescriptionTranlation}" Visibility="{Binding BehaviorColumnVisibility}"/>
-                <DataGridTextColumn Header="Дата создания" Binding="{Binding TestCaseCreationDate}" Visibility="{Binding CreationDateColumnVisibility}"/>
-                <DataGridTextColumn Header="Дата выполнения" Binding="{Binding TestCaseExecutionDate}" Visibility="{Binding ExecutionDateColumnVisibility}"/>
-                <DataGridTextColumn Header="Предусловия" Binding="{Binding TestCasePrecondition}" Visibility="{Binding PreconditionColumnVisibility}"/>
-                <DataGridTextColumn Header="Постусловия" Binding="{Binding TestCasePostcondition}" Visibility="{Binding PostconditionColumnVisibility}"/>
-                <DataGridTextColumn Header="Вложения" Binding="{Binding TestCaseAttachment}" Visibility="{Binding AttachmentColumnVisibility}"/>
-                <DataGridTextColumn Header="Среда" Binding="{Binding TestCaseEnvironment}" Visibility="{Binding EnvironmentColumnVisibility}"/>
-                <DataGridTextColumn Header="Тестовые данные" Binding="{Binding TestCaseTestData}" Visibility="{Binding TestDataColumnVisibility}"/>-->
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

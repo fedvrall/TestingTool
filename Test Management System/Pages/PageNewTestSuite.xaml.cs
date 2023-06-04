@@ -22,8 +22,7 @@ namespace Test_Management_System.Pages
     /// <summary>
     /// Логика взаимодействия для PageNewTestSuite.xaml
     /// </summary>
-    
-    
+       
     public partial class PageNewTestSuite : Page
     {
         public UserContext UserContext { get; set; }
@@ -113,12 +112,14 @@ namespace Test_Management_System.Pages
 
                     db.TestSuite.Add(testSuite);
                     db.SaveChanges();
-
-                    MessageBox.Show("Тест-сьют был добавлен");
                 }
-                catch (Exception ex)
+                catch 
                 {
                     MessageBox.Show("Тест-сьют не был добавлен");
+                }
+                finally
+                {
+                    MessageBox.Show("Тест-сьют был добавлен");
                 }
             }
             else // редактирование существующего
@@ -134,12 +135,14 @@ namespace Test_Management_System.Pages
                     findTS.ProjectID = UserContext.projectID;
                     findTS.TestSuiteParentID = ComboTestSuiteParentID.SelectedIndex + 1;
                     db.SaveChanges();
-                    MessageBox.Show("Изменения в тест-сьюте сохранены");
-
                 }
-                catch (Exception ex)
+                catch
                 {
                     MessageBox.Show("Не удалось отредактировать тест-сьют");
+                }
+                finally
+                {
+                    MessageBox.Show("Изменения в тест-сьюте сохранены");
                 }
             }
         }

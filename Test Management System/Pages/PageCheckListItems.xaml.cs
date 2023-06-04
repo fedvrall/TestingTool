@@ -46,7 +46,9 @@ namespace Test_Management_System.Pages
             CLListView.Items.Clear();
             CLListView.ItemsSource = checklistManager.AllChecklistItems;
 
+            ComboBoxPriority.Items.Clear();
             ComboBoxPriority.ItemsSource = db.CheckListPriority.ToList();
+           // GetColor();
             ComboBoxStatus.ItemsSource = db.CheckListStatus.ToList();
         }
 
@@ -62,74 +64,47 @@ namespace Test_Management_System.Pages
             }
         }
 
-        private void AddItemToCheckListAndExit_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void AddItemToCheckListGoToAnother_Click(object sender, RoutedEventArgs e)
-        {
-            SaveAdding();
-        }
-
         private void ExitFromAddingCheckListItem_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void SaveAdding()
-        {
-            CheckListItem listItem = new CheckListItem();
-            try
-            {
-                foreach (CheckListItem item in checklistItems)
-                {
-                    db.CheckListItem.Add(item);
-                }
-                db.SaveChanges();
-            }
-            catch
-            {
-                MessageBox.Show("Все элементы чек-листа были добавлены");
-            }
-            finally
-            {
-                MessageBox.Show("Не удалось добавить пункты");
-
-            }
-
+            NavigationService.Navigate(new PageCheckLists(UserContext));
         }
 
         private void AddChecklistItem_Click(object sender, RoutedEventArgs e)
         {
             var attString = string.Join(";", attachmentsList);
-            DateTime exec;
-            //if() тут разобраться с датой
-            // возможно, её убрать? Или дату добавить в сам чек-лист
-            // Но первоначальная идея - сделать нулль, если статус другой, кроме "Не пройден"
-            // Меняется статус - меняется дата
-            //
 
+            DateTime? date = null;
+            if (ComboBoxStatus.Text != "Не запущен")
+                date = DateTime.Now;
+            else
+                date = null;
 
-            CheckListItem newItem = new CheckListItem
+            if (!String.IsNullOrEmpty(TextBoxDescription.Text) && ComboBoxStatus.SelectedIndex != -1)
             {
-                CheckListItemDescription = TextBoxDescription.Text,
-                CLStatusID = ComboBoxStatus.SelectedIndex + 1,
-                CLPriorityID = ComboBoxPriority.SelectedIndex + 1, // Проработать, чтобы
-                CLComment = TextBoxComment.Text,
-                CheckListID = checklistID,
-                UserID = UserContext.userId,
-                DataOfExecution = DateTime.Now, // Заменить
-                CLAttachment = attString
-            };
+                CheckListItem newItem = new CheckListItem
+                {
+                    CheckListItemDescription = TextBoxDescription.Text,
+                    CLStatusID = ComboBoxStatus.SelectedIndex + 1,
+                    CLPriorityID = ComboBoxPriority.SelectedIndex + 1, // Проработать, чтобы
+                    CLComment = TextBoxComment.Text,
+                    CheckListID = checklistID,
+                    UserID = UserContext.userId,
+                    DataOfExecution = date, // Заменить
+                    CLAttachment = attString
+                };
 
-            checklistManager.AddNewChecklistItem(newItem);
+                checklistManager.AddNewChecklistItem(newItem);
+                TextBoxDescription.Text = string.Empty;
+                ComboBoxStatus.SelectedItem = null;
+                ComboBoxPriority.SelectedItem = null;
+                TextBoxComment.Text = string.Empty;
+                attachmentsList.Clear();
+            }
+            else
+            {
+                MessageBox.Show("Не заполнены основные поля");
+            }
 
-            TextBoxDescription.Text = string.Empty;
-            ComboBoxStatus.SelectedItem = null;
-            ComboBoxPriority.SelectedItem = null;
-            TextBoxComment.Text = string.Empty;
-            attachmentsList.Clear();
         }
 
         private void RemoveAttachment_Click(object sender, RoutedEventArgs e)

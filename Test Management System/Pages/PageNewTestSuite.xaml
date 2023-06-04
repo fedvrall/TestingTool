@@ -20,25 +20,25 @@
 
         </Grid.RowDefinitions>
 
-        <Label Content="Добавление нового тест-сьюта" Grid.Row="0" Style="{StaticResource normLabel}" FontSize="18"/>
-        <Label Content="Заголовок:" Grid.Row="1" Style="{StaticResource normLabel}" />
+        <Label Content="Добавление нового тест-сьюта" Grid.Row="0"  FontSize="18"/>
+        <Label Content="Заголовок:" Grid.Row="1" />
         <TextBox Grid.Row="1" Margin="197,10,10,10" Name="TBtestSuiteSummary" Text="{Binding TestSuiteSummary, Mode=TwoWay}" LostFocus="TBtestSuiteSummary_LostFocus" />
 
-        <Label Grid.Row="2" Content="Длинное описание:"  Style="{StaticResource normLabel}"/>
+        <Label Grid.Row="2" Content="Длинное описание:" />
         <TextBox Grid.Row="2" Height="100" TextWrapping="Wrap" Name="TBTestSuiteDescription" Margin="197,10,10,10" Text="{Binding TestSuiteDescription, Mode=TwoWay}" />
 
-        <Label Grid.Row="3" Content="Короткая метка:" Style="{StaticResource normLabel}"/>
+        <Label Grid.Row="3" Content="Короткая метка:" />
         <TextBox Grid.Row="3"  Margin="197,10,10,10" Name="TBTestSuiteLabel" Text="{Binding TestSuiteLabel, Mode=TwoWay}" />
 
-        <Label Grid.Row="4" Content="Предусловия:" Style="{StaticResource normLabel}"/>
+        <Label Grid.Row="4" Content="Предусловия:" />
         <TextBox Grid.Row="4"  Height="100" TextWrapping="Wrap" Name="TBTestSuitePreconditions" Margin="197,10,10,10" Text="{Binding TestSuitePreconditions, Mode=TwoWay}"  />
 
-        <Label Grid.Row="5" Content="Родительский тест-сьют:" Style="{StaticResource normLabel}" />
+        <Label Grid.Row="5" Content="Родительский тест-сьют:"  />
         <ComboBox Grid.Row="5" Margin="197,10,10,10" Name="ComboTestSuiteParentID" Height="30" Text="{Binding TestSuiteParentID, Mode=TwoWay}"  DisplayMemberPath="TestSuiteSummary"   />
 
-        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
-            <Button  Content="Сохранить и вернуться к просмотру" Width="270" Name="SaveTestSuite" Click="SaveTestSuite_Click" Padding="10" Template="{StaticResource beautifulButton}"/>
-            <Button  Content="Назад к просмотру всех тест-сьютов" Width="270" Name="BackToTestSuitePageButton" Click="BackToTestSuitePageButton_Click" Padding="10" Template="{StaticResource beautifulButton}"/>
+        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10, 10, 10, 20">
+            <Button  Content="Сохранить и вернуться к тест-сьютам" Width="270" Name="SaveTestSuite" Click="SaveTestSuite_Click" Margin="0,0,10,0" Style="{DynamicResource RoundedCorners}"/>
+            <Button  Content="Назад к тест-сьютам" Width="270" Name="BackToTestSuitePageButton" Click="BackToTestSuitePageButton_Click"  Style="{DynamicResource RoundedCorners}"/>
         </StackPanel>
     </Grid>
 

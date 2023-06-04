@@ -289,48 +289,39 @@ D:\Data\TestingTool\Test Management System\bin\Debug\ru\EntityFramework.SqlServe
 D:\Data\TestingTool\Test Management System\bin\Debug\de\MahApps.Metro.resources.dll
 D:\Data\TestingTool\Test Management System\obj\Debug\Test Management System.csproj.AssemblyReference.cache
 D:\Data\TestingTool\Test Management System\obj\Debug\Test Management System.csproj.SuggestedBindingRedirects.cache
-D:\Data\TestingTool\Test Management System\obj\Debug\Pages\ComboboxStyle.baml
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageMain.g.cs
-D:\Data\TestingTool\Test Management System\obj\Debug\Pages\TCFields.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\WorkView.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\Auth.g.cs
-D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageAdminSettings.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageBugReports.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageCheckListItems.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageCheckLists.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageEditUsers.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageNewBugReport.g.cs
-D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageNewCheckList.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageNewProject.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageNewTestCase.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageNewTestSuite.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageProjects.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageTestCases.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageTestSuites.g.cs
-D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageUserSettings.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\App.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Test Management System_Content.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Test Management System_MarkupCompile.cache
 D:\Data\TestingTool\Test Management System\obj\Debug\Test Management System_MarkupCompile.lref
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\App.baml
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageMain.baml
-D:\Data\TestingTool\Test Management System\obj\Debug\Pages\TCFields.baml
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\WorkView.baml
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\Auth.baml
-D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageAdminSettings.baml
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageBugReports.baml
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageCheckListItems.baml
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageCheckLists.baml
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageEditUsers.baml
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageNewBugReport.baml
-D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageNewCheckList.baml
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageNewProject.baml
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageNewTestCase.baml
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageNewTestSuite.baml
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageProjects.baml
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageTestCases.baml
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageTestSuites.baml
-D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageUserSettings.baml
 D:\Data\TestingTool\Test Management System\obj\Debug\Test Management System.g.resources
 D:\Data\TestingTool\Test Management System\obj\Debug\Test_Management_System.Properties.Resources.resources
 D:\Data\TestingTool\Test Management System\obj\Debug\Test Management System.csproj.GenerateResource.cache

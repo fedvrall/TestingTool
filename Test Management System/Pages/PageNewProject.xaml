@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Test_Management_System.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="1150" Background="#353535"
+      d:DesignHeight="800" d:DesignWidth="1150"
       Title="PageNewProject">
 
     
@@ -22,46 +22,45 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label Style="{StaticResource normLabel}" Content="Добавление нового проекта" FontSize="18" Margin="10"/>
+        <Label Content="Добавление нового проекта" FontSize="18" Margin="10"/>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="10">
-            <Label Style="{StaticResource normLabel}" Content="Документация: " />
-            <ListBox Width="710" Height="117" Margin="124, 0, 10, 0"  x:Name="AttachmentsListBox">
+            <Label  Content="Документация: " />
+            <ListBox Width="753" Height="117" Margin="124, 0, 10, 0"  x:Name="AttachmentsListBox">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding}" Margin="10" FontSize="14" FontFamily="Courier" />
-                            <Button Content="Удалить" Click="RemoveAttachment_Click" Margin="10, 0" Width="100" Template="{StaticResource beautifulButton}" />
+                            <Button Content="Удалить" Click="RemoveAttachment_Click" Margin="10, 0" Width="100" Style="{DynamicResource RoundedCorners}" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Button Content="Добавить вложение" Margin="10, 10, 10,10" Width="200" Name="AddAttachment" Click="AddAttachment_Click" Template="{StaticResource beautifulButton}" Height="44" />
+            <Button Content="Добавить вложение" Margin="10, 10, 10,10" Width="200" Name="AddAttachment" Click="AddAttachment_Click" Style="{DynamicResource RoundedCorners}" Height="44" />
         </StackPanel>
 
-        <Label Grid.Row="1" Margin="10" HorizontalAlignment="Left" Style="{StaticResource normLabel}" Content="Название:" />
-        <TextBox Grid.Row="1" HorizontalAlignment="Right" x:Name="TBProjectName" Width="930" Margin="123, 10, 10, 10"/>
+        <Label Grid.Row="1" Margin="10" HorizontalAlignment="Left"  Content="Название:" />
+        <TextBox Grid.Row="1" HorizontalAlignment="Right" x:Name="TBProjectName" Width="973" Margin="123, 10, 10, 10"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
-            <Label Style="{StaticResource normLabel}" Content="Дата начала проекта:" VerticalAlignment="Center" />
+            <Label  Content="Дата начала проекта:" VerticalAlignment="Center" />
             <DatePicker  x:Name="dpStartDate" Width="200" VerticalAlignment="Center" Margin="87,0, 10, 0" >
                 <TextBlock.FontSize>15</TextBlock.FontSize>
                 <DatePicker.Background>#ffffff</DatePicker.Background>
             </DatePicker>
         </StackPanel>
         
-        <Label Style="{StaticResource normLabel}"  Grid.Row="2" Content="Заметки:" Margin="555, 10, 10, 0"/>
+        <Label   Grid.Row="2" Content="Заметки:" Margin="503, 10, 10, 0"/>
         <TextBox Grid.Row="2" Name="TBProjectNotes" Grid.RowSpan="2" Margin="645,10,10,10"/>
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10">
-            <Label Style="{StaticResource normLabel}" Content="Дата окончания (если есть):" VerticalAlignment="Center" />
+            <Label Content="Дата окончания (если есть):" VerticalAlignment="Center" />
             <DatePicker x:Name="dpEndDate" Width="200" VerticalAlignment="Center" Margin="45,0, 0, 0">
                 <TextBlock.FontSize>15</TextBlock.FontSize>
                 <DatePicker.Background>#ffffff</DatePicker.Background>
             </DatePicker>
         </StackPanel>
-        <Label Style="{StaticResource normLabel}" Content="Информация о заказчике проекта" Grid.Row="5" FontSize="18" Margin="10"/>
-
+        <Label Content="Информация о заказчике проекта" Grid.Row="5" FontSize="18" Margin="10"/>
 
         <Grid Grid.Row="6" Name="customerFields">
             <Grid.RowDefinitions>
@@ -69,30 +68,26 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Style="{StaticResource normLabel}" Content="Имя заканчика:" Margin="10" />
+            <Label Grid.Row="0" Content="Имя:" Margin="10" />
             <TextBox Grid.Row="0" x:Name="customerNameTB" Width="200" Margin="245,10, 0, 10" HorizontalAlignment="Left" LostFocus="customerNameTB_LostFocus"/>
 
-            <Label Grid.Row="0" Style="{StaticResource normLabel}" Content="Фамилия:" Margin="553, 10, 10, 10"/>
-            <TextBox Grid.Row="0" x:Name="customerLastNameTB" Width="200" HorizontalAlignment="Left" Margin="645,10, 0, 10" LostFocus="customerLastNameTB_LostFocus"/>
+            <Label Grid.Row="0" Content="Электронная почта:" Margin="503, 10, 10, 10"/>
+            <TextBox Grid.Row="0" x:Name="customerEmailTB"  Width="200" HorizontalAlignment="Left" Margin="645,10, 0, 10" LostFocus="customerEmailTB_LostFocus" />
 
-            <Label Grid.Row="1" Style="{StaticResource normLabel}" Content="Электронная почта:" Margin="10" VerticalAlignment="Center" />
-            <TextBox Grid.Row="1" x:Name="customerEmailTB" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="245,10, 0, 10" LostFocus="customerEmailTB_LostFocus"/>
+            <Label Grid.Row="1"  Content="Фамилия:"  Margin="10" VerticalAlignment="Center" />
+            <TextBox Grid.Row="1" x:Name="customerLastNameTB"  Width="200" VerticalAlignment="Center" LostFocus="customerLastNameTB_LostFocus" HorizontalAlignment="Left" Margin="245,10, 0, 10" />
 
-            <Label Grid.Row="1" Style="{StaticResource normLabel}" Content="Телефон:" Margin="553, 10, 10, 10" VerticalAlignment="Center" />
+            <Label Grid.Row="1"  Content="Телефон:" Margin="503, 10, 10, 10" VerticalAlignment="Center" />
             <TextBox Grid.Row="1" x:Name="customerPhoneTB" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="645,10, 0, 10" LostFocus="customerPhoneTB_LostFocus"/>
         </Grid>
-        <!--<StackPanel Orientation="Vertical" Grid.Row="6" Name="customerFields">
+        
+        <Label Grid.Row="8" HorizontalAlignment="Left" Margin="10" Content="Дополнительная информация:" />
+        <TextBox Grid.Row="8" HorizontalAlignment="Right" Margin="10" x:Name="customerNotesTB" Width="973" Height="115"/>
 
-        </StackPanel>-->
-
-
-        <Label Grid.Row="8" HorizontalAlignment="Left" Margin="10" Style="{StaticResource normLabel}" Content="Дополнительная информация:" />
-        <TextBox Grid.Row="8" HorizontalAlignment="Right" Margin="10" x:Name="customerNotesTB" Width="930" Height="115"/>
-
-        <StackPanel Grid.Row="9" Orientation="Horizontal" Margin="0, 10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Button Content="Добавить проект" Template="{StaticResource beautifulButton}" Padding="10" Name="ConfirmAdding" Click="ConfirmAdding_Click" Width="200"/>
-            <Button Content="Сохранить изменения" Template="{StaticResource beautifulButton}" Padding="10" Name="SaveProjectChanges" IsEnabled="False" Click="SaveProjectChanges_Click" Width="200"/>
-            <Button Content="Выйти без сохранения" Template="{StaticResource beautifulButton}" Padding="10" Name="ExitWithoutSave" Click="ExitWithoutSave_Click" Width="200"/>
+        <StackPanel Grid.Row="9" Orientation="Horizontal" Margin="10,10,10,20" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Content="Добавить проект" Style="{DynamicResource RoundedCorners}" Margin="0, 0, 10, 0" Name="ConfirmAdding" Click="ConfirmAdding_Click" Width="200"/>
+            <Button Content="Сохранить изменения" Style="{DynamicResource RoundedCorners}" Margin="0, 0, 10, 0" Padding="10" Name="SaveProjectChanges" IsEnabled="False" Click="SaveProjectChanges_Click" Width="200"/>
+            <Button Content="Выйти без сохранения" Style="{DynamicResource RoundedCorners}" Padding="10" Name="ExitWithoutSave" Click="ExitWithoutSave_Click" Width="200"/>
         </StackPanel>
     </Grid>
 </Page>

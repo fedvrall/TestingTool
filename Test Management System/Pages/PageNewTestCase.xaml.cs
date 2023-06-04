@@ -92,12 +92,15 @@ namespace Test_Management_System.Pages
                     {
                         db.TestCase.Add(testCase);
                         db.SaveChanges();
-                        MessageBox.Show("Тест-кейс добавлен");
                     
                     }
-                    catch(Exception ex)
+                    catch
                     {
                         MessageBox.Show("Не удалось добавить тест-кейс");
+                    }
+                    finally
+                    {
+                        MessageBox.Show("Тест-кейс добавлен");
                     }
                 }
             }
@@ -127,11 +130,14 @@ namespace Test_Management_System.Pages
                     findTC.TestCasePrecondition = TBPreconditions.Text;
                     findTC.TestCasePostcondition = TBPostConditions.Text;
                     db.SaveChanges();
-                    MessageBox.Show("Тест-кейс изменён");
                 }
-                catch (Exception ex)
+                catch
                 {
                     MessageBox.Show("Не удалось отредактировать тест-кейс");
+                }
+                finally
+                {
+                    MessageBox.Show("Тест-кейс изменён");
                 }
             }
         }

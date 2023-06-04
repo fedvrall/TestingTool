@@ -104,8 +104,8 @@
             </Grid>
         </Border>
 
-        <StackPanel Grid.Row="2" Grid.Column="0">
-            <Button Style="{DynamicResource RoundedCorners}" Padding="10" Content="Добавить новый чек-лист" Name="AddNewCheckList" Click="AddNewCheckList_Click" Width="210" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" />
+        <StackPanel Grid.Row="2" Grid.Column="0" Margin="10, 20, 10, 20">
+            <Button Style="{DynamicResource RoundedCorners}" Content="Добавить новый чек-лист" Name="AddNewCheckList" Click="AddNewCheckList_Click" Width="210" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
         </StackPanel>
     </Grid>
 

@@ -33,7 +33,7 @@ namespace Test_Management_System.Pages
             int userID = userContext.userId;
             string username = userContext.userName;
             int roleID = userContext.roleId;
-            BugUserTextBox.Text = username;
+            //BugUserTextBox.Text = username;
         }
 
         private void SaveBRAndExit_Click(object sender, RoutedEventArgs e)
@@ -47,6 +47,16 @@ namespace Test_Management_System.Pages
         }
 
         private void ExitWithoutSaveBR_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddAttachment_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RemoveAttachment_Click(object sender, RoutedEventArgs e)
         {
 
         }

@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Test_Management_System.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="1100"
-      Title="Проекты" Background="#353535">
+      d:DesignHeight="800" d:DesignWidth="1150"
+      Title="Проекты" >
 
     <Grid>
         <Grid.RowDefinitions>
@@ -25,48 +25,45 @@
                 <DataGridTextColumn Header="Заметки" Width="400" Binding="{Binding ProjectNotes}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" Height="100">
-            <Label Content="Документация: " Style="{StaticResource normLabel}"/>
-            <ListBox  SelectionMode="Multiple" Margin="10" Width="947">
-                <!-- привязка к коллекции вложений в модели представления -->
-                <ListBox ItemsSource="{Binding Attachments}" Width="671" Margin="10, 0, 0, 0">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <!-- отображение имени файла в списке вложений -->
-                                <TextBlock Text="{Binding FileName}" />
-                                <Button Template="{StaticResource beautifulButton}" Content="Просмотреть файл" Command="{Binding DataContext.LookAttachmentCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <Label  Content="Вложения" Margin="10, 0, 10, 0"/>
+            <ListBox Width="960" Height="80" Margin="10, 10, 10, 10" x:Name="AttachmentsListBox">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding}" Margin="10" FontSize="14" FontFamily="Courier" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
 
-        
         <StackPanel Name="CustomerInfo1" Grid.Row="2" Orientation="Horizontal" Margin="10">
-            <Label Style="{StaticResource normLabel}" Content="Информация о заказчике:" FontSize="16" FontWeight="Bold"/>
-            <Label Style="{StaticResource normLabel}" Content="Заметки о заказчике:" Margin="428, 0, 0, 0" FontSize="16" FontWeight="Bold"/>
+            <Label  Content="Информация о заказчике:" FontSize="16" FontWeight="Bold"/>
+            <Label Content="Заметки о заказчике:" Margin="444, 0, 0, 0" FontSize="16" FontWeight="Bold"/>
         </StackPanel>
 
         <StackPanel Name="CustomerInfo2" Grid.Row="3" Orientation="Horizontal" Margin="10">
-            <Label Style="{StaticResource normLabel}" Content="Фамилия:" VerticalAlignment="Center" />
-            <TextBox x:Name="txtLastName" Width="200" Margin="10, 0, 10, 0" VerticalAlignment="Center" />
-            <Label Style="{StaticResource normLabel}" Content="Имя:"  VerticalAlignment="Center" />
-            <TextBox x:Name="txtFirstName" Width="200" Margin="107, 0, 0, 0" VerticalAlignment="Center"/>
+            <Label Content="Фамилия:" VerticalAlignment="Center" />
+            <TextBox x:Name="txtLastName" Width="200" Margin="24, 0, 10, 0" />
+            <Label  Content="Электронная почта:" VerticalAlignment="Center" />
+            <TextBox x:Name="txtEmail"  Margin="10, 0, 10, 0"  Width="200"  />
+
         </StackPanel>
-        <TextBox Name="CustomerInfo3" Grid.Row="3" Grid.RowSpan="2" Margin="665,10,10,10" />
+        <TextBox Name="CustomerInfo3" Grid.Row="3" Grid.RowSpan="2" Margin="675,10,10,10" />
 
         <StackPanel Name="CustomerInfo4" Grid.Row="4" Orientation="Horizontal" Margin="10">
-            <Label Style="{StaticResource normLabel}" Content="Телефон:" VerticalAlignment="Center" />
-            <TextBox x:Name="txtPhone" Width="200"  Margin="13, 0, 10, 0"   VerticalAlignment="Center" />
-            <Label Style="{StaticResource normLabel}" Content="Электронная почта:" VerticalAlignment="Center" />
-            <TextBox x:Name="txtEmail"  Margin="10, 0, 10, 0"  Width="200" VerticalAlignment="Center" />
+            <Label  Content="Имя:"  VerticalAlignment="Center" />
+            <TextBox x:Name="txtFirstName" Width="200" Margin="55, 0, 10, 0" />
+            <Label  Content="Телефон:" VerticalAlignment="Center" />
+            <TextBox x:Name="txtPhone" Width="200"  Margin="78, 0, 10, 0"    />
+
         </StackPanel>
-        <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="10, 20, 10, 10" HorizontalAlignment="Right">
-            <Button Template="{StaticResource beautifulButton}" Width="150" Padding="10" Content="Добавить проект" Name="AddNewProject" Click="AddNewProject_Click" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            <Button Template="{StaticResource beautifulButton}" Width="150" Padding="10" IsEnabled="False" Content="Редактировать" Name="EditProject" Click="EditProject_Click" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            <Button Template="{StaticResource beautifulButton}" Width="150" Padding="10"  Content="Выйти"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="10, 20, 10, 20" HorizontalAlignment="Right">
+            <Button Style="{DynamicResource RoundedCorners}" Width="150" Margin="0, 0, 10, 0" Content="Добавить проект" Name="AddNewProject" Click="AddNewProject_Click" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+            <Button Style="{DynamicResource RoundedCorners}" Width="150" Margin="0, 0, 10, 0" IsEnabled="False" Content="Редактировать" Name="EditProject" Click="EditProject_Click" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+            <Button Style="{DynamicResource RoundedCorners}" Width="150"   Content="Удалить" IsEnabled="False" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 
         </StackPanel>
     </Grid>

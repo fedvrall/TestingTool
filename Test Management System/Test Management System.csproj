@@ -188,10 +188,6 @@
       <DependentUpon>LightTheme.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\ThemeController.cs" />
-    <Page Include="Pages\ComboboxStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Themes\DarkTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -201,10 +197,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\PageMain.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\TCFields.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -313,18 +305,11 @@
     <Compile Include="Pages\PageMain.xaml.cs">
       <DependentUpon>PageMain.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\TCFields.xaml.cs">
-      <DependentUpon>TCFields.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\WorkView.xaml.cs">
       <DependentUpon>WorkView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\Auth.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\PageAdminSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -345,10 +330,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\PageNewBugReport.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\PageNewCheckList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -376,17 +357,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\PageUserSettings.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Pages\Auth.xaml.cs">
       <DependentUpon>Auth.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\PageAdminSettings.xaml.cs">
-      <DependentUpon>PageAdminSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PageBugReports.xaml.cs">
       <DependentUpon>PageBugReports.xaml</DependentUpon>
@@ -402,9 +376,6 @@
     </Compile>
     <Compile Include="Pages\PageNewBugReport.xaml.cs">
       <DependentUpon>PageNewBugReport.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\PageNewCheckList.xaml.cs">
-      <DependentUpon>PageNewCheckList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PageNewProject.xaml.cs">
       <DependentUpon>PageNewProject.xaml</DependentUpon>
@@ -423,9 +394,6 @@
     </Compile>
     <Compile Include="Pages\PageTestSuites.xaml.cs">
       <DependentUpon>PageTestSuites.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\PageUserSettings.xaml.cs">
-      <DependentUpon>PageUserSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
