@@ -188,8 +188,8 @@ namespace Test_Management_System.Pages
             }
             else
             {
-                EditTestCaseItem.IsEnabled = true;
-                DeleteTestCase.IsEnabled = true;
+                EditTestCaseItem.IsEnabled = false;
+                DeleteTestCase.IsEnabled = false;
             }
         }
     }

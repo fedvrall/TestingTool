@@ -48,8 +48,8 @@ namespace Test_Management_System.Pages
 
             ComboBoxPriority.Items.Clear();
             ComboBoxPriority.ItemsSource = db.CheckListPriority.ToList();
-           // GetColor();
             ComboBoxStatus.ItemsSource = db.CheckListStatus.ToList();
+            ComboBoxStatus.SelectedIndex = 2;
         }
 
         private void AddAttachmentToCheckList_Click(object sender, RoutedEventArgs e)
@@ -74,10 +74,24 @@ namespace Test_Management_System.Pages
             var attString = string.Join(";", attachmentsList);
 
             DateTime? date = null;
+            int? executeUser = null;
+            int? priority = null;
             if (ComboBoxStatus.Text != "Не запущен")
+            {
                 date = DateTime.Now;
+                executeUser = UserContext.userId;
+            }
             else
+            {
                 date = null;
+                executeUser = null;
+            }
+
+            if (ComboBoxPriority.SelectedIndex != -1)
+                priority = ComboBoxPriority.SelectedIndex + 1;
+            else
+                priority = null;
+
 
             if (!String.IsNullOrEmpty(TextBoxDescription.Text) && ComboBoxStatus.SelectedIndex != -1)
             {
@@ -85,11 +99,11 @@ namespace Test_Management_System.Pages
                 {
                     CheckListItemDescription = TextBoxDescription.Text,
                     CLStatusID = ComboBoxStatus.SelectedIndex + 1,
-                    CLPriorityID = ComboBoxPriority.SelectedIndex + 1, // Проработать, чтобы
+                    CLPriorityID = priority,
                     CLComment = TextBoxComment.Text,
                     CheckListID = checklistID,
-                    UserID = UserContext.userId,
-                    DataOfExecution = date, // Заменить
+                    UserID = executeUser,
+                    DataOfExecution = date, 
                     CLAttachment = attString
                 };
 
@@ -142,6 +156,11 @@ namespace Test_Management_System.Pages
             }
             else
                 return;
+
+        }
+
+        private void ExecuteList_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }

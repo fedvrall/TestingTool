@@ -61,6 +61,32 @@ namespace Test_Management_System.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\ansicpg1251\deff0\nouicompat\deflang1049{\fonttbl{\f0\fnil\fcharset204 Calibri;}{\f1\fnil\fcharset0 Calibri;}{\f2\fnil\fcharset2 Symbol;}}
+        ///{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+        ///\pard\sa200\sl276\slmult1\f0\fs22\&apos;ca\&apos;ee\&apos;ed\&apos;f2\&apos;f0\&apos;ee\&apos;eb\&apos;fc\&apos;ed\&apos;fb\&apos;e9 \&apos;f1\&apos;ef\&apos;e8\&apos;f1\&apos;ee\&apos;ea/\&apos;eb\&apos;e8\&apos;f1\&apos;f2 \&apos;ef\&apos;f0\&apos;ee\&apos;e2\&apos;e5\&apos;f0\&apos;ee\&apos;ea - \&apos;fd\&apos;f2\&apos;ee \&apos;f1\&apos;ef\&apos;e8\&apos;f1\&apos;ee\&apos;ea \&apos;ef\&apos;f0\&apos;ee\&apos;e2\&apos;e5\&apos;f0\&apos;ee\&apos;ea, \&apos;ea\&apos;ee\&apos;f2\&apos;ee\&apos;f0\&apos;fb\&apos;e5 \&apos;ef\&apos;ee\&apos;ec\&apos;ee\&apos;e3\&apos;e0\&apos;fe\&apos;f2 \&apos;f2\&apos;e5\&apos;f1\&apos;f2\&apos;e8 [остаток строки не уместился]&quot;;.
+        /// </summary>
+        internal static string check {
+            get {
+                return ResourceManager.GetString("check", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Контрольный список/лист проверок - это список проверок, которые помогают тестировщику протестировать приложение или отдельные функции. Основная цель чеклиста состоит в том, чтобы вы не забыли проверить всё, что планировали.
+        ///Классический чеклист состоит из:
+        ///1-й столбец: заголовки тест-кейсов, структурированные по разделам/функционалу, или любые определенные составителем пункты;
+        ///2-й столбец для отметки: pass/fail;
+        ///3-й столбец опционально под заметки.
+        ///
+        ///Если чек-лист используется еще и для наглядного отоб [остаток строки не уместился]&quot;;.
+        /// </summary>
+        internal static string checklist {
+            get {
+                return ResourceManager.GetString("checklist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap delete {

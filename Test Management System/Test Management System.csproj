@@ -181,6 +181,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Pages\PageManual.xaml.cs">
+      <DependentUpon>PageManual.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageTeamLeadProject.xaml.cs">
+      <DependentUpon>PageTeamLeadProject.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\DarkTheme.xaml.cs">
       <DependentUpon>DarkTheme.xaml</DependentUpon>
     </Compile>
@@ -188,6 +194,14 @@
       <DependentUpon>LightTheme.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\ThemeController.cs" />
+    <Page Include="Pages\PageManual.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PageTeamLeadProject.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\DarkTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -439,6 +453,8 @@
       <DependentUpon>Testing_toolModel.edmx</DependentUpon>
       <LastGenOutput>Testing_toolModel.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\check.rtf" />
+    <None Include="Resources\checklist.txt" />
     <Resource Include="Pages\image.jpg" />
   </ItemGroup>
   <ItemGroup>

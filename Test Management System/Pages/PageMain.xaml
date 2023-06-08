@@ -16,8 +16,8 @@
 
         <Border Grid.Row="0">
             <StackPanel>
-                <Label  Content="Добро пожаловать!" FontSize="20" Margin="10"/>
-                <Label  Content="Для начала работы выберите проект" FontSize="16" Margin="10"/>
+                <Label  Content="Добро пожаловать!" FontSize="20" Margin="20, 10, 10, 0"/>
+                <Label  Content="Для начала работы выберите проект" FontSize="16" Margin="20, 10, 10, 0"/>
             </StackPanel>
         </Border>
 

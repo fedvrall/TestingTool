@@ -334,3 +334,7 @@ D:\Data\TestingTool\Test Management System\obj\Debug\Themes\DarkTheme.baml
 D:\Data\TestingTool\Test Management System\obj\Debug\Themes\LightTheme.baml
 D:\Data\TestingTool\Test Management System\obj\Debug\Themes\DarkTheme.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Themes\LightTheme.g.cs
+D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageTeamLeadProject.g.cs
+D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageTeamLeadProject.baml
+D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageManual.g.cs
+D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageManual.baml

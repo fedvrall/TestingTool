@@ -39,9 +39,27 @@ namespace Test_Management_System.Pages
             ComboTestSuiteParentID.ItemsSource = ts;
 
             if (testSuiteID == 0)
+            {
                 isEditing = false;
+                HeaderTS.Content = "Добавление нового тест-сьюта";
+            }
             else
+            {
                 isEditing = true;
+                var currTS = db.TestSuite.Where(x => x.TestSuiteID == testSuiteID).ToList().FirstOrDefault();
+                TBtestSuiteSummary.Text = currTS.TestSuiteSummary;
+                TBTestSuiteLabel.Text = currTS.TestSuiteLabel;
+                TBTestSuitePreconditions.Text = currTS.TestSuitePreconditions;
+                TBTestSuiteDescription.Text = currTS.TestSuiteDescription;
+                if (currTS.TestSuiteParentID != null)
+                    ComboTestSuiteParentID.SelectedIndex = Convert.ToInt32(currTS.TestSuiteParentID) - 1;
+                else
+                    ComboTestSuiteParentID.SelectedIndex = -1;
+
+                TBTestSuiteLabel.IsReadOnly = true;
+                TBtestSuiteSummary.IsReadOnly = true;
+                HeaderTS.Content = "Редактирование тест-сьюта";
+            }
         }
         private string generateLabelFromSummary()
         {
@@ -87,9 +105,9 @@ namespace Test_Management_System.Pages
         {
             if(!isEditing) // добавление нового
             {
-                int parent = 0;
+                int? parent = null;
                 if (ComboTestSuiteParentID.SelectedItem == null)
-                    parent = 0;
+                    parent = null;
                 else
                 {
                     var parent1 = db.TestSuite.Where(x => x.TestSuiteSummary == ComboTestSuiteParentID.SelectedItem.ToString()).FirstOrDefault();
@@ -103,8 +121,8 @@ namespace Test_Management_System.Pages
                     TestSuiteDescription = TBTestSuiteDescription.Text,
                     TestSuiteLabel = TBTestSuiteLabel.Text,
                     TestSuitePreconditions = TBTestSuitePreconditions.Text,
-                    ProjectID = UserContext.projectID,
                     TestSuiteParentID = parent,
+                    ProjectID = UserContext.projectID
                 };
 
                 try
@@ -120,11 +138,12 @@ namespace Test_Management_System.Pages
                 finally
                 {
                     MessageBox.Show("Тест-сьют был добавлен");
+                    NavigationService.Navigate(new PageTestSuites(UserContext));
                 }
             }
             else // редактирование существующего
             {
-                TBTestSuiteLabel.IsReadOnly = true;
+
                 try
                 {
                     var findTS = db.TestSuite.Find(testSuiteID);

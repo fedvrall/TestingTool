@@ -1,0 +1,59 @@
+﻿<Page x:Class="Test_Management_System.Pages.PageTeamLeadProject"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Test_Management_System.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1200"
+      Title="PageTeamLeadProject">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DataGrid Name="GridProjects" Margin="10" Grid.Row="0" ItemsSource="{Binding Project}" SelectionChanged="GridProjects_SelectionChanged" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название проекта" Width="300" Binding="{Binding ProjectName}"/>
+                <DataGridTextColumn Header="Дата начала проекта" Width="210" Binding="{Binding ProjectDateOfCreation}"/>
+                <DataGridTextColumn Header="Дата окончания проекта" Width="210" Binding="{Binding ProjectDateOfDeadLine}"/>
+                <DataGridTextColumn Header="Заметки" Width="430" Binding="{Binding ProjectNotes}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <Label  Content="Вложения" Margin="10, 10, 10, 0"/>
+            <ListBox Width="1060" Height="80" Margin="10, 10, 10, 10" x:Name="AttachmentsListBox">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding}" Margin="10" FontSize="14" FontFamily="Courier" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+
+        <Label Content="Добавить тестировщиков в проект" Grid.Row="2"/>
+        <ListBox Grid.Row="3" FontSize="14" Height="200" x:Name="usersListBox" IsEnabled="False" Margin="10" SelectionMode="Multiple" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <!--<CheckBox Margin="5"  IsChecked="{Binding IsSelected}" FontSize="14" FontFamily="Courier" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" />-->
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="10, 20, 10, 20" HorizontalAlignment="Right">
+            <Button Style="{DynamicResource RoundedCorners}" Width="200" Margin="0, 0, 10, 0" IsEnabled="False" Content="Добавить пользователей" Name="AddUser" Click="AddUser_Click" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+            <Button Style="{DynamicResource RoundedCorners}" Width="200"   Content="Отмена" IsEnabled="False" VerticalAlignment="Center" Name="Cancel" Click="Cancel_Click" HorizontalAlignment="Right"/>
+
+        </StackPanel>
+    </Grid>
+</Page>

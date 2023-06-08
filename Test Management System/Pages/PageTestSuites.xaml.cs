@@ -58,13 +58,13 @@ namespace Test_Management_System.Pages
             if (dgvTestSuites.SelectedItem != null)
             {
                 TestSuiteID = ((TestSuite)dgvTestSuites.SelectedItem).TestSuiteID;
-                EditTestSuite.IsEnabled = true;
+                //EditTestSuite.IsEnabled = true;
                 NewTestSuiteButton.IsEnabled = false;
             }
             else
             {
                 NewTestSuiteButton.IsEnabled = true;
-                EditTestSuite.IsEnabled = false;
+                //EditTestSuite.IsEnabled = false;
             }
         }
 

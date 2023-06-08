@@ -5,10 +5,107 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Test_Management_System.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="1150"
+      d:DesignHeight="800" d:DesignWidth="1200"
       Title="PageBugReports">
 
-    <Grid>
-        
+    <Grid Name="mainGrid" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Label  Content="Просмотр баг-репортов" FontSize="18" Margin="10" Grid.Row="0" Grid.Column="0"/>
+        <StackPanel Orientation="Horizontal" Margin="0, 20, 10, 20" Grid.Row="3" HorizontalAlignment="Right" Grid.Column="0">
+            <Button Content="Добавить" Style="{DynamicResource RoundedCorners}" Width="150" Margin="0, 0, 10, 0" Name="AddBR" Click="AddBR_Click"/>
+            <Button Content="Редактировать" Style="{DynamicResource RoundedCorners}" Width="150" Margin="0, 0, 10, 0"  IsEnabled="False" Name="EditBR" Click="EditBR_Click"/>
+            <Button Content="Удалить" Style="{DynamicResource RoundedCorners}" Width="150"   IsEnabled="False" Name="DeleteBR" Click="DeleteBR_Click"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" Grid.Column="0">
+            <Label Content="Сортировать по "/>
+            <ComboBox Width="400" Margin="10, 0, 0, 0">
+                <ComboBoxItem Content="дате (от новых к старым)"/>
+                <ComboBoxItem Content="дате (от старых к новым)"/>
+                <ComboBoxItem Content="приоритету (от низкого к высокому)"/>
+                <ComboBoxItem Content="приоритету (от высокого к низкому)"/>
+                <ComboBoxItem Content="критичности (от тривиальной к блокирующей)"/>
+                <ComboBoxItem Content="критичности (от блокирующей к тривиальной)"/>
+            </ComboBox>
+        </StackPanel>
+        <Button Content="Просмотреть поля" HorizontalAlignment="Right" Margin="10, 10, 10, 10" Width="150" Name="ChoseTCFields" Click="ChoseTCFields_Click" Style="{DynamicResource RoundedCorners}" Grid.Column="0" Grid.Row="1" />
+
+        <Border x:Name="FormContainer" Grid.Row="2" Grid.Column="1" Margin="10" CornerRadius="5" Visibility="Collapsed" HorizontalAlignment="Right">
+            <Grid Cursor="">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0"  Orientation="Horizontal" Width="200">
+                    <TextBlock Text="Добавить/убрать поля" FontSize="16" Margin="10" FontWeight="Bold"/>
+                    <Button Name="WatchTestCases" Margin="5"/>
+                </StackPanel>
+
+                <ListBox Grid.Row="1" FontSize="14" x:Name="addFieldsList" SelectionMode="Multiple" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox Margin="5"  Content="{Binding Header}" IsChecked="{Binding IsSelected}" FontSize="14" FontFamily="Courier" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Border>
+
+        <DataGrid HorizontalScrollBarVisibility="Auto" Name="bugReportGrid" Grid.Row="2" Margin="10" ItemsSource="{Binding BugReport}" SelectionChanged="bugReportGrid_SelectionChanged"  CanUserAddRows="False" AutoGenerateColumns="False" Grid.Column="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Заголовок"  Binding="{Binding BugReportSummary}" Visibility="Visible" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Шаги воспроизведения" Binding="{Binding BugSteps}" Visibility="Visible">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Ожидаемый результат" Binding="{Binding BugExpectedResult}" Visibility="Visible" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Фактический результат" Binding="{Binding BugActualResult}" Visibility="Visible" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Статус" Binding="{Binding BugReportStatus.BRStatusNameTranslation}" Visibility="Visible" />
+                <DataGridTextColumn Header="Создатель" Binding="{Binding Userinfo.LastName}" Visibility="Visible" />
+                <DataGridTextColumn Header="Дата создания" Binding="{Binding DateOfCreation}" Visibility="Visible" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>

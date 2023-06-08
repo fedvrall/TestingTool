@@ -36,22 +36,8 @@ namespace Test_Management_System.Classes
             return result;
         }
 
-        public bool CheckEmailValue(string input) // Оба варианта работают, выбирай - не хочу
+        public bool CheckEmailValue(string input) // Проверка ввода почты
         {
-            /*            try
-                        {
-                            var addr = new System.Net.Mail.MailAddress(input);
-
-                            if (addr.Address == input)
-                                return true;
-                            else
-                                return false;
-                        }
-                        catch
-                        {
-                            MessageBox.Show("Введите действующий Email, пожалуйста!");
-                            return false;
-                        }*/
             string pattern = "[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}";
             Match isMatch = Regex.Match(input, pattern, RegexOptions.IgnoreCase);
             if (!isMatch.Success)

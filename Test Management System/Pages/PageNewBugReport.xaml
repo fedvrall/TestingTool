@@ -27,58 +27,58 @@
         
         <Label Content="Заголовок" Grid.Row="1" Margin="10, 10, 0, 0"/>
         <TextBox Width="980" Grid.Row="1" HorizontalAlignment="Right" Margin="0,10,10,10"/>
-        
-        <Label Grid.Row="2" Content="Окружение" />
+
+        <Label Grid.Row="2" Content="Окружение" Margin="10, 10, 0, 0"/>
         <TextBox Grid.Row="2" Width="980" HorizontalAlignment="Right" Margin="0,10,10,10"/>
         
-        <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="10, 10, 0, 0">
-            <Label Content="Ожидаемый результат" />
-            <TextBox Grid.Row="3" Grid.RowSpan="2" Margin="4,10,0,10" Width="404" Height="100" />
-            <Label Content="Фактический результат" />
-            <TextBox Grid.Row="3" Grid.RowSpan="2" Margin="4,10,10,10" Width="404" Height="100"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0, 10, 0, 0">
+            <Label Content="Ожидаемый результат" Margin="10, 10, 22, 10"/>
+            <RichTextBox Grid.Row="3" Grid.RowSpan="2"  Width="399" Height="100" />
+            <Label Content="Фактический результат" Margin="10"/>
+            <RichTextBox Grid.Row="3" Grid.RowSpan="2" Margin="4,10,10,10" Width="399" Height="100"/>
         </StackPanel>
 
-        <Label Grid.Row="4" Content="Предусловия" />
+        <Label Grid.Row="4" Content="Предусловия" Margin="10, 10, 0, 0"/>
         <TextBox Grid.Row="4" Width="980" HorizontalAlignment="Right" Margin="0,10,10,10"/>
 
-        <Label Grid.Row="5" Content="Тестовые данные" />
+        <Label Grid.Row="5" Content="Тестовые данные" Margin="10, 10, 0, 0"/>
         <TextBox Grid.Row="5" Width="980" HorizontalAlignment="Right" Margin="0,10,10,10"/>
 
         <StackPanel Orientation="Horizontal" Grid.Row="6" Margin="10">
             <Label Content="Приоритет" />
-            <ComboBox SelectedIndex="0" Width="200" Margin="78,0,20,0"/>
+            <ComboBox SelectedIndex="0" Width="200" Margin="97,0,55,0"/>
 
             <Label Content="Серьёзность" />
-            <ComboBox  SelectedIndex="0" Width="200" Margin="78,0,20,0"/>
+            <ComboBox  SelectedIndex="0" Width="200" Margin="63,0,55,0"/>
 
             <Label Content="Статус" />
-            <ComboBox   SelectedIndex="0" Width="200" Margin="78,0,0,0"/>
+            <ComboBox   SelectedIndex="0" Width="200" Margin="63,0,0,0"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="7" Margin="10">
             <Label Content="Компонент ПО" />
-            <TextBox  Width="404" Margin="52,0,5,0"/>
+            <TextBox  Width="399" Margin="70,0,30,0"/>
 
             <Label Content="Версия ПО"  />
-            <TextBox  Width="404" Margin="78,0,0,0"/>
+            <TextBox  Width="399" Margin="73,0,0,0"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="8" Margin="10">
             <Label Content="Дата создания" />
-            <DatePicker Width="404" Margin="55,0,0,0" Height="40" />
+            <DatePicker Width="399" Margin="74,0,0,0" Height="30" />
         </StackPanel>
         
-        <Label Content="Заметки" Grid.Row="8" Margin="588,10,0,0" />
-        <TextBox Grid.Row="8" Grid.RowSpan="2" Margin="755,10,10,0"/>
+        <Label Content="Заметки" Grid.Row="8" Margin="615,10,0,0" />
+        <RichTextBox Grid.Row="8" Grid.RowSpan="2" Margin="768,10,10,0" Width="399"/>
         
-        <StackPanel Orientation="Horizontal" Grid.Row="9" Margin="9, 10, 0, 0">
+        <StackPanel Orientation="Horizontal" Grid.Row="9" Margin="10, 10, 0, 10">
             <Label Content="Связанные тест-кейсы"  />
-            <ComboBox Width="404" Margin="5,10,0,10"/>
+            <ComboBox Width="399" Margin="23,0,0,0" />
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="10" Margin="10, 10,0,0">
-            <Label  Content="Вложения" Margin="10, 0, 10, 0"/>
-            <ListBox Width="751" Height="80" Margin="100, 10, 10, 10"  x:Name="AttachmentsListBox">
+            <Label  Content="Вложения" Margin="0, 10, 10, 0"/>
+            <ListBox Width="751" Height="80" Margin="92, 0, 10, 0"  x:Name="AttachmentsListBox">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -91,7 +91,7 @@
             <Button Style="{DynamicResource RoundedCorners}" Padding="10" Width="200" Content="Добавить вложение" Margin="20, 10, 10, 10" VerticalAlignment="Center" Name="AddAttachment" Click="AddAttachment_Click" />
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="11" Margin="10, 30, 10, 20" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <StackPanel Orientation="Horizontal" Grid.Row="11" Margin="10, 10, 10, 10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Button Style="{DynamicResource RoundedCorners}" Margin="0, 0, 10, 0" x:Name="SaveBRAndExit" Content="Сохранить и выйти" Click="SaveBRAndExit_Click" Width="200"/>
             <Button Style="{DynamicResource RoundedCorners}" Margin="0, 0, 10, 0" x:Name="SaveAndAddOneMoreBR" Content="Сохранить и добавить ещё один" Click="SaveAndAddOneMoreBR_Click" Width="250" />
             <Button Style="{DynamicResource RoundedCorners}"  x:Name="ExitWithoutSaveBR" Content="Выйти без сохранения" Click="ExitWithoutSaveBR_Click" Width="200" />

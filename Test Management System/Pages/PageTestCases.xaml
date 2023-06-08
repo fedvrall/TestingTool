@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Test_Management_System.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="1150" Background="#353535"
+      d:DesignHeight="800" d:DesignWidth="1200" 
       Title="PageTestCases">
 
     <Grid Name="mainGrid" >
@@ -42,7 +42,7 @@
         </StackPanel>
         <Button Content="Просмотреть поля" HorizontalAlignment="Right" Margin="10, 10, 10, 10" Width="150" Name="ChoseTCFields" Click="ChoseTCFields_Click" Style="{DynamicResource RoundedCorners}" Grid.Column="0" Grid.Row="1" />
 
-        <Border x:Name="FormContainer" Grid.Row="2" Grid.Column="1" Background="#808080" Margin="10" CornerRadius="5" Visibility="Collapsed" HorizontalAlignment="Right">
+        <Border x:Name="FormContainer" Grid.Row="2" Grid.Column="1" Margin="10" CornerRadius="5" Visibility="Collapsed" HorizontalAlignment="Right">
             <Grid Cursor="">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -54,7 +54,7 @@
                     <Button Name="WatchTestCases" Margin="5"/>
                 </StackPanel>
 
-                <ListBox Grid.Row="1" FontSize="14" x:Name="addFieldsList" SelectionMode="Multiple" Background="#808080" >
+                <ListBox Grid.Row="1" FontSize="14" x:Name="addFieldsList" SelectionMode="Multiple" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -66,13 +66,45 @@
             </Grid>
         </Border>
 
-        <DataGrid Name="testCaseGrid" Grid.Row="2" Margin="10" ItemsSource="{Binding TestCase}" SelectionChanged="testCaseGrid_SelectionChanged" AutoGenerateColumns="False" Grid.Column="0">
+        <DataGrid HorizontalScrollBarVisibility="Auto" Name="testCaseGrid" Grid.Row="2" Margin="10" ItemsSource="{Binding TestCase}" SelectionChanged="testCaseGrid_SelectionChanged"  CanUserAddRows="False" AutoGenerateColumns="False" Grid.Column="0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Заголовок"  Binding="{Binding TestCaseSummary}" Visibility="Visible" />
+                <DataGridTextColumn Header="Заголовок"  Binding="{Binding TestCaseSummary}" Visibility="Visible" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="Статус" Binding="{Binding TestCaseStatus.TCStatusDescriptionTranlation}" Visibility="Visible" />
-                <DataGridTextColumn Header="Шаги воспроизведения" Binding="{Binding TestCaseSteps}" Visibility="Visible"/>
-                <DataGridTextColumn Header="Ожидаемый результат" Binding="{Binding TestCaseExpectedResult}" Visibility="Visible" />
-                <DataGridTextColumn Header="Фактический результат" Binding="{Binding TestCaseActualResult}" Visibility="Visible" />
+                <DataGridTextColumn Header="Шаги воспроизведения" Binding="{Binding TestCaseSteps}" Visibility="Visible">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Ожидаемый результат" Binding="{Binding TestCaseExpectedResult}" Visibility="Visible" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Фактический результат" Binding="{Binding TestCaseActualResult}" Visibility="Visible">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="Создатель" Binding="{Binding Userinfo.LastName}" Visibility="Visible" />
                 <DataGridTextColumn Header="Исполнитель" Binding="{Binding Userinfo.LastName}" Visibility="Visible" />
             </DataGrid.Columns>

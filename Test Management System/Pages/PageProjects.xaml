@@ -17,18 +17,18 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <DataGrid Name="GridProjects" Margin="10" Grid.Row="0" ItemsSource="{Binding Project}" SelectionChanged="GridProjects_SelectionChanged" AutoGenerateColumns="False">
+        <DataGrid Name="GridProjects" Margin="10" Grid.Row="0" ItemsSource="{Binding Project}" SelectionChanged="GridProjects_SelectionChanged" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название проекта" Width="300" Binding="{Binding ProjectName}"/>
-                <DataGridTextColumn Header="Дата начала проекта" Width="200" Binding="{Binding ProjectDateOfCreation}"/>
-                <DataGridTextColumn Header="Дата окончания проекта" Width="200" Binding="{Binding ProjectDateOfDeadLine}"/>
-                <DataGridTextColumn Header="Заметки" Width="400" Binding="{Binding ProjectNotes}"/>
+                <DataGridTextColumn Header="Дата начала проекта" Width="210" Binding="{Binding ProjectDateOfCreation}"/>
+                <DataGridTextColumn Header="Дата окончания проекта" Width="210" Binding="{Binding ProjectDateOfDeadLine}"/>
+                <DataGridTextColumn Header="Заметки" Width="430" Binding="{Binding ProjectNotes}"/>
             </DataGrid.Columns>
         </DataGrid>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <Label  Content="Вложения" Margin="10, 0, 10, 0"/>
-            <ListBox Width="960" Height="80" Margin="10, 10, 10, 10" x:Name="AttachmentsListBox">
+            <Label  Content="Вложения" Margin="10, 10, 10, 0"/>
+            <ListBox Width="1060" Height="80" Margin="10, 10, 10, 10" x:Name="AttachmentsListBox">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">

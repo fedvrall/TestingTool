@@ -1,0 +1,41 @@
+﻿<Page x:Class="Test_Management_System.Pages.PageManual"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Test_Management_System.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1200"
+      Title="PageManual">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Margin="10" FontSize="16" Content="Руководство по созданию и использованию тестовой документации"/>
+        <TabControl Grid.Row="1" Margin="10">
+            <TabItem Header="Чек-листы" Width="120">
+                <!--<WebBrowser  Name="browser"/>-->
+
+                <!--<FlowDocumentReader Name="reader"/>-->
+                <!--<DocumentViewer Name="docCL"/>-->
+                <RichTextBox Margin="10" Name="CLDocs"/>
+            </TabItem>
+
+            <TabItem Header="Тест-сьюты" Width="120">
+                <RichTextBox Margin="10" Name="TSDocs"/>
+            </TabItem>
+
+            <TabItem Header="Тест-кейсы" Width="120">
+                <RichTextBox Margin="10"/>
+            </TabItem>
+
+            <TabItem Header="Баг-репорты" Width="120">
+                <RichTextBox Margin="10"/>
+            </TabItem>
+        </TabControl>
+        <!--<WebBrowser Margin="10" Source="https://vladislaveremeev.gitbook.io/qa_bible/testovaya-documentaciya-i-artefacty-test-deliverablestest-artifacts/"/>-->
+
+    </Grid>
+</Page>

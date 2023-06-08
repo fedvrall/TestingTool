@@ -21,34 +21,31 @@
 
         <Label Content="Просмотр всех чек-листов" Margin="10" FontSize="16" FontWeight="DemiBold"/>
         <DataGrid ItemsSource="{Binding Checklist}" Name="CheckListGrid" AutoGenerateColumns="False" Margin="10" Grid.Row="1" SelectionChanged="CheckListGrid_SelectionChanged" CanUserAddRows="False" HeadersVisibility="Column" IsReadOnly="True" CanUserResizeRows="False">
-            <DataGrid.CellStyle>
-                <Style TargetType="DataGridCell">
-                    <Setter Property="VerticalAlignment" Value="Center" />
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="DataGridCell">
-                                <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                Padding="{TemplateBinding Padding}"
-                                MinHeight="50"
-                                SnapsToDevicePixels="True">
-                                    <ContentPresenter VerticalAlignment="Center" />
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </DataGrid.CellStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Название" Width="300" Binding="{Binding CLSummary}" />
-                <DataGridTextColumn Header="Описание"  Width="500" Binding="{Binding CLDescription}"/>
+                <DataGridTextColumn Header="Название" Width="350" Binding="{Binding CLSummary}" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Описание"  Width="650" Binding="{Binding CLDescription}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Style="{DynamicResource RoundedCorners}" Margin="5" Padding="5" Name="WatchCheckList" Click="WatchCheckList_Click">
+                            <Button Style="{DynamicResource RoundedCorners}" Background="#626262" Margin="5" Padding="5" Name="WatchCheckList" Click="WatchCheckList_Click">
                                 <Button.Content>
-                                    <Image Source="/Pages/watch.png" Height="30" Width="30"/>
+                                    <Image Source="/Pages/watch.png" Height="25" Width="25"/>
                                 </Button.Content>
                             </Button>
                         </DataTemplate>
@@ -58,9 +55,9 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Style="{DynamicResource RoundedCorners}" Margin="5" Padding="5" Name="EditCheckList" Click="EditCheckList_Click">
+                            <Button Style="{DynamicResource RoundedCorners}" Margin="5" Background="#626262" Padding="5" Name="EditCheckList" Click="EditCheckList_Click">
                                 <Button.Content>
-                                    <Image Source="/Pages/edit.png" Height="30" Width="30"/>
+                                    <Image Source="/Pages/edit.png" Height="25" Width="25"/>
                                 </Button.Content>
                             </Button>
                         </DataTemplate>
@@ -70,9 +67,9 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Style="{DynamicResource RoundedCorners}" Margin="5" Padding="5" Name="DeleteCheckList" Click="DeleteCheckList_Click">
+                            <Button Style="{DynamicResource RoundedCorners}" Margin="5" Background="#626262" Padding="5" Name="DeleteCheckList" Click="DeleteCheckList_Click">
                                 <Button.Content>
-                                    <Image Source="/Pages/delete.png" Height="30" Width="30"/>
+                                    <Image Source="/Pages/delete.png" Height="25" Width="25"/>
                                 </Button.Content>
                             </Button>
                         </DataTemplate>

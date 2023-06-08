@@ -22,17 +22,18 @@ namespace Test_Management_System.Pages
     /// </summary>
     public partial class PageNewBugReport : Page
     {
-/*        public int userId { get; set; }
-        public string userName { get; set; }
-        public int roleId { get; set; }*/
+
         public UserContext userContext { get; set; }
-        public PageNewBugReport(UserContext userContext)
+        private int BRID;
+
+        public PageNewBugReport(UserContext userContext, int rBID)
         {
             this.userContext = userContext;
             InitializeComponent();
             int userID = userContext.userId;
             string username = userContext.userName;
             int roleID = userContext.roleId;
+            BRID = rBID;
             //BugUserTextBox.Text = username;
         }
 

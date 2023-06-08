@@ -23,13 +23,15 @@ namespace Test_Management_System.Pages
     public partial class PageProjects : Page
     {
         public int projectID;
+        Testing_ToolEntity db = new Testing_ToolEntity();
+
         UserContext userContext { get; set; }
         public PageProjects(UserContext userContext)
         {
-            InitializeComponent();
-            Testing_ToolEntity db = new Testing_ToolEntity();
-            GridProjects.ItemsSource = db.Project.ToList();
             this.userContext = userContext;
+            InitializeComponent();
+            GridProjects.ItemsSource = db.Project.Where(x=>x.CompanyID == userContext.companyID).ToList();
+            
         }
 
         private void AddNewProject_Click(object sender, RoutedEventArgs e)
@@ -47,7 +49,18 @@ namespace Test_Management_System.Pages
             if (GridProjects.SelectedItem != null)
             {
                 projectID = ((Project)GridProjects.SelectedItem).ProjectID;
+
                 EditProject.IsEnabled = true;
+                if (AttachmentsListBox.Items.Count == 0)
+                    AttachmentsListBox.Items.Add("Здесь пока ничего нет");
+
+                int custID = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().CustomerID;
+                var custInfo = db.Customer.Where(x => x.CustomerID == custID).FirstOrDefault();
+                txtFirstName.Text = custInfo.CustomerFirstName;
+                txtLastName.Text = custInfo.CustomerLastName;
+                txtEmail.Text = custInfo.CustomerEmail;
+                txtPhone.Text = custInfo.CustomerPhone;
+                CustomerInfo3.Text = custInfo.CustomerNotes;
             }
             else
             {

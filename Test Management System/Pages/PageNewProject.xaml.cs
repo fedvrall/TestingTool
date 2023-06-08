@@ -18,6 +18,7 @@ using System.IO;
 using Test_Management_System.Classes;
 using Test_Management_System.Entities;
 using System.ComponentModel.Design;
+using System.Data;
 
 namespace Test_Management_System.Pages
 {
@@ -30,7 +31,7 @@ namespace Test_Management_System.Pages
         TextBoxChecking checking = new TextBoxChecking();
         private bool isEdit;
         private int projectID;
-        private int companyID;
+        private int companyID, customerID;
         Testing_ToolEntity db = new Testing_ToolEntity();
         UserContext userContext { get; set; }
 
@@ -42,7 +43,25 @@ namespace Test_Management_System.Pages
             if (projectID == 0)
                 isEdit = false;
             else
+            {
                 isEdit = true;
+                Header.Content = "Редактирование проекта";
+                customerID = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().CustomerID;
+
+                TBProjectName.Text = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().ProjectName;
+                dpStartDate.SelectedDate = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().ProjectDateOfCreation;
+                dpEndDate.SelectedDate = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().ProjectDateOfDeadLine;
+                TBProjectNotes.Text = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().ProjectNotes;
+                //TBProjectName.Text = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().ProjectName;
+
+                customerNameTB.Text = db.Customer.Where(x => x.CustomerID == customerID).FirstOrDefault().CustomerFirstName;
+                customerLastNameTB.Text = db.Customer.Where(x => x.CustomerID == customerID).FirstOrDefault().CustomerLastName;
+                customerEmailTB.Text = db.Customer.Where(x => x.CustomerID == customerID).FirstOrDefault().CustomerEmail;
+                customerPhoneTB.Text = db.Customer.Where(x => x.CustomerID == customerID).FirstOrDefault().CustomerPhone;
+                customerNotesTB.Text = db.Customer.Where(x => x.CustomerID == customerID).FirstOrDefault().CustomerNotes;
+                SaveProjectChanges.IsEnabled = true;
+                ConfirmAdding.IsEnabled = false;
+            }
         }
 
         private void ConfirmAdding_Click(object sender, RoutedEventArgs e)
@@ -68,10 +87,10 @@ namespace Test_Management_System.Pages
                     textBox.Style = (Style)FindResource("InvalidFieldStyle");
                     isValid = false;
                 }
-                else
-                {
-                    textBox.Style = (Style)FindResource("ClassicTB");
-                }
+//                else
+//                {
+//..textBox.Style = (Style)FindResource("ClassicTB");
+//                }
             }
 
             return isValid;
@@ -80,11 +99,18 @@ namespace Test_Management_System.Pages
         private void AddOrEditProject()
         {
             var attString = string.Join(";", attachmentsList);
-            
+            DateTime? date = null;
+            if (dpEndDate.DisplayDate != null)
+                date = dpEndDate.SelectedDate;
+            else
+                date = null;
+
+
             if (AreFieldsFilled())
             {
                 if (!isEdit)
                 {
+                    Header.Content = "Добавление нового проекта";
                     Customer customer = new Customer()
                     {
                         CustomerFirstName = customerNameTB.Text,
@@ -113,7 +139,7 @@ namespace Test_Management_System.Pages
                     {
                         ProjectName = TBProjectName.Text,
                         ProjectDateOfCreation = dpStartDate.DisplayDate,
-                        ProjectDateOfDeadLine = dpEndDate.DisplayDate,
+                        ProjectDateOfDeadLine = date,
                         ProjectNotes = TBProjectNotes.Text,
                         CompanyID = companyID,
                         CustomerID = custID
@@ -157,8 +183,6 @@ namespace Test_Management_System.Pages
                 }
                 else
                 {
-                    int customerID = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().CustomerID;
-
                     try
                     {
                         var editCust = db.Customer.Find(customerID);
@@ -182,7 +206,7 @@ namespace Test_Management_System.Pages
                         var editProj = db.Project.Find(projectID);
                         editProj.ProjectName = TBProjectName.Text;
                         editProj.ProjectDateOfCreation = dpStartDate.DisplayDate;
-                        editProj.ProjectDateOfDeadLine = dpEndDate.DisplayDate;
+                        editProj.ProjectDateOfDeadLine = date;
                         editProj.ProjectNotes = TBProjectNotes.Text;
                         editProj.CompanyID = companyID;
                         editProj.CustomerID = customerID;

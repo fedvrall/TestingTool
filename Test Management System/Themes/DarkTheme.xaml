@@ -141,6 +141,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Padding" Value="10"/>
         <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="FontFamily" Value="Courier"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -364,7 +365,34 @@
 
     <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
 
-    <!-- DataGrid -->
+    <!--DataGrid -->
+
+    <Style TargetType="{x:Type DataGrid}">
+        <Setter Property="FontFamily" Value="Courier"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Background" Value="{StaticResource ContainerBackground}"/>
+        <Setter Property="RowBackground" Value="{StaticResource ControlDefaultBackground}"/>
+    </Style>
+    <Style TargetType="{x:Type DataGridCell}">
+        <Setter Property="Padding" Value="10, 0, 10, 0"/>
+        <Setter Property="MinHeight" Value="30"/>
+        <Setter Property="Background" Value="{StaticResource BackgroundColour}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="#292929"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="FontFamily" Value="Courier"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="Padding" Value="10, 0, 10, 0"/>
+        <Setter Property="MinHeight" Value="30"/>
+        <Setter Property="Background" Value="{StaticResource ControlDarkerBackground}"/>
+
+    </Style>
 
     <BooleanToVisibilityConverter x:Key="bool2VisibilityConverter" />
 
@@ -3113,8 +3141,10 @@
         <Setter Property="Foreground" Value="{StaticResource ControlDefaultForeground}"/>
         <Setter Property="Background" Value="{StaticResource ControlDarkerBackground}"/>
         <Setter Property="BorderBrush" Value="{StaticResource ControlDarkerBorderBrush}"/>
-        <Setter Property="Margin" Value="0"/>
-        <Setter Property="Padding" Value="6,4,6,4"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="FontFamily" Value="Courier"/>
+        <Setter Property="FontSize" Value="16"/>
+        <!--<Setter Property="Padding" Value="6,4,6,4"/>-->
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
         <Setter Property="Template">

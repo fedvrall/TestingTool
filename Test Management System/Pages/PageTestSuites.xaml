@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Test_Management_System.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="1150" Background="#353535"
+      d:DesignHeight="800" d:DesignWidth="1200"
       Title="PageTestSuites">
 
     <Grid>
@@ -17,30 +17,69 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10, 10, 10, 10" HorizontalAlignment="Left">
             <Label Content="Просмотр тест-сьютов" FontSize="18" />
         </StackPanel>
-        <DataGrid CanUserAddRows="False" Name="dgvTestSuites" SelectionChanged="dgvTestSuites_SelectionChanged" Grid.Row="1" Margin="10" ItemsSource="{Binding TestSuite}" AutoGenerateColumns="False">
+        <DataGrid CanUserAddRows="False" Name="dgvTestSuites" SelectionChanged="dgvTestSuites_SelectionChanged" Grid.Row="1" Margin="10" ItemsSource="{Binding TestSuite}" HeadersVisibility="Column" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Заголовок" Width="150" Binding="{Binding TestSuiteSummary}" />
-                <DataGridTextColumn Header="Описание" Width="250" Binding="{Binding TestSuiteDescription}" />
-                <DataGridTextColumn Header="Метка" Width="80" Binding="{Binding TestSuiteLabel}" />
-                <DataGridTextColumn Header="Предусловия" Width="150" Binding="{Binding TestSuitePreconditions}" />
-                <DataGridTextColumn Header="Родительский тест-сьют" Width="200" Binding="{Binding TestSuiteParentID}"  />
+                <DataGridTextColumn Header="Заголовок" Width="180" Binding="{Binding TestSuiteSummary}" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Описание" Width="300" Binding="{Binding TestSuiteDescription}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Метка" Width="80" Binding="{Binding TestSuiteLabel}" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Предусловия" Width="200" Binding="{Binding TestSuitePreconditions}" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Родительский тест-сьют" Width="220" Binding="{Binding TestSuiteParentID}" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTemplateColumn Header="">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button Name="WatchTestCases"  Click="WatchTestCases_Click" Style="{DynamicResource RoundedCorners}"  Margin="5">
+                                <Button Name="WatchTestCases"  Click="WatchTestCases_Click" Background="#626262" Style="{DynamicResource RoundedCorners}"  Margin="5">
                                     <Button.Content>
-                                        <Image Source="/Pages/watch.png" Height="30" Width="30"/>
+                                        <Image Source="/Pages/watch.png"  Height="25" Width="25"/>
                                     </Button.Content>
                                 </Button>
-                                <Button Name="EditTestSuite" Click="EditTestSuite_Click" Style="{DynamicResource RoundedCorners}" Margin="5">
+                                <Button Name="EditTestSuite" Click="EditTestSuite_Click" Background="#626262" Style="{DynamicResource RoundedCorners}" Margin="5">
                                     <Button.Content>
-                                        <Image Source="/Pages/edit.png" Height="30" Width="30"/>
+                                        <Image Source="/Pages/edit.png" Height="25" Width="25"/>
                                     </Button.Content>
                                 </Button>
-                                <Button Name="DeleteTestSuite" Click="DeleteTestSuite_Click"  Style="{DynamicResource RoundedCorners}" Margin="5">
+                                <Button Name="DeleteTestSuite" Click="DeleteTestSuite_Click" Background="#626262" Style="{DynamicResource RoundedCorners}" Margin="5">
                                     <Button.Content>
-                                        <Image Source="/Pages/delete.png" Height="30" Width="30"/>
+                                        <Image Source="/Pages/delete.png"  Height="25" Width="25"/>
                                     </Button.Content>
                                 </Button>
                             </StackPanel>
@@ -50,8 +89,8 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10" HorizontalAlignment="Right">
-            <Button Width="200" Content="Добавить новый тест-сьют" Name="NewTestSuiteButton" Click="NewTestSuiteButton_Click" Margin="0, 0, 10, 0" Style="{DynamicResource RoundedCorners}"/>
-            <Button Width="200" Content="Редактировать выбранный" Name="EditTestSuite" Click="EditTestSuite_Click" IsEnabled="False"  Style="{DynamicResource RoundedCorners}"/>
+            <Button Width="200" Content="Добавить новый тест-сьют" Name="NewTestSuiteButton" Click="NewTestSuiteButton_Click" Style="{DynamicResource RoundedCorners}"/>
+            <!--<Button Width="200" Content="Редактировать выбранный" Name="EditTestSuite" Click="EditTestSuite_Click" IsEnabled="False"  Style="{DynamicResource RoundedCorners}"/>-->
         </StackPanel>
     </Grid>
 </Page>

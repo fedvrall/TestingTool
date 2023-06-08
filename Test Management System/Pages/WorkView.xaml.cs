@@ -49,11 +49,13 @@ namespace Test_Management_System
             if (roleID == 1)
             {
                 AdminSetting.Visibility = Visibility.Visible;
+                ProjectAdmin.Visibility = Visibility.Visible;
             }
-            /*            if (userContext.isProjectSelected)
-                            MainMenu.IsEnabled = true;
-                        else 
-                            MainMenu.IsEnabled = false;*/
+            if(roleID == 2)
+            {
+                ProjectTeamLead.Visibility = Visibility.Visible;
+            }
+
             FrameContent.Navigated += FrameContent_Navigated;
             User.Content = username;
         }
@@ -80,24 +82,28 @@ namespace Test_Management_System
                 case "Главная":
                     FrameContent.Navigate(new PageMain(userContext));
                     break;
-                case "Проекты":
-                    FrameContent.Navigate(new PageProjects(userContext));
-                    break;
                 case "Баг-репорты":
-                    FrameContent.Navigate(new PageBugReports());
+                    FrameContent.Navigate(new PageBugReports(userContext));
                     break;
-                //case "Новый баг-репорт":
-                //    FrameContent.Navigate(new PageNewBugReport(userContext, projectID));
-                //    break;
                 case "Чек-листы":
                     FrameContent.Navigate(new PageCheckLists(userContext));
                     break;
                 case "Тест-сьюты":
                     FrameContent.Navigate(new PageTestSuites(userContext));
                     break;
+                case "Управление проектами":
+                    FrameContent.Navigate(new PageProjects(userContext));
+                    break;
+                case "Проекты":
+                    FrameContent.Navigate(new PageTeamLeadProject(userContext));
+                    break;
                 case "Пользователи":
                     FrameContent.Navigate(new PageEditUsers(userContext));
                     break;
+                    /*                case "Введение в тестовую документацию":
+                    FrameContent.Navigate(new PageManual());
+                    break;*/
+
                 default:
                     break;
             }
@@ -111,6 +117,19 @@ namespace Test_Management_System
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             ThemeController.SetTheme(ThemeController.ThemeTypes.Light);
+        }
+
+        private void ChangeUser_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Вы действительно хотите сменить пользователя?", "Сменить пользователя?", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                Auth auth = new Auth();
+                auth.Show();
+                this.Close();
+            }
+            else
+                return;
         }
     }
 }
