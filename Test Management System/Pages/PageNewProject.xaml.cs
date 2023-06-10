@@ -19,6 +19,7 @@ using Test_Management_System.Classes;
 using Test_Management_System.Entities;
 using System.ComponentModel.Design;
 using System.Data;
+using System.Web.UI.WebControls;
 
 namespace Test_Management_System.Pages
 {
@@ -38,6 +39,7 @@ namespace Test_Management_System.Pages
         public PageNewProject(UserContext userContext, int projectID)
         {
             InitializeComponent();
+            this.userContext = userContext;
             this.projectID = projectID;
             this.companyID = userContext.companyID;
             if (projectID == 0)
@@ -52,7 +54,6 @@ namespace Test_Management_System.Pages
                 dpStartDate.SelectedDate = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().ProjectDateOfCreation;
                 dpEndDate.SelectedDate = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().ProjectDateOfDeadLine;
                 TBProjectNotes.Text = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().ProjectNotes;
-                //TBProjectName.Text = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().ProjectName;
 
                 customerNameTB.Text = db.Customer.Where(x => x.CustomerID == customerID).FirstOrDefault().CustomerFirstName;
                 customerLastNameTB.Text = db.Customer.Where(x => x.CustomerID == customerID).FirstOrDefault().CustomerLastName;
@@ -74,23 +75,22 @@ namespace Test_Management_System.Pages
             AddOrEditProject();
         }
 
-        private bool AreFieldsFilled()
+        private bool AreFieldsFilled() // поля заполнены?
         {
-            // Ограничения полей по длине
-            // Тут нет полей, относящихся к проекту
             bool isValid = true;
 
-            foreach (var textBox in customerFields.Children.OfType<TextBox>())
+            foreach (var textBox in customerFields.Children.OfType<System.Windows.Controls.TextBox>())
             {
-                if (string.IsNullOrWhiteSpace(textBox.Text))
+                if (string.IsNullOrWhiteSpace(textBox.Text) )
                 {
-                    textBox.Style = (Style)FindResource("InvalidFieldStyle");
+                    textBox.Style = (System.Windows.Style)FindResource("InvalidFieldStyle");
                     isValid = false;
                 }
-//                else
-//                {
-//..textBox.Style = (Style)FindResource("ClassicTB");
-//                }
+            }
+            if(string.IsNullOrEmpty(TBProjectName.Text))
+            {
+                TBProjectName.Style = (System.Windows.Style)FindResource("InvalidFieldStyle");
+                isValid = false;
             }
 
             return isValid;
@@ -105,10 +105,16 @@ namespace Test_Management_System.Pages
             else
                 date = null;
 
+            DateTime start;
+            if (dpStartDate.DisplayDate == null)
+                start = DateTime.Now;
+            else
+                start = dpStartDate.DisplayDate;
 
-            if (AreFieldsFilled())
+
+            if (AreFieldsFilled()) // если поля заполнены
             {
-                if (!isEdit)
+                if (!isEdit) // добавление
                 {
                     Header.Content = "Добавление нового проекта";
                     Customer customer = new Customer()
@@ -138,7 +144,7 @@ namespace Test_Management_System.Pages
                     Project project = new Project()
                     {
                         ProjectName = TBProjectName.Text,
-                        ProjectDateOfCreation = dpStartDate.DisplayDate,
+                        ProjectDateOfCreation = start,
                         ProjectDateOfDeadLine = date,
                         ProjectNotes = TBProjectNotes.Text,
                         CompanyID = companyID,
@@ -181,7 +187,7 @@ namespace Test_Management_System.Pages
                         }
                     }
                 }
-                else
+                else // редактирование
                 {
                     try
                     {
@@ -223,12 +229,12 @@ namespace Test_Management_System.Pages
 
                     try
                     {
-                        var projectDocID = db.ProjectDocumentation.Where(x => x.ProjectID == projectID).FirstOrDefault().ProjectDocumentationID;
-                        if (projectDocID > 0)
+                        int? projectDocID = db.ProjectDocumentation.Where(x => x.ProjectID == projectID).FirstOrDefault().ProjectDocumentationID;
+                        if (projectDocID != null)
                         {
                             var editProjDoc = db.ProjectDocumentation.Find(projectDocID);
                             editProjDoc.ProjectDocumentationAttachment = attString;
-                            db.SaveChanges();
+                            editProjDoc.ProjectID = projectID;
                         }
                         else
                         {
@@ -237,7 +243,9 @@ namespace Test_Management_System.Pages
                                 ProjectID = projectID,
                                 ProjectDocumentationAttachment = attString
                             };
+                            db.ProjectDocumentation.Add(projectDocumentation);
                         }
+                        db.SaveChanges();
                     }
                     catch
                     {
@@ -247,7 +255,6 @@ namespace Test_Management_System.Pages
                     {
                         MessageBox.Show("Вложения отредактирован");
                     }
-
                 }
             }
 
@@ -258,9 +265,10 @@ namespace Test_Management_System.Pages
 
         private void ExitWithoutSave_Click(object sender, RoutedEventArgs e)
         {
-            // предупреждение только если есть несохранённые изменения
-/*            if()
-            var result = MessageBox.Show("", "", MessageBoxButton.YesNo);*/
+            var result = MessageBox.Show("Вы действительно хотите выйти?", "Выход", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+                NavigationService.Navigate(new PageProjects(userContext));
+            else return;
         }
 
         private void AddAttachment_Click(object sender, RoutedEventArgs e)
@@ -277,7 +285,7 @@ namespace Test_Management_System.Pages
 
         private void RemoveAttachment_Click(object sender, RoutedEventArgs e)
         {
-            Button removeButton = (Button)sender;
+            System.Windows.Controls.Button removeButton = (System.Windows.Controls.Button)sender;
             string fileName = removeButton.DataContext as string;
             string filePath = attachmentsList.FirstOrDefault(path => System.IO.Path.GetFileName(path) == fileName);
             attachmentsList.Remove(filePath);
@@ -286,40 +294,25 @@ namespace Test_Management_System.Pages
 
         private void customerPhoneTB_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!checking.CheckPhoneValue(customerPhoneTB.Text))
-            {
-                customerPhoneTB.Text = string.Empty;
-            }   
+            checking.CheckPhoneValue(customerPhoneTB.Text);
         }
 
         private void customerEmailTB_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!checking.CheckEmailValue(customerEmailTB.Text))
-            {
-                customerEmailTB.Text = string.Empty;
-            }
+            checking.CheckEmailValue(customerEmailTB.Text);
         }
 
         private void customerNameTB_LostFocus(object sender, RoutedEventArgs e)
         {
             if (checking.CheckOnlyCirSymb(customerNameTB.Text) != null)
-            {
                 customerNameTB.Text = checking.CheckOnlyCirSymb(customerNameTB.Text);
-                
-            }
-            else
-                customerNameTB.Text = string.Empty;
         }
 
         private void customerLastNameTB_LostFocus(object sender, RoutedEventArgs e)
         {
             if (checking.CheckOnlyCirSymb(customerLastNameTB.Text) != null)
-            {
                 customerLastNameTB.Text = checking.CheckOnlyCirSymb(customerLastNameTB.Text);
-                //customerLastNameTB.Text = string.Empty;
-            }
-            else
-                customerLastNameTB.Text = string.Empty;
+
         }
     }
 }

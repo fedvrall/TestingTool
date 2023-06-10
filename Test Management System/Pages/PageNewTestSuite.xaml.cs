@@ -28,14 +28,15 @@ namespace Test_Management_System.Pages
         public UserContext UserContext { get; set; }
         Testing_ToolEntity db = new Testing_ToolEntity();
         public bool isEditing = false;
-        public int testSuiteID;
+        public int testSuiteID, projectID;
 
-        public PageNewTestSuite(UserContext userContext, int TestSuiteID) // Для редактировани выбранного
+        public PageNewTestSuite(UserContext userContext, int TestSuiteID)
         {
             this.testSuiteID = TestSuiteID;
             this.UserContext = userContext;
+            this.projectID = userContext.projectID;
             InitializeComponent();
-            var ts = db.TestSuite.Where(x=> x.ProjectID == UserContext.projectID ).ToList();
+            var ts = db.TestSuite.Where(x=> x.ProjectID == projectID ).ToList();
             ComboTestSuiteParentID.ItemsSource = ts;
 
             if (testSuiteID == 0)
@@ -103,18 +104,14 @@ namespace Test_Management_System.Pages
 
         private void SaveTestSuite_Click(object sender, RoutedEventArgs e)
         {
-            if(!isEditing) // добавление нового
-            {
-                int? parent = null;
-                if (ComboTestSuiteParentID.SelectedItem == null)
-                    parent = null;
-                else
-                {
-                    var parent1 = db.TestSuite.Where(x => x.TestSuiteSummary == ComboTestSuiteParentID.SelectedItem.ToString()).FirstOrDefault();
-                    if (parent1 != null)
-                        parent = parent1.TestSuiteID;
-                    
-                }
+            int? parent = null;
+            if (ComboTestSuiteParentID.SelectedIndex == -1)
+                parent = null;
+            else
+                parent = ComboTestSuiteParentID.SelectedIndex + 1;
+
+            if (!isEditing) // добавление нового
+            {  
                 TestSuite testSuite = new TestSuite
                 {
                     TestSuiteSummary = TBtestSuiteSummary.Text,
@@ -122,7 +119,7 @@ namespace Test_Management_System.Pages
                     TestSuiteLabel = TBTestSuiteLabel.Text,
                     TestSuitePreconditions = TBTestSuitePreconditions.Text,
                     TestSuiteParentID = parent,
-                    ProjectID = UserContext.projectID
+                    ProjectID = projectID
                 };
 
                 try
@@ -147,12 +144,12 @@ namespace Test_Management_System.Pages
                 try
                 {
                     var findTS = db.TestSuite.Find(testSuiteID);
-                    findTS.TestSuiteSummary = TBtestSuiteSummary.Text.ToString();
-                    findTS.TestSuiteDescription = TBTestSuiteDescription.Text.ToString();
+                    findTS.TestSuiteSummary = TBtestSuiteSummary.Text;
+                    findTS.TestSuiteDescription = TBTestSuiteDescription.Text;
                     findTS.TestSuiteLabel = findTS.TestSuiteLabel;
-                    findTS.TestSuitePreconditions = TBTestSuiteLabel.Text.ToString();
-                    findTS.ProjectID = UserContext.projectID;
-                    findTS.TestSuiteParentID = ComboTestSuiteParentID.SelectedIndex + 1;
+                    findTS.TestSuitePreconditions = TBTestSuitePreconditions.Text;
+                    findTS.ProjectID = projectID;
+                    findTS.TestSuiteParentID = parent;
                     db.SaveChanges();
                 }
                 catch
@@ -173,7 +170,7 @@ namespace Test_Management_System.Pages
 
             if (labelExists)
             {
-                MessageBox.Show("Метка уже существует. Пожалуйста, выберите другую метку.");
+                MessageBox.Show("Метка уже существует. Пожалуйста, выберите другую метку."); // переделать метку, без сообщения
             }
         }
     }

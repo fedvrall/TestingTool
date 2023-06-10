@@ -91,12 +91,13 @@
 
                 <StackPanel Grid.Row="1" Orientation="Vertical" Margin="10">
                     <Label Content="Название чек-листа"  Margin="0,10"/>
-                    <TextBox x:Name="TBNameCheckList" />
+                    <TextBox x:Name="TBNameCheckList" MaxLength="255"/>
                     <Label Content="Описание чек-листа" Margin="0, 10"/>
-                    <TextBox x:Name="TBDescrCheckList" TextWrapping="Wrap" Height="200"  />
+                    <TextBox x:Name="TBDescrCheckList" MaxLength="255" TextWrapping="Wrap" Height="200"  />
                 </StackPanel>
 
                 <Button Grid.Row="2" Content="Добавить" Name="AddCheckList" Margin="10" Width="130" HorizontalAlignment="Left" Padding="10" Style="{DynamicResource RoundedCorners}" Click="AddCheckList_Click"/>
+                <Button Grid.Row="2" Content="Сохранить" Name="SaveChanges" Margin="10" Width="130" HorizontalAlignment="Left" Padding="10" Style="{DynamicResource RoundedCorners}" Visibility="Collapsed" Click="SaveChanges_Click"/>
                 <Button Grid.Row="2" Content="Отмена" Name="Cancel" Margin="10" Width="130" Padding="10" HorizontalAlignment="Right" Style="{DynamicResource RoundedCorners}" Click="CloseAdding_Click"/>
             </Grid>
         </Border>

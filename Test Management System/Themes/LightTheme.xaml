@@ -3608,6 +3608,16 @@
     <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
 
     <!-- Textbox -->
+
+    <Style x:Key="InvalidFieldStyle" TargetType="TextBox">
+        <Setter Property="BorderBrush" Value="Red" />
+        <Setter Property="Padding" Value="10, 10, 0, 10"/>
+        <Setter Property="Background" Value="{StaticResource ContainerBackground}"/>
+        <Setter Property="Foreground" Value="{StaticResource ControlDefaultForeground}"/>
+        <Setter Property="FontFamily" Value="Courier"/>
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+    
     <Style TargetType="{x:Type TextBox}">
         <Setter Property="Background" Value="{StaticResource ContainerBackground}" />
         <Setter Property="BorderBrush" Value="{StaticResource ControlDefaultBorderBrush}" />

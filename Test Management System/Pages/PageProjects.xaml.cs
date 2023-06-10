@@ -22,15 +22,16 @@ namespace Test_Management_System.Pages
     /// </summary>
     public partial class PageProjects : Page
     {
-        public int projectID;
+        public int projectID, companyId;
         Testing_ToolEntity db = new Testing_ToolEntity();
 
         UserContext userContext { get; set; }
         public PageProjects(UserContext userContext)
         {
             this.userContext = userContext;
+            this.companyId = userContext.companyID;
             InitializeComponent();
-            GridProjects.ItemsSource = db.Project.Where(x=>x.CompanyID == userContext.companyID).ToList();
+            GridProjects.ItemsSource = db.Project.Where(x=>x.CompanyID == companyId).ToList();
             
         }
 

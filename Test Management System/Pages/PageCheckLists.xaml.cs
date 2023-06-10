@@ -29,6 +29,8 @@ namespace Test_Management_System.Pages
         UserContext userContext {  get; set; }
         Testing_ToolEntity db = new Testing_ToolEntity();
         private int projectID, userID, checklistID;
+        private bool isEdit;
+
         public PageCheckLists(UserContext userContext)
         {
             this.userContext = userContext;
@@ -47,26 +49,41 @@ namespace Test_Management_System.Pages
 
         private void EditCheckList_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new PageCheckListItems(userContext, checklistID));
+            getBorder();
+            isEdit = true;
+            var cl = db.CheckList.FirstOrDefault(x => x.CheckListID == checklistID);
+            TBNameCheckList.Text = cl.CLSummary;
+            TBDescrCheckList.Text = cl.CLDescription;
+            SaveChanges.Visibility = Visibility.Visible;
+            AddCheckList.Visibility = Visibility.Collapsed;
         }
 
         private void DeleteCheckList_Click(object sender, RoutedEventArgs e)
         {
-            try
+            var result = MessageBox.Show("Вы действительно хотите удалить чек-лист и все пункты в нём?", "Удаление", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
             {
-
+                var cl = db.CheckList.FirstOrDefault(x => x.CheckListID == checklistID);
+                var delCKItem = db.CheckListItem.Where(x => x.CheckListID == checklistID);
+                try
+                {
+                    db.CheckListItem.RemoveRange(delCKItem);
+                    db.CheckList.Remove(cl);
+                    db.SaveChanges();
+                }
+                catch
+                {
+                    MessageBox.Show("Не удалось удалить чек-лист");
+                }
+                finally
+                {
+                    MessageBox.Show("Чек-лист удалён");
+                }
             }
-            catch
-            {
-
-            }
-            finally
-            {
-
-            }
+            else return;
         }
 
-        private void AddNewCheckList_Click(object sender, RoutedEventArgs e)
+        private void getBorder()
         {
             FormContainer.Visibility = Visibility.Visible;
             DoubleAnimation animation = new DoubleAnimation();
@@ -76,12 +93,40 @@ namespace Test_Management_System.Pages
             FormContainer.BeginAnimation(Border.WidthProperty, animation);
         }
 
+        private void AddNewCheckList_Click(object sender, RoutedEventArgs e)
+        {
+            getBorder();
+        }
+
         private void CheckListGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             checklistID = ((CheckList)CheckListGrid.SelectedItem).CheckListID;
         }
 
-        private void CloseAdding_Click(object sender, RoutedEventArgs e)
+        private void SaveChanges_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var findCL = db.CheckList.Find(checklistID);
+
+                findCL.CheckListID = checklistID;
+                findCL.CLSummary = TBNameCheckList.Text;
+                findCL.CLDescription = TBDescrCheckList.Text;
+                findCL.ProjectID = projectID;
+                db.SaveChanges();
+            }
+            catch
+            {
+                MessageBox.Show("Не удалось отредактировать чек-лист");
+            }
+            finally
+            {
+                MessageBox.Show("Чек-лист отредактирован");
+                CloseBorder();
+            }
+        }
+
+        private void CloseBorder()
         {
             FormContainer.Visibility = Visibility.Collapsed;
             DoubleAnimation animation = new DoubleAnimation();
@@ -91,8 +136,14 @@ namespace Test_Management_System.Pages
             FormContainer.BeginAnimation(Border.WidthProperty, animation);
         }
 
+        private void CloseAdding_Click(object sender, RoutedEventArgs e)
+        {
+            CloseBorder();
+        }
+
         private void AddCheckList_Click(object sender, RoutedEventArgs e)
         {
+            isEdit = false;
             if (String.IsNullOrEmpty(TBNameCheckList.Text) || String.IsNullOrEmpty(TBDescrCheckList.Text))
             {
                 MessageBox.Show("Не все поля заполнены");
@@ -120,7 +171,10 @@ namespace Test_Management_System.Pages
                 {
                     MessageBox.Show("Чек-лист добавлен");
                     CheckListGrid.ItemsSource = db.CheckList.Where(x => x.ProjectID == projectID).ToList();
+                    CloseBorder();
                 }
+                TBNameCheckList.Clear();
+                TBDescrCheckList.Clear();
             }
         }
     }

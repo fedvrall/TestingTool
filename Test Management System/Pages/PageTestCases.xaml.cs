@@ -57,9 +57,7 @@ namespace Test_Management_System.Pages
             addFieldsList.ItemsSource = columnSelectionItems;
             UpdateDataGridColumns();
             this.testStuiteID = testStuiteID;
-            this.UserContext = userContext;
-            //List<TestSuite> ts = ;
-            
+            this.UserContext = userContext;            
             HeaderTestCasesView.Content = db.TestSuite.Where(x => x.TestSuiteID == testStuiteID).FirstOrDefault().TestSuiteSummary;
         }
 
@@ -87,7 +85,7 @@ namespace Test_Management_System.Pages
                 { "Поведение", "TestCaseBehavior.TCBehaviorDescriptionTranlation"},
                 { "Дата создания", "TestCaseCreationDate"},
                 { "Дата выполнения", "TestCaseExecutionDate"},
-                { "Предусловия", "TestCaseExecutionDate"},
+                { "Предусловия", "TestCasePrecondition"},
                 { "Постусловия", "TestCasePostcondition"},
                 { "Вложения", "TestCaseAttachment"},
                 { "Среда", "TestCaseEnvironment"},
@@ -144,6 +142,10 @@ namespace Test_Management_System.Pages
             }
         }
 
+        private void SortTestCases()
+        {
+
+        }
 
         private void AddTestCaseItem_Click(object sender, RoutedEventArgs e)
         {

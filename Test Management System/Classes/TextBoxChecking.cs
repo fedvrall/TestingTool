@@ -10,18 +10,27 @@ namespace Test_Management_System.Classes
 {
     public class TextBoxChecking
     {
-        public void CheckRuSymb(string input) // Проверка символов русского алфавита
+        public bool CheckRuSymb(string input) // Проверка символов русского алфавита
         {
             var rus = new Regex(@"[а-яА-ЯёЁ -]");
             if (!rus.IsMatch(input))
+            {
                 MessageBox.Show("Пожалуйста, вводите данные на русском языке!");
+                return false;
+            }
+            else return true;
+
         }
 
-        public void CheckLatSymb(string input) // Проверка символов латинского алфавита
+        public bool CheckLatSymb(string input) // Проверка символов латинского алфавита
         {
             var lat = new Regex(@"[a-zA-Z0-9]");
             if (!lat.IsMatch(input))
+            {
                 MessageBox.Show("Пожалуйста, используйте только латиницу и цифры!");
+                return false;
+            }
+            else return true;
         }
 
 

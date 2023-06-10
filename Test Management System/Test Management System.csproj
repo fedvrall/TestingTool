@@ -181,6 +181,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Pages\PageExecuteCheckList.xaml.cs">
+      <DependentUpon>PageExecuteCheckList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PageManual.xaml.cs">
       <DependentUpon>PageManual.xaml</DependentUpon>
     </Compile>
@@ -194,6 +197,10 @@
       <DependentUpon>LightTheme.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\ThemeController.cs" />
+    <Page Include="Pages\PageExecuteCheckList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\PageManual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

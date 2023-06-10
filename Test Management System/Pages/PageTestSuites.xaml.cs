@@ -23,7 +23,7 @@ namespace Test_Management_System.Pages
     public partial class PageTestSuites : Page
     {
         public UserContext UserContext { get; set; }
-        public int TestSuiteID = 0;
+        public int testSuiteID;
         Testing_ToolEntity db = new Testing_ToolEntity();
 
         public PageTestSuites(UserContext userContext)
@@ -40,24 +40,44 @@ namespace Test_Management_System.Pages
 
         private void EditTestSuite_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new PageNewTestSuite(UserContext, TestSuiteID));
+            NavigationService.Navigate(new PageNewTestSuite(UserContext, testSuiteID));
         }
 
         private void DeleteTestSuite_Click(object sender, RoutedEventArgs e)
         {
-            // Удаление со всеми тест-кейсами
+            var result = MessageBox.Show("Вы действительно хотите удалить тест-сьют со всеми тест-кейсами?", "Удаление", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                var ts = db.TestSuite.FirstOrDefault(x => x.TestSuiteID == testSuiteID);
+                var tcToDelete = db.TestCase.Where(x => x.TestSuiteID == testSuiteID);
+                try
+                {
+                    db.TestCase.RemoveRange(tcToDelete);
+                    db.TestSuite.Remove(ts);
+                    db.SaveChanges();
+                }
+                catch
+                {
+                    MessageBox.Show("Не удалось удалить тест-сьют");
+                }
+                finally
+                {
+                    MessageBox.Show("Тест-сьют удалён");
+                }
+            }
+            else return;
         }
 
         private void WatchTestCases_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new PageTestCases(UserContext, TestSuiteID));
+            NavigationService.Navigate(new PageTestCases(UserContext, testSuiteID));
         }
 
         private void dgvTestSuites_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (dgvTestSuites.SelectedItem != null)
             {
-                TestSuiteID = ((TestSuite)dgvTestSuites.SelectedItem).TestSuiteID;
+                testSuiteID = ((TestSuite)dgvTestSuites.SelectedItem).TestSuiteID;
                 //EditTestSuite.IsEnabled = true;
                 NewTestSuiteButton.IsEnabled = false;
             }

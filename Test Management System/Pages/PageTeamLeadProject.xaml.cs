@@ -35,32 +35,32 @@ namespace Test_Management_System.Pages
             GridProjects.ItemsSource = db.Project.Where(x => x.CompanyID == companyID).ToList();
 
             var names = db.Userinfo.Where(x=>x.CompanyID == companyID).Select(u => u.LastName + " " + u.FirstName).ToList();
-            usersListBox.Items.Clear();
+/*            usersListBox.Items.Clear();
             usersListBox.ItemsSource = names;
-            usersListBox.ItemTemplate = CreateCheckBoxItemTemplate();
+            usersListBox.ItemTemplate = CreateCheckBoxItemTemplate();*/
 
-            DataTemplate CreateCheckBoxItemTemplate()
-            {
-                string xaml = @"
-                <DataTemplate xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation"">
-                    <CheckBox Content=""{Binding}"">
-                        <CheckBox.Template>
-                            <ControlTemplate TargetType=""CheckBox"">
-                                <CheckBox IsChecked=""{Binding Path=IsChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"">
-                                    <CheckBox.Style>
-                                        <Style TargetType=""CheckBox"">
-                                            <EventSetter Event=""Checked"" Handler=""CheckBox_Checked"" />
-                                            <EventSetter Event=""Unchecked"" Handler=""CheckBox_Unchecked"" />
-                                        </Style>
-                                    </CheckBox.Style>
-                                </CheckBox>
-                            </ControlTemplate>
-                        </CheckBox.Template>
-                    </CheckBox>
-                </DataTemplate>";
+            //DataTemplate CreateCheckBoxItemTemplate()
+            //{
+            //    string xaml = @"
+            //    <DataTemplate xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation"">
+            //        <CheckBox Content=""{Binding}"">
+            //            <CheckBox.Template>
+            //                <ControlTemplate TargetType=""CheckBox"">
+            //                    <CheckBox IsChecked=""{Binding Path=IsChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"">
+            //                        <CheckBox.Style>
+            //                            <Style TargetType=""CheckBox"">
+            //                                <EventSetter Event=""Checked"" Handler=""CheckBox_Checked"" />
+            //                                <EventSetter Event=""Unchecked"" Handler=""CheckBox_Unchecked"" />
+            //                            </Style>
+            //                        </CheckBox.Style>
+            //                    </CheckBox>
+            //                </ControlTemplate>
+            //            </CheckBox.Template>
+            //        </CheckBox>
+            //    </DataTemplate>";
 
-                return (DataTemplate)XamlReader.Parse(xaml);
-            }
+            //    return (DataTemplate)XamlReader.Parse(xaml);
+            //}
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -88,12 +88,19 @@ namespace Test_Management_System.Pages
             if (GridProjects.SelectedItem != null)
             {
                 projectID = ((Project)GridProjects.SelectedItem).ProjectID;
-                usersListBox.IsEnabled = true;
+                usersListBox1.IsEnabled = true;
+                usersListBox2.IsEnabled = true;
+                left.IsEnabled = true;
+                Right.IsEnabled = true;
+
                 AddUser.IsEnabled = true;
             }
             else
             {
-                usersListBox.IsEnabled = false;
+                usersListBox1.IsEnabled = false;
+                usersListBox2.IsEnabled = false;
+                left.IsEnabled = false;
+                Right.IsEnabled = false;
                 AddUser.IsEnabled = false;
             }
         }

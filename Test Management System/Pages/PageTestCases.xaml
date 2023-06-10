@@ -72,8 +72,6 @@
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
-                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
-                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -82,8 +80,6 @@
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
-                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
-                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -91,8 +87,6 @@
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
-                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
-                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -100,13 +94,11 @@
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
-                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
-                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Создатель" Binding="{Binding Userinfo.LastName}" Visibility="Visible" />
-                <DataGridTextColumn Header="Исполнитель" Binding="{Binding Userinfo.LastName}" Visibility="Visible" />
+                <DataGridTextColumn Header="Исполнитель" Binding="{Binding Userinfo1.LastName}" Visibility="Visible" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

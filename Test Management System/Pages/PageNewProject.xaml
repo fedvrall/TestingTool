@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label Name="Header" FontSize="18" Margin="10"/>
+        <Label Name="Header" Grid.Row="0" FontSize="18" Margin="10"/>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="10">
             <Label  Content="Документация: " />
@@ -40,7 +40,7 @@
         </StackPanel>
 
         <Label Grid.Row="1" Margin="10" HorizontalAlignment="Left"  Content="Название:" />
-        <TextBox Grid.Row="1" HorizontalAlignment="Right" x:Name="TBProjectName" Width="960" Margin="123, 10, 10, 10"/>
+        <TextBox Grid.Row="1" HorizontalAlignment="Right" x:Name="TBProjectName" MaxLength="255" Width="960" Margin="123, 10, 10, 10"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
             <Label  Content="Дата начала проекта:" VerticalAlignment="Center" />
@@ -51,7 +51,7 @@
         </StackPanel>
         
         <Label   Grid.Row="2" Content="Заметки:" Margin="503, 10, 10, 0"/>
-        <TextBox Grid.Row="2" Name="TBProjectNotes" Grid.RowSpan="2" Margin="645,10,10,10"/>
+        <TextBox Grid.Row="2" Name="TBProjectNotes" Grid.RowSpan="2" TextWrapping="Wrap" MaxLength="500" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="645,10,10,10"/>
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10">
             <Label Content="Дата окончания (если есть):" VerticalAlignment="Center" />
@@ -69,20 +69,20 @@
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Content="Имя:" Margin="10" />
-            <TextBox Grid.Row="0" x:Name="customerNameTB" Width="200" Margin="208, 10, 0, 10" HorizontalAlignment="Left" LostFocus="customerNameTB_LostFocus"/>
+            <TextBox Grid.Row="0" MaxLength="25" x:Name="customerNameTB" Width="200" Margin="208, 10, 0, 10" HorizontalAlignment="Left" LostFocus="customerNameTB_LostFocus"/>
 
             <Label Grid.Row="0" Content="Электронная почта:" Margin="503, 10, 10, 10"/>
-            <TextBox Grid.Row="0" x:Name="customerEmailTB"  Width="200" HorizontalAlignment="Left" Margin="645,10, 0, 10" LostFocus="customerEmailTB_LostFocus" />
+            <TextBox Grid.Row="0" MaxLength="100"  x:Name="customerEmailTB"  Width="200" HorizontalAlignment="Left" Margin="645,10, 0, 10" LostFocus="customerEmailTB_LostFocus" />
 
             <Label Grid.Row="1"  Content="Фамилия:"  Margin="10" VerticalAlignment="Center" />
-            <TextBox Grid.Row="1" x:Name="customerLastNameTB"  Width="200" VerticalAlignment="Center" LostFocus="customerLastNameTB_LostFocus" HorizontalAlignment="Left" Margin="208,10, 0, 10" />
+            <TextBox Grid.Row="1" MaxLength="25" x:Name="customerLastNameTB"  Width="200" VerticalAlignment="Center" LostFocus="customerLastNameTB_LostFocus" HorizontalAlignment="Left" Margin="208,10, 0, 10" />
 
             <Label Grid.Row="1"  Content="Телефон:" Margin="503, 10, 10, 10" VerticalAlignment="Center" />
-            <TextBox Grid.Row="1" x:Name="customerPhoneTB" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="645,10, 0, 10" LostFocus="customerPhoneTB_LostFocus"/>
+            <TextBox Grid.Row="1" MaxLength="20"  x:Name="customerPhoneTB" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="645,10, 0, 10" LostFocus="customerPhoneTB_LostFocus"/>
         </Grid>
         
         <Label Grid.Row="8" HorizontalAlignment="Left" Margin="10" Content="Заметки:" />
-        <TextBox Grid.Row="8" HorizontalAlignment="Right" Margin="10" x:Name="customerNotesTB" Width="960" Height="115"/>
+        <TextBox Grid.Row="8" HorizontalAlignment="Right" Margin="10" x:Name="customerNotesTB" MaxLength="255" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" TextWrapping="Wrap" Width="960" Height="115"/>
 
         <StackPanel Grid.Row="9" Orientation="Horizontal" Margin="10,10,10,20" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Button Content="Добавить проект" Style="{DynamicResource RoundedCorners}" Margin="0, 0, 10, 0" Name="ConfirmAdding" Click="ConfirmAdding_Click" Width="200"/>

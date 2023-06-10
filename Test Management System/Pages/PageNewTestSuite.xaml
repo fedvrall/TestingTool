@@ -22,16 +22,16 @@
 
         <Label Name="HeaderTS" Grid.Row="0"  FontSize="18" Margin="10, 0, 0, 0" FontWeight="DemiBold"/>
         <Label Content="Заголовок:" Grid.Row="1" Margin="10, 0, 0, 0"/>
-        <TextBox Grid.Row="1" Margin="197,10,10,10" Name="TBtestSuiteSummary"  LostFocus="TBtestSuiteSummary_LostFocus" />
+        <TextBox Grid.Row="1" Margin="197,10,10,10" Name="TBtestSuiteSummary" MaxLength="255" LostFocus="TBtestSuiteSummary_LostFocus" />
 
         <Label Grid.Row="2" Margin="10, 0, 0, 0" Content="Длинное описание:" />
-        <TextBox Grid.Row="2" Height="100" TextWrapping="Wrap" Name="TBTestSuiteDescription" Margin="197,10,10,10" />
+        <TextBox Grid.Row="2" Height="100" TextWrapping="Wrap" Name="TBTestSuiteDescription" MaxLength="1000" Margin="197,10,10,10" />
 
         <Label Grid.Row="3" Margin="10, 0, 0, 0" Content="Короткая метка:" />
         <TextBox Grid.Row="3"  Margin="197,10,10,10" Name="TBTestSuiteLabel" />
 
         <Label Grid.Row="4" Margin="10, 0, 0, 0" Content="Предусловия:" />
-        <TextBox Grid.Row="4"  Height="100" TextWrapping="Wrap" Name="TBTestSuitePreconditions" Margin="197,10,10,10"  />
+        <TextBox Grid.Row="4"  Height="100" TextWrapping="Wrap" MaxLength="255" Name="TBTestSuitePreconditions" Margin="197,10,10,10"  />
 
         <Label Grid.Row="5" Margin="10, 0, 0, 0" Content="Родительский тест-сьют:"  />
         <ComboBox Grid.Row="5" Margin="197,10,10,10" Name="ComboTestSuiteParentID" Height="30"  DisplayMemberPath="TestSuiteSummary"   />

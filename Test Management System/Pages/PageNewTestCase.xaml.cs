@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Test_Management_System.Entities;
 using Test_Management_System.Classes;
 using Microsoft.Win32;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Test_Management_System.Pages
 {
@@ -25,10 +26,9 @@ namespace Test_Management_System.Pages
     {
         private List<string> attachmentsList = new List<string>();
         Testing_ToolEntity db = new Testing_ToolEntity();
-        public int testSuiteID, testCaseID;
+        public int testSuiteID, testCaseID, userID;
         private bool isEditTC;
         UserContext UserContext { get; set; }
-        //PriorityColorConverter cc = new PriorityColorConverter();
         public PageNewTestCase(UserContext userContext, int testSuiteID, int testCaseID)
         {
             InitializeComponent();
@@ -38,29 +38,59 @@ namespace Test_Management_System.Pages
             ComboPriorityTC.ItemsSource = db.TestCasePriority.ToList();
             ComboTypeTC.ItemsSource = db.TestCaseType.ToList();
             ComboSeverityTC.ItemsSource = db.TestCaseSeverity.ToList();
+            ComboStatusTC.SelectedIndex = 4;
             this.testSuiteID = testSuiteID;
             this.testCaseID = testCaseID;
             this.UserContext = userContext;
+            this.userID = userContext.userId;
             if (testCaseID == 0)
                 isEditTC = false; 
             else 
                 isEditTC = true;
             CreationDate.DisplayDate = DateTime.Now;
-            CreationDate.SelectedDate = DateTime.Now;
         }
 
         private bool IsAllFieldsHaveContent()
         {
-            // Выполнить проверку на заполнение обязательных полей
-            // Добавить поле пользователя, который выполняет тест кейс
-            // Или "Если тест-кейс меняет статус, автоматически добавляется пользователь-исполнитель и дата исполнения"
-            return true;
+            bool isValid = true;
+            if (string.IsNullOrEmpty(TBActual.Text))
+                TBActual.Text = "-";
+            if (string.IsNullOrEmpty(TBSummary.Text))
+            {
+                TBSummary.Style = (System.Windows.Style)FindResource("InvalidFieldStyle");
+                isValid = false;
+            }
+            if (string.IsNullOrEmpty(TBExpected.Text))
+            {
+                TBExpected.Style = (System.Windows.Style)FindResource("InvalidFieldStyle");
+                isValid = false;
+            }
+            if (string.IsNullOrEmpty(TBSteps.Text))
+            {
+                TBSteps.Style = (System.Windows.Style)FindResource("InvalidFieldStyle");
+                isValid = false;
+            }
+
+            return isValid;
         }
 
         private void AddNewTestCase()
         {
             var attString = string.Join(";", attachmentsList);
             DateTime selectedDate = CreationDate.SelectedDate ?? DateTime.Now;
+            DateTime? ExDate = null;
+            int? executor = null;
+            if (ComboStatusTC.SelectedIndex == 4)
+            {
+                ExDate = null;
+                executor = null;
+            }
+            else
+            {
+                ExDate = DateTime.Now;
+                executor = userID;
+            }
+
             if (!isEditTC)
             {
                 if (IsAllFieldsHaveContent())
@@ -75,10 +105,10 @@ namespace Test_Management_System.Pages
                         TCStatusID = ComboStatusTC.SelectedIndex + 1,
                         TestCaseTestData = TBTestData.Text,
                         TestSuiteID = testSuiteID,
-                        CreatorUserID = UserContext.userId,
+                        CreatorUserID = userID,
                         TestCaseCreationDate = selectedDate,
-                        ExecutorUserID = null,
-                        TestCaseExecutionDate = null,
+                        ExecutorUserID = executor,
+                        TestCaseExecutionDate = ExDate,
                         TestCaseEnvironment = TBEnvironment.Text,
                         TCTypeID = ComboTypeTC.SelectedIndex + 1,
                         TCBehaviorID = ComboBehaviorTC.SelectedIndex + 1,
@@ -87,12 +117,12 @@ namespace Test_Management_System.Pages
                         TestCaseAttachment = attString,
                         TestCasePrecondition = TBPreconditions.Text,
                         TestCasePostcondition = TBPostConditions.Text
-                    };                
+                    };
                     try
                     {
                         db.TestCase.Add(testCase);
                         db.SaveChanges();
-                    
+
                     }
                     catch
                     {
@@ -101,8 +131,12 @@ namespace Test_Management_System.Pages
                     finally
                     {
                         MessageBox.Show("Тест-кейс добавлен");
+
                     }
                 }
+                else
+                    MessageBox.Show("Заполните поля");
+
             }
             else
             {
@@ -117,10 +151,10 @@ namespace Test_Management_System.Pages
                     findTC.TCStatusID = ComboStatusTC.SelectedIndex + 1;
                     findTC.TestCaseTestData = TBTestData.Text;
                     findTC.TestSuiteID = testSuiteID;
-                    findTC.CreatorUserID = UserContext.userId;
+                    findTC.CreatorUserID = findTC.CreatorUserID;
                     findTC.TestCaseCreationDate = selectedDate;
-                    findTC.ExecutorUserID = null;
-                    findTC.TestCaseExecutionDate = null;
+                    findTC.ExecutorUserID = executor;
+                    findTC.TestCaseExecutionDate = ExDate;
                     findTC.TestCaseEnvironment = TBEnvironment.Text;
                     findTC.TCTypeID = ComboTypeTC.SelectedIndex + 1;
                     findTC.TCBehaviorID = ComboBehaviorTC.SelectedIndex + 1;
@@ -138,6 +172,7 @@ namespace Test_Management_System.Pages
                 finally
                 {
                     MessageBox.Show("Тест-кейс изменён");
+                    NavigationService.Navigate(new PageTestCases(UserContext, testSuiteID));
                 }
             }
         }
@@ -145,13 +180,28 @@ namespace Test_Management_System.Pages
         private void SaveAndBackToTCPageButton_Click(object sender, RoutedEventArgs e)
         {
             AddNewTestCase();
-            NavigationService.Navigate(new PageTestCases(UserContext, testSuiteID));
+            //NavigationService.Navigate(new PageTestCases(UserContext, testSuiteID));
         }
 
         private void SaveAndAddTCButton_Click(object sender, RoutedEventArgs e)
         {
             AddNewTestCase();
-            // очищаем поля, чтобы добавить ещё один
+            TBSummary.Clear();
+            TBDescription.Clear();
+            TBSteps.Clear();
+            TBExpected.Clear();
+            TBActual.Clear();
+            ComboStatusTC.SelectedIndex = 4;
+            TBTestData.Clear();
+            CreationDate.DisplayDate = DateTime.Now;
+            TBEnvironment.Clear();
+            ComboTypeTC.SelectedIndex = -1;
+            ComboBehaviorTC.SelectedIndex = -1;
+            ComboPriorityTC.SelectedIndex = -1;
+            ComboSeverityTC.SelectedIndex = -1;
+            attachmentsList.Clear();
+            TBPreconditions.Clear();
+            TBPostConditions.Clear();
         }
 
         private void NoSaveBackToTestCasePageButton_Click(object sender, RoutedEventArgs e)
