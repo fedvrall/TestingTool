@@ -190,6 +190,9 @@
     <Compile Include="Pages\PageTeamLeadProject.xaml.cs">
       <DependentUpon>PageTeamLeadProject.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\WindowChoseNewUser.xaml.cs">
+      <DependentUpon>WindowChoseNewUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\DarkTheme.xaml.cs">
       <DependentUpon>DarkTheme.xaml</DependentUpon>
     </Compile>
@@ -206,6 +209,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\PageTeamLeadProject.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\WindowChoseNewUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

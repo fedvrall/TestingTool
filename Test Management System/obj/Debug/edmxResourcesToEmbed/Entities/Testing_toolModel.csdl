@@ -25,9 +25,9 @@
     <Property Name="BugReportID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="BugReportSummary" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="BugEnvironment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="BugSteps" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="BugExpectedResult" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="BugActualResult" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BugSteps" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BugExpectedResult" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BugActualResult" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="BugPreconditions" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="BugTestData" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="BugAttachment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -37,7 +37,7 @@
     <Property Name="ProjectID" Type="Int32" Nullable="false" />
     <Property Name="UserID" Type="Int32" Nullable="false" />
     <Property Name="DateOfCreation" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="BugReportRemark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="BugReportRemark" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="BugComponentOfSW" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="BugVersionOfSW" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="TestCaseID" Type="Int32" />

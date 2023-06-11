@@ -27,17 +27,18 @@ namespace Test_Management_System.Pages
         public bool IsMenuEnabled { get; set; }
 
         public event EventHandler MainPageClicked;
+        private int companyID, projectID;
 
         Testing_ToolEntity db = new Testing_ToolEntity();
         
         public PageMain(UserContext userContext)
         {
             this.userContext = userContext;
+            this.companyID = userContext.companyID;
+            this.projectID = userContext.projectID;
             InitializeComponent();
             ChooseProjectCombo.Items.Clear();
-            List<Project> projects = db.Project.ToList();
-            ChooseProjectCombo.ItemsSource = projects;
-
+            ChooseProjectCombo.ItemsSource = db.Project.Where(x => x.CompanyID == companyID).ToList();
         }
 
 
@@ -50,6 +51,9 @@ namespace Test_Management_System.Pages
                 DateOfProjectCreation.Content = project.ProjectDateOfCreation.ToString();
                 DateOfProjectEnd.Content = project.ProjectDateOfDeadLine.ToString();
                 userContext.projectID = project.ProjectID;
+
+                //string attString = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().ProjectDocumentation.FirstOrDefault().ProjectDocumentationAttachment.ToString();
+                //List<string> attachmentNames = attString.Split(';').Select(Path.GetFileName).ToList();
 
                 IsMenuEnabled = true;
                 MainPageClicked?.Invoke(this, EventArgs.Empty);

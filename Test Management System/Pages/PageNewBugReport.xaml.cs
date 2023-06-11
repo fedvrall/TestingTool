@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Test_Management_System.Classes;
+using Test_Management_System.Entities;
 using static Test_Management_System.Classes.UserContext;
 
 namespace Test_Management_System.Pages
@@ -22,19 +24,236 @@ namespace Test_Management_System.Pages
     /// </summary>
     public partial class PageNewBugReport : Page
     {
-
+        private List<string> attachmentsList = new List<string>();
         public UserContext userContext { get; set; }
-        private int BRID;
+        private int BRID, projectID, userID, roleID;
+        private bool isEditBR, creator;
+        Testing_ToolEntity db = new Testing_ToolEntity();
 
-        public PageNewBugReport(UserContext userContext, int rBID)
+        public PageNewBugReport(UserContext userContext, int brID)
         {
-            this.userContext = userContext;
             InitializeComponent();
-            int userID = userContext.userId;
-            string username = userContext.userName;
-            int roleID = userContext.roleId;
-            BRID = rBID;
-            //BugUserTextBox.Text = username;
+            this.userContext = userContext;
+            this.userID = userContext.userId;
+            this.roleID = userContext.roleId;
+            this.projectID = userContext.projectID;
+            BRID = brID;
+            if (BRID == 0)
+            {
+                isEditBR = false;
+                Header.Content = "Добавление нового баг-репорта";
+                creator = true;
+            }
+            else
+            {
+                Header.Content = "Редактирование баг-репорта";
+                isEditBR = true;
+                int userBR = db.BugReport.Where(x => x.BugReportID == BRID).FirstOrDefault().UserID;
+                if (userBR == userID)
+                    creator = true;
+                else
+                    creator = false;
+                IsCreator();
+            }
+            ComboPriority.ItemsSource = db.BugPriority.ToList();
+            ComboSeverity.ItemsSource = db.BugSeverity.ToList();
+            ComboStatus.ItemsSource = db.BugReportStatus.ToList();
+            var ts = db.TestSuite.Where(x => x.ProjectID == projectID).ToList();
+            var tstc = ts.SelectMany(t => t.TestCase).ToList();
+            ComboTC.ItemsSource = tstc;
+        }
+
+        private void IsCreator()
+        {
+            var br = db.BugReport.Where(x => x.BugReportID == BRID).FirstOrDefault();
+            TBSummary.Text = br.BugReportSummary;
+            TBEnvir.Text = br.BugEnvironment;
+            TBSteps.Text = br.BugSteps;
+            TBexpected.Text = br.BugExpectedResult;
+            TBactual.Text = br.BugActualResult;
+            TBprecond.Text = br.BugPreconditions;
+            TBtestdata.Text = br.BugTestData;
+            if(br.BugPriorityID != null)
+                ComboPriority.SelectedIndex = (int)(br.BugPriorityID - 1);
+            if (br.BugSeverityID != null)
+                ComboSeverity.SelectedIndex = (int)(br.BugSeverityID - 1);
+            if (br.BRStatusID != null)
+                ComboStatus.SelectedIndex = (int)(br.BRStatusID - 1);
+            DPCreation.DisplayDate = br.DateOfCreation;
+            TBNotes.Text = br.BugReportRemark;
+            TBComponent.Text = br.BugComponentOfSW;
+            TBVersion.Text = br.BugVersionOfSW;
+            if (br.TestCaseID != null)
+                ComboTC.SelectedIndex = (int)(br.TestCaseID - 1);
+
+
+            if (!creator)
+            {
+                TBSummary.IsEnabled = false;
+                TBEnvir.IsEnabled = false;
+                TBSteps.IsEnabled = false;
+                TBexpected.IsEnabled = false;
+                TBactual.IsEnabled = false;
+                TBprecond.IsEnabled = false;
+                TBtestdata.IsEnabled = false;
+                AddAttachment.IsEnabled = false;
+                attachmentsList.AsReadOnly();
+                DPCreation.IsEnabled = false;
+                TBComponent.IsEnabled = false;
+                TBVersion.IsEnabled = false;
+            }
+        }
+
+        private bool IsFieldsAreFilled()
+        {
+            bool isValid = true;
+            if (string.IsNullOrEmpty(TBSummary.Text))
+            {
+                TBSummary.Style = (System.Windows.Style)FindResource("InvalidFieldStyle");
+                isValid = false;
+            }
+            if (string.IsNullOrEmpty(TBEnvir.Text))
+            {
+                TBEnvir.Style = (System.Windows.Style)FindResource("InvalidFieldStyle");
+                isValid = false;
+            }
+            if (string.IsNullOrEmpty(TBSteps.Text))
+            {
+                TBSteps.Style = (System.Windows.Style)FindResource("InvalidFieldStyle");
+                isValid = false;
+            }
+            if (string.IsNullOrEmpty(TBexpected.Text))
+            {
+                TBexpected.Style = (System.Windows.Style)FindResource("InvalidFieldStyle");
+                isValid = false;
+            }
+            if (string.IsNullOrEmpty(TBactual.Text))
+            {
+                TBactual.Style = (System.Windows.Style)FindResource("InvalidFieldStyle");
+                isValid = false;
+            }
+            return isValid;
+        }
+
+        private void AddOrEditBR()
+        {
+            var attString = string.Join(";", attachmentsList);
+            int? severity = null;
+            if (ComboSeverity.SelectedIndex != -1)
+                severity = ComboSeverity.SelectedIndex + 1;
+            else severity = null;
+
+            int? priority = null;
+            if (ComboPriority.SelectedIndex != -1)
+                priority = ComboPriority.SelectedIndex + 1;
+            else priority = null;
+
+            int? status = null;
+            if (ComboStatus.SelectedIndex != -1)
+                status = ComboStatus.SelectedIndex + 1;
+            else status = null;
+
+            int? TC = null;
+            if (ComboTC.SelectedIndex != -1) 
+                TC = ComboTC.SelectedIndex + 1;
+            else TC = null;
+
+            DateTime date;
+            if(DPCreation.SelectedDate == null)
+                date = DateTime.Now;
+            else
+                date = (DateTime)DPCreation.SelectedDate;
+
+            if (IsFieldsAreFilled())
+            {
+                if(!isEditBR)
+                {
+                    BugReport bugReport = new BugReport()
+                    {
+                        BugReportSummary = TBSummary.Text,
+                        BugEnvironment = TBEnvir.Text,
+                        BugSteps = TBSteps.Text,
+                        BugExpectedResult = TBexpected.Text,
+                        BugActualResult = TBactual.Text,
+                        BugPreconditions = TBprecond.Text,
+                        BugTestData = TBtestdata.Text,
+                        BugAttachment = attString,
+                        BugSeverityID = severity,
+                        BugPriorityID = priority,
+                        BRStatusID = status,
+                        ProjectID = projectID,
+                        UserID = userID,
+                        DateOfCreation = date,
+                        BugReportRemark = TBNotes.Text,
+                        BugComponentOfSW = TBComponent.Text,
+                        BugVersionOfSW = TBVersion.Text,
+                        TestCaseID = TC
+                    };
+
+                    try
+                    {
+                        db.BugReport.Add(bugReport);
+                        db.SaveChanges();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Не удалось добавить баг-репорт");
+                    }
+                    finally
+                    {
+                        MessageBox.Show("Баг-репорт добавлен");
+
+                    }
+                }
+                else // Редактирование
+                {
+                    var findBR = db.BugReport.Find(BRID);
+                    if(TBSummary.IsEnabled)
+                        findBR.BugReportSummary = TBSummary.Text;
+
+                    if (TBEnvir.IsEnabled)
+                        findBR.BugEnvironment = TBEnvir.Text;
+                    if (TBSteps.IsEnabled)
+                        findBR.BugSteps = TBSteps.Text;
+
+                    if(TBexpected.IsEnabled)
+                        findBR.BugExpectedResult = TBexpected.Text;
+                    if(TBactual.IsEnabled)
+                        findBR.BugActualResult = TBactual.Text;
+                    if(TBprecond.IsEnabled)
+                        findBR.BugPreconditions = TBprecond.Text;
+                    if(TBtestdata.IsEnabled)
+                        findBR.BugTestData = TBtestdata.Text;
+                    findBR.BugAttachment = attString;
+                    findBR.BugSeverityID = severity;
+                    findBR.BugPriorityID = priority;
+                    findBR.BRStatusID = status;
+                    findBR.ProjectID = findBR.ProjectID;
+                    findBR.UserID = findBR.UserID;
+                    findBR.DateOfCreation = findBR.DateOfCreation;
+                    findBR.BugReportRemark = TBNotes.Text;
+                    if(TBComponent.IsEnabled)
+                        findBR.BugComponentOfSW = TBComponent.Text;
+                    if(TBVersion.IsEnabled)
+                        findBR.BugVersionOfSW = TBVersion.Text;
+                    findBR.TestCaseID = TC;
+
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Не удалось отредактировать баг-репорт");
+                    }
+                    finally
+                    {
+                        MessageBox.Show("Баг-репорт отредактирован");
+                    }
+                }
+            }
+            else
+                MessageBox.Show("Заполните поля");
         }
 
         private void SaveBRAndExit_Click(object sender, RoutedEventArgs e)
@@ -44,22 +263,39 @@ namespace Test_Management_System.Pages
 
         private void SaveAndAddOneMoreBR_Click(object sender, RoutedEventArgs e)
         {
-
+            AddOrEditBR();
         }
+
+
 
         private void ExitWithoutSaveBR_Click(object sender, RoutedEventArgs e)
         {
-
+            var dialog = MessageBox.Show("Вы действительно хотите выйти?", "Выйти?", MessageBoxButton.YesNo);
+            if (dialog == MessageBoxResult.Yes)
+                NavigationService.Navigate(new PageBugReports(userContext));
+            else
+                return;
         }
 
         private void AddAttachment_Click(object sender, RoutedEventArgs e)
         {
-
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string filePath = openFileDialog.FileName;
+                string fileName = System.IO.Path.GetFileName(filePath);
+                attachmentsList.Add(filePath);
+                AttachmentsListBox.Items.Add(fileName);
+            }
         }
 
         private void RemoveAttachment_Click(object sender, RoutedEventArgs e)
         {
-
+            System.Windows.Controls.Button removeButton = (System.Windows.Controls.Button)sender;
+            string fileName = removeButton.DataContext as string;
+            string filePath = attachmentsList.FirstOrDefault(path => System.IO.Path.GetFileName(path) == fileName);
+            attachmentsList.Remove(filePath);
+            AttachmentsListBox.Items.Remove(fileName);
         }
     }
 }

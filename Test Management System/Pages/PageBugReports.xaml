@@ -28,7 +28,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" Grid.Column="0">
-            <Label Content="Сортировать по "/>
+            <Label Content="Сортировать по " Margin="0,10,0,10"/>
             <ComboBox Width="400" Margin="10, 0, 0, 0">
                 <ComboBoxItem Content="дате (от новых к старым)"/>
                 <ComboBoxItem Content="дате (от старых к новым)"/>
@@ -38,7 +38,7 @@
                 <ComboBoxItem Content="критичности (от блокирующей к тривиальной)"/>
             </ComboBox>
         </StackPanel>
-        <Button Content="Просмотреть поля" HorizontalAlignment="Right" Margin="10, 10, 10, 10" Width="150" Name="ChoseTCFields" Click="ChoseTCFields_Click" Style="{DynamicResource RoundedCorners}" Grid.Column="0" Grid.Row="1" />
+        <Button Content="Просмотреть поля" HorizontalAlignment="Right" Margin="10, 10, 10, 10" Width="150" Name="ChoseBRFields" Click="ChoseBRFields_Click" Style="{DynamicResource RoundedCorners}" Grid.Column="0" Grid.Row="1" />
 
         <Border x:Name="FormContainer" Grid.Row="2" Grid.Column="1" Margin="10" CornerRadius="5" Visibility="Collapsed" HorizontalAlignment="Right">
             <Grid Cursor="">
@@ -48,8 +48,8 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0"  Orientation="Horizontal" Width="200">
-                    <TextBlock Text="Добавить/убрать поля" FontSize="16" Margin="10" FontWeight="Bold"/>
-                    <Button Name="WatchTestCases" Margin="5"/>
+                    <TextBlock Text="Добавить/скрыть" FontSize="16" Margin="5, 10, 5, 10" FontWeight="Bold"/>
+                    <Button Name="CloseBorder" Content=" X " Margin="12, 5, 5, 5"  Style="{DynamicResource RoundedCorners}"/>
                 </StackPanel>
 
                 <ListBox Grid.Row="1" FontSize="14" x:Name="addFieldsList" SelectionMode="Multiple" >

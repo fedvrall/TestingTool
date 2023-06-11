@@ -25,6 +25,8 @@ namespace Test_Management_System.Pages
         public int projectID, companyId;
         Testing_ToolEntity db = new Testing_ToolEntity();
 
+        private List<string> attachmentsList = new List<string>();
+
         UserContext userContext { get; set; }
         public PageProjects(UserContext userContext)
         {
@@ -32,7 +34,12 @@ namespace Test_Management_System.Pages
             this.companyId = userContext.companyID;
             InitializeComponent();
             GridProjects.ItemsSource = db.Project.Where(x=>x.CompanyID == companyId).ToList();
-            
+
+            //List<string> attachmentNames = attachmentsList.Select(Path.GetFileName).ToList();
+            //string attString = db.Project.Where(x=>x.ProjectID == projectID).FirstOrDefault().ProjectDocumentation.FirstOrDefault().ProjectDocumentationAttachment.ToString();
+            //List<string> attachmentNames = attString.Split(';').Select(Path.GetFileName).ToList();
+
+
         }
 
         private void AddNewProject_Click(object sender, RoutedEventArgs e)

@@ -76,7 +76,7 @@ namespace Test_Management_System.Pages
             DateTime? date = null;
             int? executeUser = null;
             int? priority = null;
-            if (ComboBoxStatus.Text != "Не запущен")
+            if (ComboBoxStatus.SelectedIndex != 2)
             {
                 date = DateTime.Now;
                 executeUser = UserContext.userId;
@@ -109,7 +109,7 @@ namespace Test_Management_System.Pages
 
                 checklistManager.AddNewChecklistItem(newItem);
                 TextBoxDescription.Text = string.Empty;
-                ComboBoxStatus.SelectedItem = null;
+                ComboBoxStatus.SelectedItem = 2;
                 ComboBoxPriority.SelectedItem = null;
                 TextBoxComment.Text = string.Empty;
                 attachmentsList.Clear();

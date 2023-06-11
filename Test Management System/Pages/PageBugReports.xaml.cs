@@ -25,11 +25,14 @@ namespace Test_Management_System.Pages
     {
         List<ColumnSelectionItem> columnSelectionItems = new List<ColumnSelectionItem>();
         Testing_ToolEntity db = new Testing_ToolEntity();
-        private int BRID;
+        private int BRID, userID, roleID;
+        private bool creator;
         UserContext userContext { get; set; }
         public PageBugReports(UserContext userContext)
         {
             this.userContext = userContext;
+            this.userID = userContext.userId;
+            this.roleID = userContext.roleId;
             InitializeComponent();
 
             columnSelectionItems.Add(new ColumnSelectionItem("Критичность"));
@@ -45,6 +48,8 @@ namespace Test_Management_System.Pages
 
             addFieldsList.ItemsSource = columnSelectionItems;
             UpdateDataGridColumns();
+            EditBR.IsEnabled = false;
+            bugReportGrid.ItemsSource = db.BugReport.ToList();
         }
 
 
@@ -52,13 +57,11 @@ namespace Test_Management_System.Pages
         {
             public string Header { get; set; }
             public bool IsSelected { get; set; }
-
             public ColumnSelectionItem(string header, bool isSelected = false)
             {
                 Header = header;
                 IsSelected = isSelected;
             }
-
         }
         private void UpdateDataGridColumns()
         {
@@ -102,44 +105,28 @@ namespace Test_Management_System.Pages
             }
         }
 
-
         private void AddBR_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new PageNewBugReport(userContext, BRID));
+            NavigationService.Navigate(new PageNewBugReport(userContext, 0));
         }
 
         private void EditBR_Click(object sender, RoutedEventArgs e)
         {
+            NavigationService.Navigate(new PageNewBugReport(userContext, BRID));
 
         }
 
         private void DeleteBR_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void ChoseTCFields_Click(object sender, RoutedEventArgs e)
-        {
-            if (FormContainer.Visibility == Visibility.Visible)
+            var dialog = MessageBox.Show("Вы действительно хотите удалить выбранный баг-репорт?", "Удалить?", MessageBoxButton.YesNo);
+            if (dialog == MessageBoxResult.Yes)
             {
-                FormContainer.Visibility = Visibility.Collapsed;
-                DoubleAnimation animation = new DoubleAnimation();
-                animation.From = 200;
-                animation.To = 0;
-                animation.Duration = TimeSpan.FromSeconds(0.3);
-                FormContainer.BeginAnimation(Border.WidthProperty, animation);
-                ChoseTCFields.Content = "Просмотреть поля";
+                var bugreport = db.BugReport.FirstOrDefault(x => x.BugReportID == BRID);
+                db.BugReport.Remove(bugreport);
+                db.SaveChanges();
             }
             else
-            {
-                FormContainer.Visibility = Visibility.Visible;
-                DoubleAnimation animation = new DoubleAnimation();
-                animation.From = 0;
-                animation.To = 200;
-                animation.Duration = TimeSpan.FromSeconds(0.3);
-                FormContainer.BeginAnimation(Border.WidthProperty, animation);
-                ChoseTCFields.Content = "Скрыть поля";
-            }
+                return;
         }
 
         private void bugReportGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -147,8 +134,21 @@ namespace Test_Management_System.Pages
             if (bugReportGrid.SelectedItem != null)
             {
                 BRID = ((BugReport)bugReportGrid.SelectedItem).BugReportID;
-                EditBR.IsEnabled = true;
-                DeleteBR.IsEnabled = true;
+
+                int userBR = db.BugReport.Where(x => x.BugReportID == BRID).FirstOrDefault().UserID;
+                if (userBR == userID)
+                    creator = true;
+                if (roleID == 2 || creator)
+                {
+                    EditBR.IsEnabled = true;
+                    DeleteBR.IsEnabled = true;
+
+                }
+                else
+                {
+                    DeleteBR.IsEnabled = false;
+                    EditBR.IsEnabled = false;
+                }
             }
             else
             {
@@ -165,6 +165,30 @@ namespace Test_Management_System.Pages
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
             UpdateDataGridColumns();
+        }
+
+        private void ChoseBRFields_Click(object sender, RoutedEventArgs e)
+        {
+            if (FormContainer.Visibility == Visibility.Visible)
+            {
+                FormContainer.Visibility = Visibility.Collapsed;
+                DoubleAnimation animation = new DoubleAnimation();
+                animation.From = 200;
+                animation.To = 0;
+                animation.Duration = TimeSpan.FromSeconds(0.3);
+                FormContainer.BeginAnimation(Border.WidthProperty, animation);
+                ChoseBRFields.Content = "Просмотреть поля";
+            }
+            else
+            {
+                FormContainer.Visibility = Visibility.Visible;
+                DoubleAnimation animation = new DoubleAnimation();
+                animation.From = 0;
+                animation.To = 200;
+                animation.Duration = TimeSpan.FromSeconds(0.3);
+                FormContainer.BeginAnimation(Border.WidthProperty, animation);
+                ChoseBRFields.Content = "Скрыть поля";
+            }
         }
     }
 }

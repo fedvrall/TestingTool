@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
-      d:DesignHeight="800" d:DesignWidth="1150"
+      d:DesignHeight="800" d:DesignWidth="1200"
       Title="PageNewBugReport">
    
     <Grid>
@@ -20,70 +20,76 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Label Content="Добавление нового баг-репорта" Grid.Row="0" FontSize="16" Margin="10" FontWeight="DemiBold"/>
+        <Label Name="Header" Grid.Row="0" FontSize="16" Margin="10" FontWeight="DemiBold"/>
         
         <Label Content="Заголовок" Grid.Row="1" Margin="10, 10, 0, 0"/>
-        <TextBox Width="980" Grid.Row="1" HorizontalAlignment="Right" Margin="0,10,10,10"/>
+        <TextBox x:Name="TBSummary" MaxLength="255" Width="980" Grid.Row="1" HorizontalAlignment="Right" Margin="0,10,10,0"/>
 
         <Label Grid.Row="2" Content="Окружение" Margin="10, 10, 0, 0"/>
-        <TextBox Grid.Row="2" Width="980" HorizontalAlignment="Right" Margin="0,10,10,10"/>
+        <TextBox x:Name="TBEnvir" MaxLength="255" Grid.Row="2" Width="980" HorizontalAlignment="Right" Margin="0,10,10,10"/>
         
-        <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0, 10, 0, 0">
+        <Label Grid.Row="3" Content="Шаги" Margin="10, 10, 0, 0"/>
+        <TextBox x:Name="TBSteps" MaxLength="1000" Grid.Row="3" Width="980" HorizontalAlignment="Right" Margin="0,0,10,0" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Height="100"/>
+
+
+        <StackPanel Orientation="Horizontal" Grid.Row="4" >
             <Label Content="Ожидаемый результат" Margin="10, 10, 22, 10"/>
-            <RichTextBox Grid.Row="3" Grid.RowSpan="2"  Width="399" Height="100" />
+            <TextBox x:Name="TBexpected" MaxLength="1000" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Grid.Row="4" Grid.RowSpan="2"  Width="399" Height="100" />
             <Label Content="Фактический результат" Margin="10"/>
-            <RichTextBox Grid.Row="3" Grid.RowSpan="2" Margin="4,10,10,10" Width="399" Height="100"/>
+            <TextBox x:Name="TBactual" MaxLength="1000" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Grid.Row="4" Grid.RowSpan="2" Margin="4,10,10,0" Width="399" Height="100"/>
         </StackPanel>
 
-        <Label Grid.Row="4" Content="Предусловия" Margin="10, 10, 0, 0"/>
-        <TextBox Grid.Row="4" Width="980" HorizontalAlignment="Right" Margin="0,10,10,10"/>
+        <Label Grid.Row="5" Content="Предусловия" Margin="10, 10, 0, 0"/>
+        <TextBox x:Name="TBprecond" MaxLength="255" Grid.Row="5" Width="980" HorizontalAlignment="Right" Margin="0,10,10,0"/>
 
-        <Label Grid.Row="5" Content="Тестовые данные" Margin="10, 10, 0, 0"/>
-        <TextBox Grid.Row="5" Width="980" HorizontalAlignment="Right" Margin="0,10,10,10"/>
+        <Label Grid.Row="6" Content="Тестовые данные" Margin="10, 10, 0, 0"/>
+        <TextBox x:Name="TBtestdata" MaxLength="255" Grid.Row="6" Width="980" HorizontalAlignment="Right" Margin="0,10,10,0"/>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="6" Margin="10">
+        <StackPanel Orientation="Horizontal" Grid.Row="7" Margin="10, 10, 10, 0">
             <Label Content="Приоритет" />
-            <ComboBox SelectedIndex="0" Width="200" Margin="97,0,55,0"/>
+            <ComboBox x:Name="ComboPriority" SelectedIndex="0" DisplayMemberPath="BugPriorityNameTranslation" Width="200" Margin="97,0,55,0"/>
 
             <Label Content="Серьёзность" />
-            <ComboBox  SelectedIndex="0" Width="200" Margin="63,0,55,0"/>
+            <ComboBox x:Name="ComboSeverity" SelectedIndex="0" DisplayMemberPath="BugSeverityNameTranslation" Width="200" Margin="63,0,55,0"/>
 
             <Label Content="Статус" />
-            <ComboBox   SelectedIndex="0" Width="200" Margin="63,0,0,0"/>
+            <ComboBox x:Name="ComboStatus" SelectedIndex="0" DisplayMemberPath="BRStatusNameTranslation" Width="200" Margin="63,0,0,0"/>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="7" Margin="10">
+        <StackPanel Orientation="Horizontal" Grid.Row="8" Margin="10, 10, 10, 0">
             <Label Content="Компонент ПО" />
-            <TextBox  Width="399" Margin="70,0,30,0"/>
+            <TextBox x:Name="TBComponent" MaxLength="255" Width="399" Margin="70,0,30,0"/>
 
             <Label Content="Версия ПО"  />
-            <TextBox  Width="399" Margin="73,0,0,0"/>
+            <TextBox x:Name="TBVersion" MaxLength="100" Width="399" Margin="73,0,0,0"/>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="8" Margin="10">
+        <StackPanel Orientation="Horizontal" Grid.Row="9" Margin="10, 10, 10, 0">
             <Label Content="Дата создания" />
-            <DatePicker Width="399" Margin="74,0,0,0" Height="30" />
+            <DatePicker x:Name="DPCreation" Width="399" Margin="74,0,0,0" Height="30" />
         </StackPanel>
         
-        <Label Content="Заметки" Grid.Row="8" Margin="615,10,0,0" />
-        <RichTextBox Grid.Row="8" Grid.RowSpan="2" Margin="768,10,10,0" Width="399"/>
+        <Label Content="Заметки" Grid.Row="9" Margin="615,10,0,0" />
+        <TextBox x:Name="TBNotes" MaxLength="1000" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Grid.Row="9" Grid.RowSpan="2" Margin="768,10,10,0" Width="399"/>
         
-        <StackPanel Orientation="Horizontal" Grid.Row="9" Margin="10, 10, 0, 10">
+        <StackPanel Orientation="Horizontal" Grid.Row="10" Margin="10, 10, 0, 0">
             <Label Content="Связанные тест-кейсы"  />
-            <ComboBox Width="399" Margin="23,0,0,0" />
+            <ComboBox x:Name="ComboTC" DisplayMemberPath="TestCaseSummary" Width="399" Margin="23,0,0,0" />
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="10" Margin="10, 10,0,0">
+        <StackPanel Orientation="Horizontal" Grid.Row="11" Margin="10, 10,0,0">
             <Label  Content="Вложения" Margin="0, 10, 10, 0"/>
             <ListBox Width="751" Height="80" Margin="92, 0, 10, 0"  x:Name="AttachmentsListBox">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding}" Margin="10" FontSize="14" FontFamily="Courier" />
-                            <Button Content="Удалить" Click="RemoveAttachment_Click"  Margin="10, 0" Width="100" Style="{DynamicResource RoundedCorners}" />
+                            <Button Content="Удалить" Name="RemoveAtt" Click="RemoveAttachment_Click"  Margin="10, 0" Width="100" Style="{DynamicResource RoundedCorners}" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -91,12 +97,10 @@
             <Button Style="{DynamicResource RoundedCorners}" Padding="10" Width="200" Content="Добавить вложение" Margin="20, 10, 10, 10" VerticalAlignment="Center" Name="AddAttachment" Click="AddAttachment_Click" />
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="11" Margin="10, 10, 10, 10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <StackPanel Orientation="Horizontal" Grid.Row="12" Margin="10, 10, 10, 10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Button Style="{DynamicResource RoundedCorners}" Margin="0, 0, 10, 0" x:Name="SaveBRAndExit" Content="Сохранить и выйти" Click="SaveBRAndExit_Click" Width="200"/>
             <Button Style="{DynamicResource RoundedCorners}" Margin="0, 0, 10, 0" x:Name="SaveAndAddOneMoreBR" Content="Сохранить и добавить ещё один" Click="SaveAndAddOneMoreBR_Click" Width="250" />
-            <Button Style="{DynamicResource RoundedCorners}"  x:Name="ExitWithoutSaveBR" Content="Выйти без сохранения" Click="ExitWithoutSaveBR_Click" Width="200" />
-
+            <Button Style="{DynamicResource RoundedCorners}" x:Name="ExitWithoutSaveBR" Content="Выйти без сохранения" Click="ExitWithoutSaveBR_Click" Width="200" />
         </StackPanel>
-
     </Grid>
 </Page>

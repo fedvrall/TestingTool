@@ -28,6 +28,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Label  Content="Вложения" Margin="10, 10, 10, 0"/>
+
             <ListBox Width="1060" Height="80" Margin="10, 10, 10, 10" x:Name="AttachmentsListBox">
                 <ListBox.ItemTemplate>
                     <DataTemplate>

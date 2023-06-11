@@ -29,11 +29,12 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" Grid.Column="0">
-            <Label Content="Сортировать по "/>
-            <ComboBox Width="400" Margin="10, 0, 0, 0">
+            <Label Content="Сортировать по " Margin="0,10,0,10"/>
+            <ComboBox Name="ComboSortBy" Width="400" Margin="10, 0, 0, 0" SelectionChanged="ComboSortBy_SelectionChanged">
                 <ComboBoxItem Content="дате (от новых к старым)"/>
                 <ComboBoxItem Content="дате (от старых к новым)"/>
-                <ComboBoxItem Content="статусу"/>
+                <ComboBoxItem Content="статусу (провален)"/>
+                <ComboBoxItem Content="статусу (не выполнен)"/>
                 <ComboBoxItem Content="приоритету (от низкого к высокому)"/>
                 <ComboBoxItem Content="приоритету (от высокого к низкому)"/>
                 <ComboBoxItem Content="критичности (от тривиальной к блокирующей)"/>
@@ -50,8 +51,8 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0"  Orientation="Horizontal" Width="200">
-                    <TextBlock Text="Добавить/убрать поля" FontSize="16" Margin="10" FontWeight="Bold"/>
-                    <Button Name="WatchTestCases" Margin="5"/>
+                    <TextBlock Text="Добавить/скрыть" FontSize="16" Margin="5, 10, 5, 10" FontWeight="Bold"/>
+                    <Button Name="CloseBorder" Content=" X "  Margin="12, 5, 5, 5"   Style="{DynamicResource RoundedCorners}"/>
                 </StackPanel>
 
                 <ListBox Grid.Row="1" FontSize="14" x:Name="addFieldsList" SelectionMode="Multiple" >

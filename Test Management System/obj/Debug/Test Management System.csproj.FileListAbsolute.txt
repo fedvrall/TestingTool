@@ -340,3 +340,5 @@ D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageManual.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageManual.baml
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageExecuteCheckList.g.cs
 D:\Data\TestingTool\Test Management System\obj\Debug\Pages\PageExecuteCheckList.baml
+D:\Data\TestingTool\Test Management System\obj\Debug\Pages\WindowChoseNewUser.g.cs
+D:\Data\TestingTool\Test Management System\obj\Debug\Pages\WindowChoseNewUser.baml

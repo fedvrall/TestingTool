@@ -31,13 +31,14 @@ namespace Test_Management_System.Pages
         private bool isAddUser = false;
         private int userID, companyID;
         TextBoxChecking checking = new TextBoxChecking();
+        Testing_ToolEntity db = new Testing_ToolEntity();
+
         public UserContext UserContext { get; set; }
         public PageEditUsers(UserContext userContext)
         {
             this.UserContext = userContext;
             this.companyID = userContext.companyID;
             InitializeComponent();
-            Testing_ToolEntity db = new Testing_ToolEntity();
             dgvUsers.ItemsSource = db.Userinfo.Where(x=> x.CompanyID == companyID).ToList();
             RoleComboBox.Items.Clear();
             RoleComboBox.Items.Add("");
@@ -91,12 +92,37 @@ namespace Test_Management_System.Pages
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = MessageBox.Show("Вы действительно хотите удалить выбранного пользователя? Это действие необратимо!", "Удалить?", MessageBoxButton.YesNo);
+            var dialog = MessageBox.Show("Вы действительно хотите удалить выбранного пользователя? Вам придётся выбрать пользователя, для передачи ему всех текущих наработок.", "Удалить?", MessageBoxButton.YesNo);
             if (dialog == MessageBoxResult.Yes)
             {
-                // Отобразить диалог выбора пользователя, к которому перейдут все проекты
-                // Если на кнопке "Перенести" 
-                // Выполнить удаление
+                WindowChoseNewUser newUser = new WindowChoseNewUser();
+                if (newUser.ShowDialog() == true)
+                {
+                    Userinfo selectedUser = newUser.SelectedUser;
+                    db.TestCase.Where(t => t.CreatorUserID == userID).ToList().ForEach(t => t.CreatorUserID = selectedUser.UserID);
+                    db.TestCase.Where(t => t.ExecutorUserID == userID).ToList().ForEach(t => t.ExecutorUserID = selectedUser.UserID);
+                    db.BugReport.Where(t => t.UserID == userID).ToList().ForEach(t => t.UserID = selectedUser.UserID);
+                    db.CheckList.Where(t => t.UserID == userID).ToList().ForEach(t => t.UserID = selectedUser.UserID);
+                    db.CheckListItem.Where(t => t.UserID == userID).ToList().ForEach(t => t.UserID = selectedUser.UserID);
+
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Не удалось изменить связи");
+                    }
+
+                    finally
+                    {
+                        var userToDelete = db.Userinfo.Find(userID);
+                        db.Userinfo.Remove(userToDelete);
+                        db.SaveChanges();
+                        MessageBox.Show("Связи успешно обновлены для выбранного пользователя: " + selectedUser.LastName + " " + selectedUser.FirstName + ", " +
+                            "пользователь " + userToDelete.LastName + " " + userToDelete.FirstName + " успешно удалён.");
+                    }
+                }
             }
             else
                 return;
@@ -110,6 +136,8 @@ namespace Test_Management_System.Pages
                 PassTextBox.Visibility = Visibility.Collapsed; 
                 PassBox.Visibility = Visibility.Visible; 
             }
+
+
             if(ShowNewPass.IsChecked == true)
             {
                 NewPassTextBox.Text = NewPass.Password;
@@ -131,6 +159,8 @@ namespace Test_Management_System.Pages
                 PassTextBox.Visibility = Visibility.Visible;
                 PassBox.Visibility = Visibility.Collapsed;
             }
+
+
             if (ShowNewPass.IsChecked == false)
             {
                 NewPass.Password = NewPassTextBox.Text;
@@ -138,6 +168,7 @@ namespace Test_Management_System.Pages
 
                 NewPassTextBox.Visibility = Visibility.Collapsed;
                 NewPassAgreementTextBox.Visibility = Visibility.Collapsed;
+
                 NewPass.Visibility = Visibility.Visible;
                 NewPassAgreement.Visibility = Visibility.Visible;
             }
@@ -176,7 +207,7 @@ namespace Test_Management_System.Pages
             SaveButton.IsEnabled = false;
 
             PassLabel.Visibility = Visibility.Visible;
-            PassBox.Visibility = Visibility.Visible;
+            //PassBox.Visibility = Visibility.Visible;
             PassTextBox.Visibility = Visibility.Visible;
             HideCurrentPass.Visibility = Visibility.Visible;
         }
@@ -185,6 +216,11 @@ namespace Test_Management_System.Pages
         {
             using (Testing_ToolEntity db = new Testing_ToolEntity())
             {
+                string newUserPass;
+                if (NewPassAgreement.Visibility == Visibility.Visible)
+                    newUserPass = NewPassAgreement.Password;
+                else
+                    newUserPass = NewPassAgreementTextBox.Text;
                 if (isAddUser)
                 {
                     if (LoginTextBox.Text != "" && FirstNameTextBox.Text != "" && LastNameTextBox.Text != "" && NewPass.Password != "" && RoleComboBox.SelectedIndex != 0)
@@ -194,7 +230,7 @@ namespace Test_Management_System.Pages
                             FirstName = FirstNameTextBox.Text.ToString(),
                             LastName = LastNameTextBox.Text.ToString(),
                             Login = LoginTextBox.Text.ToString(),
-                            Password = NewPass.Password.ToString(),
+                            Password = newUserPass,
                             RoleID = RoleComboBox.SelectedIndex,
                             CompanyID = UserContext.companyID
                         };
@@ -342,7 +378,6 @@ namespace Test_Management_System.Pages
             if (checking.CheckOnlyCirSymb(FirstNameTextBox.Text) != null)
             {
                 FirstNameTextBox.Text = checking.CheckOnlyCirSymb(FirstNameTextBox.Text);
-                FirstNameTextBox.Text = string.Empty;
             }
             if (FirstNameTextBox.Text.Length >= 50)
                 MessageBox.Show("Слишком длинное имя");
@@ -353,10 +388,14 @@ namespace Test_Management_System.Pages
             if (checking.CheckOnlyCirSymb(LastNameTextBox.Text) != null)
             {
                 FirstNameTextBox.Text = checking.CheckOnlyCirSymb(LastNameTextBox.Text);
-                LastNameTextBox.Text = string.Empty;
             }
             if (LastNameTextBox.Text.Length >= 50)
                 MessageBox.Show("Слишком длинная фамилия");
+        }
+
+        private void NewPassAgreementTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            IsIdenticalPass();
         }
 
         private void LoginTextBox_LostFocus(object sender, RoutedEventArgs e)

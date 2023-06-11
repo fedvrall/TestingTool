@@ -27,7 +27,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Margin="0 0 0 5" Content="Описание:"/>
-            <TextBox Grid.Row="0" x:Name="TextBoxDescription" Width="1030"  HorizontalAlignment="Right" Margin="5, 5, 10, 5"/>
+            <TextBox Grid.Row="0" x:Name="TextBoxDescription" Width="1030" MaxLength="1000"  HorizontalAlignment="Right" Margin="5, 5, 10, 5"/>
 
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0, 10, 0, 10">
                 <Label  Margin="0, 0, 63, 0" Content="Статус:"/>
@@ -37,7 +37,7 @@
             </StackPanel>
 
             <Label Grid.Row="2" Margin="0, 5, 0, 5" Content="Комментарий:"/>
-            <TextBox Grid.Row="2" x:Name="TextBoxComment" Width="1030" HorizontalAlignment="Right" Margin="5, 5, 10, 5"/>
+            <TextBox Grid.Row="2" x:Name="TextBoxComment" MaxLength="255" Width="1030" HorizontalAlignment="Right" Margin="5, 5, 10, 5"/>
 
             <Label Grid.Row="3"  Content="Вложение:" Margin="0 0 0 5"/>
             <ListBox Grid.Row="3" Width="975" Height="70" HorizontalAlignment="Right" Margin="5,5,65,5"  x:Name="AttachmentsListBox">

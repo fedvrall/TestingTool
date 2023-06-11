@@ -1,0 +1,17 @@
+﻿<Window x:Class="Test_Management_System.Pages.WindowChoseNewUser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Test_Management_System.Pages"
+        mc:Ignorable="d"
+        Title="Выбор пользователя" Height="213" Width="419" Style="{DynamicResource CustomWindowStyle}" WindowStartupLocation="CenterScreen" >
+    <Grid>
+        <StackPanel Margin="10">
+            <Label Content="Выберите пользователя, которому передать все документы"/>
+            <ComboBox Margin="10" Name="userComboBox" />
+            <Button Name="okButton" Content="OK" Style="{DynamicResource RoundedCorners}" Width="100" Margin="10, 30, 10, 10"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

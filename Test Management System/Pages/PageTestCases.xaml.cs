@@ -39,8 +39,9 @@ namespace Test_Management_System.Pages
         public PageTestCases(UserContext userContext, int testStuiteID)
         {
             InitializeComponent();
-            testCaseGrid.ItemsSource = db.TestCase.ToList();
+            //testCaseGrid.ItemsSource = db.TestCase.ToList();
 
+            SortTestCases();
             columnSelectionItems.Add(new ColumnSelectionItem("Описание"));
             columnSelectionItems.Add(new ColumnSelectionItem("Критичность"));
             columnSelectionItems.Add(new ColumnSelectionItem("Приоритет"));
@@ -144,6 +145,28 @@ namespace Test_Management_System.Pages
 
         private void SortTestCases()
         {
+            //testCaseGrid.Items.Clear();
+            var tc = db.TestCase.ToList();
+
+            if (ComboSortBy.SelectedIndex == 1)
+                tc = db.TestCase.OrderBy(x => x.TestCaseCreationDate).ToList();
+            if(ComboSortBy.SelectedIndex == 2)
+                tc = db.TestCase.OrderByDescending(x=>x.TestCaseCreationDate).ToList();
+
+            if(ComboSortBy.SelectedIndex == 3)
+                tc = db.TestCase.Where(x=>x.TCStatusID == 2).ToList();
+            if (ComboSortBy.SelectedIndex == 4)
+                tc = db.TestCase.Where(x => x.TCStatusID == 5).ToList();
+
+            if (ComboSortBy.SelectedIndex == 5)
+                tc = db.TestCase.OrderByDescending(x => x.TCPriorityID).ToList();
+            if (ComboSortBy.SelectedIndex == 6)
+                tc = db.TestCase.OrderBy(x => x.TCPriorityID).ToList();
+            if (ComboSortBy.SelectedIndex == 7)
+                tc = db.TestCase.OrderBy(x => x.TCSeverityID).ToList();
+            if (ComboSortBy.SelectedIndex == 8)
+                tc = db.TestCase.OrderByDescending(x => x.TCSeverityID).ToList();
+            testCaseGrid.ItemsSource = tc;
 
         }
 
@@ -193,6 +216,11 @@ namespace Test_Management_System.Pages
                 EditTestCaseItem.IsEnabled = false;
                 DeleteTestCase.IsEnabled = false;
             }
+        }
+
+        private void ComboSortBy_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SortTestCases();
         }
     }
 }
