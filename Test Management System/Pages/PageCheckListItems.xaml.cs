@@ -93,7 +93,7 @@ namespace Test_Management_System.Pages
                 priority = null;
 
 
-            if (!String.IsNullOrEmpty(TextBoxDescription.Text) && ComboBoxStatus.SelectedIndex != -1)
+            if (!String.IsNullOrEmpty(TextBoxDescription.Text))
             {
                 CheckListItem newItem = new CheckListItem
                 {
@@ -116,9 +116,9 @@ namespace Test_Management_System.Pages
             }
             else
             {
-                MessageBox.Show("Не заполнены основные поля");
+                MessageBox.Show("Не заполнено основное поле");
+                TextBoxDescription.Style = (System.Windows.Style)FindResource("InvalidFieldStyle");
             }
-
         }
 
         private void RemoveAttachment_Click(object sender, RoutedEventArgs e)

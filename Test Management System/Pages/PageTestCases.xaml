@@ -20,17 +20,18 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <Label  Content="Просмотр тест-кейсов из " FontSize="18" Margin="10" Grid.Row="0" Grid.Column="0"/>
-        <Label  Content="" FontSize="18" Margin="230, 10, 10, 10" Grid.Row="0" Grid.Column="0" Name="HeaderTestCasesView"/>
+        <Label  Content="Просмотр тест-кейсов из " FontSize="18" Margin="170, 10, 10, 10" Grid.Row="0" Grid.Column="0"/>
+        <Label  Content="" FontSize="18" Margin="400, 10, 10, 10" Grid.Row="0" Grid.Column="0" Name="HeaderTestCasesView"/>
         <StackPanel Orientation="Horizontal" Margin="0, 20, 10, 20" Grid.Row="3" HorizontalAlignment="Right" Grid.Column="0">
             <Button Content="Добавить" Style="{DynamicResource RoundedCorners}" Width="150" Margin="0, 0, 10, 0" Name="AddTestCaseItem" Click="AddTestCaseItem_Click" />
             <Button Content="Редактировать" Style="{DynamicResource RoundedCorners}" Width="150" Margin="0, 0, 10, 0"  IsEnabled="False" Name="EditTestCaseItem" Click="EditTestCaseItem_Click"/>
-            <Button Content="Удалить" Style="{DynamicResource RoundedCorners}" Width="150"   IsEnabled="False" Name="DeleteTestCase" Click="DeleteTestCase_Click"/>
+            <Button Content="Удалить" Style="{DynamicResource RoundedCorners}" Width="150" Margin="0, 0, 10, 0" IsEnabled="False" Name="DeleteTestCase" Click="DeleteTestCase_Click"/>
+            <Button Content="Назад" Style="{DynamicResource RoundedCorners}" Width="150" Name="BackToTS" Click="BackToTS_Click"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" Grid.Column="0">
-            <Label Content="Сортировать по " Margin="0,10,0,10"/>
-            <ComboBox Name="ComboSortBy" Width="400" Margin="10, 0, 0, 0" SelectionChanged="ComboSortBy_SelectionChanged">
+            <Label Content="Сортировать по " Margin="0,10,0,0"/>
+            <ComboBox Name="ComboSortBy" Width="350" Margin="49, 0, 0, 0" SelectionChanged="ComboSortBy_SelectionChanged">
                 <ComboBoxItem Content="дате (от новых к старым)"/>
                 <ComboBoxItem Content="дате (от старых к новым)"/>
                 <ComboBoxItem Content="статусу (провален)"/>
@@ -67,7 +68,7 @@
             </Grid>
         </Border>
 
-        <DataGrid HorizontalScrollBarVisibility="Auto" Name="testCaseGrid" Grid.Row="2" Margin="10" ItemsSource="{Binding TestCase}" SelectionChanged="testCaseGrid_SelectionChanged"  CanUserAddRows="False" AutoGenerateColumns="False" Grid.Column="0">
+        <DataGrid HorizontalScrollBarVisibility="Auto" Name="testCaseGrid" Grid.Row="2" Margin="10" ItemsSource="{Binding}" SelectionChanged="testCaseGrid_SelectionChanged"  CanUserAddRows="False" AutoGenerateColumns="False" Grid.Column="0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Заголовок"  Binding="{Binding TestCaseSummary}" Visibility="Visible" >
                     <DataGridTextColumn.ElementStyle>

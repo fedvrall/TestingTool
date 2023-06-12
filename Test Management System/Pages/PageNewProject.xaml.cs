@@ -229,7 +229,7 @@ namespace Test_Management_System.Pages
 
                     try
                     {
-                        int? projectDocID = db.ProjectDocumentation.Where(x => x.ProjectID == projectID).FirstOrDefault().ProjectDocumentationID;
+                        int? projectDocID = db.ProjectDocumentation.Where(x => x.ProjectID == projectID).FirstOrDefault()?.ProjectDocumentationID;
                         if (projectDocID != null)
                         {
                             var editProjDoc = db.ProjectDocumentation.Find(projectDocID);

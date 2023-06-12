@@ -10,6 +10,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -17,7 +18,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <DataGrid Name="GridProjects" Margin="10" Grid.Row="0" ItemsSource="{Binding Project}" SelectionChanged="GridProjects_SelectionChanged" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column">
+        <Label Content="Работа с проектами" FontSize="16" FontWeight="DemiBold" Grid.Row="0"/>
+        <DataGrid Name="GridProjects" Margin="10" Grid.Row="1" ItemsSource="{Binding Project}" SelectionChanged="GridProjects_SelectionChanged" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название проекта" Width="300" Binding="{Binding ProjectName}"/>
                 <DataGridTextColumn Header="Дата начала проекта" Width="210" Binding="{Binding ProjectDateOfCreation}"/>
@@ -26,7 +28,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="1">
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
             <Label  Content="Вложения" Margin="10, 10, 10, 0"/>
 
             <ListBox Width="1060" Height="80" Margin="10, 10, 10, 10" x:Name="AttachmentsListBox">
@@ -40,28 +42,28 @@
             </ListBox>
         </StackPanel>
 
-        <StackPanel Name="CustomerInfo1" Grid.Row="2" Orientation="Horizontal" Margin="10">
+        <StackPanel Name="CustomerInfo1" Grid.Row="3" Orientation="Horizontal" Margin="10">
             <Label  Content="Информация о заказчике:" FontSize="16" FontWeight="Bold"/>
             <Label Content="Заметки о заказчике:" Margin="444, 0, 0, 0" FontSize="16" FontWeight="Bold"/>
         </StackPanel>
 
-        <StackPanel Name="CustomerInfo2" Grid.Row="3" Orientation="Horizontal" Margin="10">
+        <StackPanel Name="CustomerInfo2" Grid.Row="4" Orientation="Horizontal" Margin="10">
             <Label Content="Фамилия:" VerticalAlignment="Center" />
             <TextBox x:Name="txtLastName" Width="200" Margin="24, 0, 10, 0" />
             <Label  Content="Электронная почта:" VerticalAlignment="Center" />
             <TextBox x:Name="txtEmail"  Margin="10, 0, 10, 0"  Width="200"  />
 
         </StackPanel>
-        <TextBox Name="CustomerInfo3" Grid.Row="3" Grid.RowSpan="2" Margin="675,10,10,10" />
+        <TextBox Name="CustomerInfo3" Grid.Row="4" Grid.RowSpan="2" Margin="675,10,10,10" />
 
-        <StackPanel Name="CustomerInfo4" Grid.Row="4" Orientation="Horizontal" Margin="10">
+        <StackPanel Name="CustomerInfo4" Grid.Row="5" Orientation="Horizontal" Margin="10">
             <Label  Content="Имя:"  VerticalAlignment="Center" />
             <TextBox x:Name="txtFirstName" Width="200" Margin="55, 0, 10, 0" />
             <Label  Content="Телефон:" VerticalAlignment="Center" />
             <TextBox x:Name="txtPhone" Width="200"  Margin="78, 0, 10, 0"    />
 
         </StackPanel>
-        <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="10, 20, 10, 20" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="10, 20, 10, 20" HorizontalAlignment="Right">
             <Button Style="{DynamicResource RoundedCorners}" Width="150" Margin="0, 0, 10, 0" Content="Добавить проект" Name="AddNewProject" Click="AddNewProject_Click" VerticalAlignment="Center" HorizontalAlignment="Right"/>
             <Button Style="{DynamicResource RoundedCorners}" Width="150" Margin="0, 0, 10, 0" IsEnabled="False" Content="Редактировать" Name="EditProject" Click="EditProject_Click" VerticalAlignment="Center" HorizontalAlignment="Right"/>
             <Button Style="{DynamicResource RoundedCorners}" Width="150"   Content="Удалить" IsEnabled="False" VerticalAlignment="Center" HorizontalAlignment="Right"/>

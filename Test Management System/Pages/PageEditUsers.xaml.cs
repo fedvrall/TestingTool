@@ -39,6 +39,7 @@ namespace Test_Management_System.Pages
             this.UserContext = userContext;
             this.companyID = userContext.companyID;
             InitializeComponent();
+
             dgvUsers.ItemsSource = db.Userinfo.Where(x=> x.CompanyID == companyID).ToList();
             RoleComboBox.Items.Clear();
             RoleComboBox.Items.Add("");
@@ -119,13 +120,21 @@ namespace Test_Management_System.Pages
                         var userToDelete = db.Userinfo.Find(userID);
                         db.Userinfo.Remove(userToDelete);
                         db.SaveChanges();
-                        MessageBox.Show("Связи успешно обновлены для выбранного пользователя: " + selectedUser.LastName + " " + selectedUser.FirstName + ", " +
-                            "пользователь " + userToDelete.LastName + " " + userToDelete.FirstName + " успешно удалён.");
+                        MessageBox.Show("Связи успешно обновлены для выбранного пользователя: \n " + selectedUser.LastName + " " + selectedUser.FirstName + ", " +
+                            "\nпользователь " + userToDelete.LastName + " " + userToDelete.FirstName + " успешно удалён.");
+                        RefreshGrid();
                     }
                 }
             }
             else
                 return;
+        }
+
+        private void RefreshGrid()
+        {
+            dgvUsers.ItemsSource = null;
+            var user = db.Userinfo.Where(x => x.CompanyID == companyID).ToList();
+            dgvUsers.ItemsSource = user;
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -239,7 +248,6 @@ namespace Test_Management_System.Pages
                         {
                             db.Userinfo.Add(user);
                             db.SaveChanges();
-                            //dgvUsers.Items.Refresh();
                         }
                         catch
                         {
@@ -248,6 +256,7 @@ namespace Test_Management_System.Pages
                         finally
                         {
                             MessageBox.Show("Пользователь был добавлен");
+                            RefreshGrid();
                             ClearFields();
                         }
                     }
@@ -259,15 +268,15 @@ namespace Test_Management_System.Pages
                     var dialog = MessageBox.Show("Вы действительно хотите отредактировать данного пользователя?", "Изменить?", MessageBoxButton.YesNo);
                     if (dialog == MessageBoxResult.Yes)
                     {
+                        var findUser = db.Userinfo.Find(userID);
+                        findUser.FirstName = FirstNameTextBox.Text.ToString();
+                        findUser.LastName = LastNameTextBox.Text.ToString();
+                        findUser.RoleID = RoleComboBox.SelectedIndex;
+                        findUser.Login = LoginTextBox.Text.ToString();
+                        findUser.Password = NewPassAgreement.Password.ToString();
+                        findUser.CompanyID = findUser.CompanyID;
                         try
                         {
-                            var findUser = db.Userinfo.Find(userID);
-                            findUser.FirstName = FirstNameTextBox.Text.ToString();
-                            findUser.LastName = LastNameTextBox.Text.ToString();
-                            findUser.RoleID = RoleComboBox.SelectedIndex;
-                            findUser.Login = LoginTextBox.Text.ToString();
-                            findUser.Password = NewPassAgreement.Password.ToString();
-                            findUser.CompanyID = findUser.CompanyID;
                             db.SaveChanges();
                         }
                         catch
@@ -277,6 +286,7 @@ namespace Test_Management_System.Pages
                         finally
                         {
                             MessageBox.Show("Данные пользователя изменены.");
+                            RefreshGrid();
                             ClearFields();
                         }
                     }
@@ -365,6 +375,8 @@ namespace Test_Management_System.Pages
                 userID = ((Userinfo)dgvUsers.SelectedItem).UserID;
                 DeleteButton.IsEnabled = true;
                 EditButton.IsEnabled = true;
+                PassTextBox.Text = db.Userinfo.Where(x=>x.UserID == userID).FirstOrDefault().Password.ToString();
+                PassBox.Password = db.Userinfo.Where(x => x.UserID == userID).FirstOrDefault().Password.ToString();
             }
             else
             {
@@ -387,7 +399,7 @@ namespace Test_Management_System.Pages
         {
             if (checking.CheckOnlyCirSymb(LastNameTextBox.Text) != null)
             {
-                FirstNameTextBox.Text = checking.CheckOnlyCirSymb(LastNameTextBox.Text);
+                LastNameTextBox.Text = checking.CheckOnlyCirSymb(LastNameTextBox.Text);
             }
             if (LastNameTextBox.Text.Length >= 50)
                 MessageBox.Show("Слишком длинная фамилия");

@@ -60,6 +60,7 @@ namespace Test_Management_System.Pages
             this.testStuiteID = testStuiteID;
             this.UserContext = userContext;            
             HeaderTestCasesView.Content = db.TestSuite.Where(x => x.TestSuiteID == testStuiteID).FirstOrDefault().TestSuiteSummary;
+            testCaseGrid.ItemsSource = db.TestCase.Where(x=>x.TestSuiteID == testStuiteID).ToList();
         }
 
 
@@ -188,6 +189,9 @@ namespace Test_Management_System.Pages
                 var testCase = db.TestCase.FirstOrDefault(x => x.TestCaseID == testCaseID);
                 db.TestCase.Remove(testCase);
                 db.SaveChanges();
+                MessageBox.Show("Тест-кейс удалён");
+                testCaseGrid.ItemsSource = null;
+                testCaseGrid.ItemsSource = db.TestCase.Where(x => x.TestSuiteID == testStuiteID).ToList();
             }
             else
                 return;
@@ -221,6 +225,11 @@ namespace Test_Management_System.Pages
         private void ComboSortBy_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SortTestCases();
+        }
+
+        private void BackToTS_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new PageTestSuites(UserContext));
         }
     }
 }

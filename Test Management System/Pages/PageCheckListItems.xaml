@@ -53,7 +53,7 @@
             <Button Style="{DynamicResource RoundedCorners}" Grid.Row="3" Content=" + " FontSize="26" Padding="5" Click="AddAttachmentToCheckList_Click" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5, 5, 10, 5"/>
 
             <Button Grid.Row="4"   Content="Добавить пункт" Name="AddChecklistItem" Click="AddChecklistItem_Click" Margin="10" Style="{DynamicResource RoundedCorners}" />
-            <DataGrid Name="CLListView"  Grid.Row="5" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column">
+            <DataGrid Name="CLListView"  Grid.Row="5" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column" ItemsSource="{Binding}">
                 <DataGrid.Columns>
                     <DataGridTextColumn  Header="Описание" Width="200" Binding="{Binding CheckListItemDescription}">
                         <DataGridTextColumn.ElementStyle>

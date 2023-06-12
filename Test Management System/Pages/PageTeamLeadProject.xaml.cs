@@ -34,7 +34,21 @@ namespace Test_Management_System.Pages
 
             GridProjects.ItemsSource = db.Project.Where(x => x.CompanyID == companyID).ToList();
 
-            var names = db.Userinfo.Where(x=>x.CompanyID == companyID).Select(u => u.LastName + " " + u.FirstName).ToList();
+            var names = db.ProjectUser
+                .Where(uip => uip.ProjectID == projectID) // Фильтруем по конкретному проекту
+                .Join(db.Userinfo, uip => uip.UserID, ui => ui.UserID, (uip, ui) => ui.LastName + " " + ui.FirstName)
+                .ToList();
+
+            var namesNotInProject = db.Userinfo
+                .Where(u => !db.ProjectUser.Any(uip => uip.UserID == u.UserID && uip.ProjectID == projectID))
+                .Select(u => u.LastName + " " + u.FirstName)
+                .ToList();
+
+            usersInProject.Items.Clear();
+            usersNotInProject.Items.Clear();
+            //var names = db.Userinfo.Where(x=>x.CompanyID == companyID).Select(u => u.LastName + " " + u.FirstName).ToList();
+            usersInProject.ItemsSource = names;
+            usersNotInProject.ItemsSource = namesNotInProject;
 /*            usersListBox.Items.Clear();
             usersListBox.ItemsSource = names;
             usersListBox.ItemTemplate = CreateCheckBoxItemTemplate();*/
@@ -88,8 +102,8 @@ namespace Test_Management_System.Pages
             if (GridProjects.SelectedItem != null)
             {
                 projectID = ((Project)GridProjects.SelectedItem).ProjectID;
-                usersListBox1.IsEnabled = true;
-                usersListBox2.IsEnabled = true;
+                usersInProject.IsEnabled = true;
+                usersNotInProject.IsEnabled = true;
                 left.IsEnabled = true;
                 Right.IsEnabled = true;
 
@@ -97,8 +111,8 @@ namespace Test_Management_System.Pages
             }
             else
             {
-                usersListBox1.IsEnabled = false;
-                usersListBox2.IsEnabled = false;
+                usersInProject.IsEnabled = false;
+                usersNotInProject.IsEnabled = false;
                 left.IsEnabled = false;
                 Right.IsEnabled = false;
                 AddUser.IsEnabled = false;

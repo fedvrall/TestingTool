@@ -78,10 +78,29 @@ namespace Test_Management_System.Pages
                 finally
                 {
                     MessageBox.Show("Чек-лист удалён");
+                    CheckListGrid.ItemsSource = null;
+                    CheckListGrid.ItemsSource = db.CheckList.Where(x => x.ProjectID == projectID).ToList();
                 }
             }
             else return;
         }
+
+        private bool AreFieldsFilled()
+        {
+            bool isValid = true;
+            if (string.IsNullOrEmpty(TBNameCheckList.Text))
+            {
+                TBNameCheckList.Style = (System.Windows.Style)FindResource("InvalidFieldStyle");
+                isValid = false;
+            }
+            if (string.IsNullOrEmpty(TBDescrCheckList.Text))
+            {
+                TBDescrCheckList.Style = (System.Windows.Style)FindResource("InvalidFieldStyle");
+                isValid = false;
+            }
+            return isValid;
+        }
+
 
         private void getBorder()
         {
@@ -100,12 +119,13 @@ namespace Test_Management_System.Pages
 
         private void CheckListGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            checklistID = ((CheckList)CheckListGrid.SelectedItem).CheckListID;
+            if (CheckListGrid.SelectedItem != null)
+                checklistID = ((CheckList)CheckListGrid.SelectedItem).CheckListID;
         }
 
         private void SaveChanges_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (AreFieldsFilled())
             {
                 var findCL = db.CheckList.Find(checklistID);
 
@@ -113,17 +133,22 @@ namespace Test_Management_System.Pages
                 findCL.CLSummary = TBNameCheckList.Text;
                 findCL.CLDescription = TBDescrCheckList.Text;
                 findCL.ProjectID = projectID;
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch
+                {
+                    MessageBox.Show("Не удалось отредактировать чек-лист");
+                }
+                finally
+                {
+                    MessageBox.Show("Чек-лист отредактирован");
+                    CloseBorder();
+                }
             }
-            catch
-            {
-                MessageBox.Show("Не удалось отредактировать чек-лист");
-            }
-            finally
-            {
-                MessageBox.Show("Чек-лист отредактирован");
-                CloseBorder();
-            }
+            else
+                MessageBox.Show("Заполните поля.");
         }
 
         private void CloseBorder()
@@ -143,39 +168,44 @@ namespace Test_Management_System.Pages
 
         private void AddCheckList_Click(object sender, RoutedEventArgs e)
         {
-            isEdit = false;
-            if (String.IsNullOrEmpty(TBNameCheckList.Text) || String.IsNullOrEmpty(TBDescrCheckList.Text))
+            if (AreFieldsFilled())
             {
-                MessageBox.Show("Не все поля заполнены");
+                isEdit = false;
+                if (String.IsNullOrEmpty(TBNameCheckList.Text) || String.IsNullOrEmpty(TBDescrCheckList.Text))
+                {
+                    MessageBox.Show("Не все поля заполнены");
+                }
+                else
+                {
+                    CheckList checkList = new CheckList()
+                    {
+                        CLSummary = TBNameCheckList.Text,
+                        CLDescription = TBDescrCheckList.Text,
+                        ProjectID = projectID,
+                        UserID = userID
+                    };
+
+                    try
+                    {
+                        db.CheckList.Add(checkList);
+                        db.SaveChanges();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Не получилось добавить чек-лист");
+                    }
+                    finally
+                    {
+                        MessageBox.Show("Чек-лист добавлен");
+                        CheckListGrid.ItemsSource = db.CheckList.Where(x => x.ProjectID == projectID).ToList();
+                        CloseBorder();
+                    }
+                    TBNameCheckList.Clear();
+                    TBDescrCheckList.Clear();
+                }
             }
             else
-            {
-                CheckList checkList = new CheckList()
-                {
-                    CLSummary = TBNameCheckList.Text,
-                    CLDescription = TBDescrCheckList.Text,
-                    ProjectID = projectID,
-                    UserID = userID
-                };
-
-                try
-                {
-                    db.CheckList.Add(checkList);
-                    db.SaveChanges();
-                }
-                catch
-                {
-                    MessageBox.Show("Не получилось добавить чек-лист");
-                }
-                finally
-                {
-                    MessageBox.Show("Чек-лист добавлен");
-                    CheckListGrid.ItemsSource = db.CheckList.Where(x => x.ProjectID == projectID).ToList();
-                    CloseBorder();
-                }
-                TBNameCheckList.Clear();
-                TBDescrCheckList.Clear();
-            }
+                MessageBox.Show("Заполните поля.");     
         }
     }
 }

@@ -38,7 +38,7 @@
             <TextBox Name="LoginTextBox" Text="{Binding Path=Login}" IsReadOnly="True" Width="150" Margin="64,0,10,0" MaxLength="20" LostFocus="LoginTextBox_LostFocus" />
             <Label Name="PassLabel"  Content="Текущий пароль:" />
             <PasswordBox Name="PassBox" IsEnabled="False"  Width="150" MaxLength="20" Margin="38,0,10,0" Visibility="Collapsed"/>
-            <TextBox x:Name="PassTextBox" Width="150" Margin="38,0,10,0" MaxLength="20" Text="{Binding Path=Password}"  IsReadOnly="True"/>
+            <TextBox x:Name="PassTextBox" Width="150" Margin="38,0,10,0" MaxLength="20"  IsReadOnly="True"/>
             <CheckBox Content="Скрыть пароль" Margin="10, 0" Name="HideCurrentPass" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
         </StackPanel>
         <Button Content="Изменить пароль" Grid.Row="4" HorizontalAlignment="Right" Margin="10" Width="150" Style="{DynamicResource RoundedCorners}" Visibility="Collapsed" Name="ChangePass" Click="ChangePass_Click"/>
@@ -65,7 +65,7 @@
             <Button Name="DeleteButton" Content="Удалить" Width="150" Click="DeleteButton_Click" IsEnabled="False"  Style="{DynamicResource RoundedCorners}"/>
         </StackPanel>
 
-        <DataGrid SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" Margin="10" Name="dgvUsers" Grid.Row="1" HeadersVisibility="Column" SelectionChanged="dgvUsers_SelectionChanged" CanUserAddRows="False">
+        <DataGrid SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding}" AutoGenerateColumns="False" Margin="10" Name="dgvUsers" Grid.Row="1" HeadersVisibility="Column" SelectionChanged="dgvUsers_SelectionChanged" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="150">
                     <DataGridTextColumn.ElementStyle>
