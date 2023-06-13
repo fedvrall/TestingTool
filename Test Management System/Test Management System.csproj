@@ -185,6 +185,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\UserManager.cs" />
     <Compile Include="Pages\PageExecuteCheckList.xaml.cs">
       <DependentUpon>PageExecuteCheckList.xaml</DependentUpon>
     </Compile>

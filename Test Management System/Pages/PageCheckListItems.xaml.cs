@@ -161,7 +161,7 @@ namespace Test_Management_System.Pages
 
         private void ExecuteList_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new PageExecuteCheckList(UserContext, checklistID));
         }
     }
 }

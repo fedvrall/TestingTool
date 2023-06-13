@@ -9,9 +9,44 @@
       Title="PageExecuteCheckList">
 
     <Grid>
-        <DataGrid Name="CLListView"  Grid.Row="5" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ListBox Name="LISTBOX" ItemsSource="{Binding}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="400" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock TextWrapping="Wrap" Grid.Column="0" Text="{Binding CheckListItemDescription}" FontSize="14" />
+                        
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding Statuses}"
+                          SelectedValue="{Binding CLStatusID}"
+                          DisplayMemberPath="CLStatusDescriptionTranslation" Name="ComboStatus" />
+                        
+                        <ComboBox Grid.Column="2" ItemsSource="{Binding DataContext.Priorities, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                          SelectedValue="{Binding CLPriorityID}"
+                          DisplayMemberPath="CLPriorityDescriptionTranslation" Name="ComboPriority" />
+                        <TextBox TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Grid.Column="3" Text="{Binding CLComment}" />
+                        <TextBlock Grid.Column="4" Text="{Binding CLAttachment}" />
+                        <Button Grid.Column="5" Content="Удалить" Click="DeleteButton_Click" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+
+        <!--<DataGrid Name="CLGrid" ItemsSource="{Binding}" Grid.Row="0" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column">
             <DataGrid.Columns>
-                <DataGridTextColumn  Header="Описание" IsReadOnly="True" Width="200" Binding="{Binding CheckListItemDescription}">
+                <DataGridTextColumn  Header="Описание" IsReadOnly="True" Width="190" Binding="{Binding CheckListItemDescription}">
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
@@ -20,10 +55,71 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <!--<DataGridComboBoxColumn>
-                    НАДО ПОРАБОТАТЬ С ИНЕТОМ
+
+                --><!--<DataGridTemplateColumn Header="Статус" Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox SelectedValue ="{Binding CLStatusID}" Height="30" DisplayMemberPath="CLStatusDescriptionTranslation" 
+                      Name="StatusCombo" Margin="10,0,10,0" VerticalContentAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>--><!--
+
+                <DataGridComboBoxColumn Width="150" Header="Статус" SelectedValueBinding="{Binding CLStatusID}" DisplayMemberPath="CLStatusDescriptionTranslation" SelectedValuePath="CLStatusID">
+                    <DataGridComboBoxColumn.ElementStyle>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="ItemsSource" Value="{Binding DataContext.Statuses, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </Style>
+                    </DataGridComboBoxColumn.ElementStyle>
+                    <DataGridComboBoxColumn.EditingElementStyle>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="ItemsSource" Value="{Binding DataContext.Statuses, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </Style>
+                    </DataGridComboBoxColumn.EditingElementStyle>
+                </DataGridComboBoxColumn>
+
+                <DataGridTemplateColumn Header="Приоритет" Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox SelectedValue ="{Binding DataContext.CLPriorityID}"  Height="30"
+                                        DisplayMemberPath="CLPriorityDescriptionTranslation" Name="PriorityCombo"
+                                          Margin="10,0,10,0"
+                                          VerticalContentAlignment="Center"/>
+                      --><!--SelectedValuePath="CLPriorityID"-->
+                      
+                            <!--ItemsSource="{Binding CLPriority.CLPriorityID, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                      SelectedItem="{Binding CheckList.CLPriorityID, Mode=TwoWay}"
+                      DisplayMemberPath="CLPriorityDescriptionTranslation"
+                      Name="PriorityCombo" Margin="10,0,10,0" VerticalContentAlignment="Center"/>--><!--
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                --><!--<DataGridComboBoxColumn  SelectedValueBinding="{Binding CheckListStatus.CheckListStatusID}">
+                    
+                </DataGridComboBoxColumn>
+                <DataGridComboBoxColumn Header="Приоритет" Width="120" SelectedValueBinding="{Binding CheckListPriority.CheckListPriority}">
+                    
                 </DataGridComboBoxColumn>-->
-                <DataGridTextColumn Header="Статус" Width="120" Binding="{Binding CheckListStatus.CLStatusDescriptionTranslation}">
+                <!--<DataGridTextColumn Header="Статус" Width="120" Binding="{Binding CheckListStatus.CLStatusDescriptionTranslation}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>-->
+                
+                <!--<DataGridTextColumn Header="Приоритет" Width="120" Binding="{Binding CheckListPriority.CLPriorityDescriptionTranslation}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>--><!--
+                <DataGridTextColumn Header="Комментарий" Width="390" Binding="{Binding CLComment}">
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
@@ -32,25 +128,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Приоритет" Width="120" Binding="{Binding CheckListPriority.CLPriorityDescriptionTranslation}">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style>
-                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
-                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
-                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Комментарий" Width="400" Binding="{Binding CLComment}">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style>
-                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
-                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
-                            <Setter Property="TextBlock.Margin" Value="5,5,0,0"/>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Вложение" Width="245" Binding="{Binding CLAttachment}">
+                <DataGridTextColumn Header="Вложение" Width="235" Binding="{Binding CLAttachment}">
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
@@ -67,6 +145,11 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
-        </DataGrid>
+        </DataGrid>-->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" HorizontalAlignment="Right">
+            <Button Content="Сохранить изменения" Name="Save" Width="180" Margin="10, 0, 10, 0" Click="Save_Click" Style="{DynamicResource RoundedCorners}"/>
+            <Button Content="Отмена" Name="Cancel" Width="180" Click="Cancel_Click" Style="{DynamicResource RoundedCorners}"/>
+        </StackPanel>
+
     </Grid>
 </Page>

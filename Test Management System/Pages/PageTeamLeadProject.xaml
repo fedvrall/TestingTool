@@ -43,43 +43,16 @@
         <Label Content="Уже в проекте" Grid.Row="3" Margin="10"/>
         <Label Content="Доступны для добавления" Grid.Row="3" Margin="10, 10, 200, 10" HorizontalAlignment="Right"/>
 
-        <ListBox Grid.Row="4" FontSize="14" Height="200" Width="400" HorizontalAlignment="Left" x:Name="usersInProject" IsEnabled="False" Margin="15, 10, 10,10" SelectionMode="Multiple" >
+        <ListBox Grid.Row="4" FontSize="14" Height="200" Width="400" HorizontalAlignment="Left" x:Name="usersInProject" IsEnabled="False" Margin="15, 10, 10,40" SelectionMode="Multiple" >
             <TextBlock Text="{Binding}"/>
-            <!--<Label Content="Федор Федоров"/>
-            <Label Content="Андрей Пупсиков"/>
-            <Label Content="Наталья Иванова"/>
-            <Label Content="Добавитель Добавлялов"/>-->
-                    <!--<CheckBox Margin="5"  IsChecked="{Binding IsSelected}" FontSize="14" FontFamily="Courier" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" />-->
         </ListBox>
-        <Button Style="{DynamicResource RoundedCorners}" Grid.Row="4" Width="200" FontSize="16" Margin="0, 0, 0, 50" IsEnabled="False" Content="&lt;-" Name="left" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <Button Style="{DynamicResource RoundedCorners}" Grid.Row="4" Width="200" Margin="0, 50, 0, 0"  Content="->" FontSize="16" IsEnabled="False" Name="Right" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+        <Button Style="{DynamicResource RoundedCorners}" Grid.Row="4" Width="200" FontSize="16" Margin="0, 0, 0, 50" IsEnabled="False" Content="&lt;-" Name="DeleteFromProject" Click="DeleteFromProject_Click" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Button Style="{DynamicResource RoundedCorners}" Grid.Row="4" Width="200" Margin="0, 50, 0, 0"  Content="->" FontSize="16" IsEnabled="False" Name="AddToProject" Click="AddToProject_Click" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
 
 
-        <ListBox Grid.Row="4" FontSize="14" Height="200" Width="400" x:Name="usersNotInProject" HorizontalAlignment="Right" IsEnabled="False" Margin="0,5,20,15" SelectionMode="Multiple" >
+        <ListBox Grid.Row="4" FontSize="14" Height="200" Width="400" x:Name="usersNotInProject" HorizontalAlignment="Right" IsEnabled="False" Margin="0,5,20,40" SelectionMode="Single" >
             <TextBlock Text="{Binding}"/>
-
-
-            <!--<Label Content="Семён Семёнов"/>
-            <Label Content="Тест Тестов"/>-->
-            <!--<CheckBox Margin="5"  IsChecked="{Binding IsSelected}" FontSize="14" FontFamily="Courier" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" />-->
-
         </ListBox>
-        <!--<ListBox Grid.Row="3" FontSize="14" Height="200" x:Name="usersListBox" IsEnabled="False" Margin="10" SelectionMode="Multiple" >
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        -->
-        <!--<CheckBox Margin="5"  IsChecked="{Binding IsSelected}" FontSize="14" FontFamily="Courier" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" />-->
-        <!--
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>-->
 
-        <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="10, 20, 10, 20" HorizontalAlignment="Right">
-            <Button Style="{DynamicResource RoundedCorners}" Width="200" Margin="0, 0, 10, 0" IsEnabled="False" Content="Добавить пользователей" Name="AddUser" Click="AddUser_Click" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            <Button Style="{DynamicResource RoundedCorners}" Width="200"   Content="Отмена" IsEnabled="False" VerticalAlignment="Center" Name="Cancel" Click="Cancel_Click" HorizontalAlignment="Right"/>
-
-        </StackPanel>
     </Grid>
 </Page>

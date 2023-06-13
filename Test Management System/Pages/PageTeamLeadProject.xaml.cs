@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,9 @@ namespace Test_Management_System.Pages
     {
         UserContext userContext {  get; set; }
         Testing_ToolEntity db = new Testing_ToolEntity();
+        UserManager userPageManager = new UserManager();
+
+
         private int companyID, projectID;
         public PageTeamLeadProject(UserContext userContext)
         {
@@ -34,67 +38,26 @@ namespace Test_Management_System.Pages
 
             GridProjects.ItemsSource = db.Project.Where(x => x.CompanyID == companyID).ToList();
 
-            var names = db.ProjectUser
-                .Where(uip => uip.ProjectID == projectID) // Фильтруем по конкретному проекту
-                .Join(db.Userinfo, uip => uip.UserID, ui => ui.UserID, (uip, ui) => ui.LastName + " " + ui.FirstName)
-                .ToList();
-
-            var namesNotInProject = db.Userinfo
-                .Where(u => !db.ProjectUser.Any(uip => uip.UserID == u.UserID && uip.ProjectID == projectID))
-                .Select(u => u.LastName + " " + u.FirstName)
-                .ToList();
-
             usersInProject.Items.Clear();
             usersNotInProject.Items.Clear();
-            //var names = db.Userinfo.Where(x=>x.CompanyID == companyID).Select(u => u.LastName + " " + u.FirstName).ToList();
-            usersInProject.ItemsSource = names;
-            usersNotInProject.ItemsSource = namesNotInProject;
-/*            usersListBox.Items.Clear();
-            usersListBox.ItemsSource = names;
-            usersListBox.ItemTemplate = CreateCheckBoxItemTemplate();*/
-
-            //DataTemplate CreateCheckBoxItemTemplate()
-            //{
-            //    string xaml = @"
-            //    <DataTemplate xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation"">
-            //        <CheckBox Content=""{Binding}"">
-            //            <CheckBox.Template>
-            //                <ControlTemplate TargetType=""CheckBox"">
-            //                    <CheckBox IsChecked=""{Binding Path=IsChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"">
-            //                        <CheckBox.Style>
-            //                            <Style TargetType=""CheckBox"">
-            //                                <EventSetter Event=""Checked"" Handler=""CheckBox_Checked"" />
-            //                                <EventSetter Event=""Unchecked"" Handler=""CheckBox_Unchecked"" />
-            //                            </Style>
-            //                        </CheckBox.Style>
-            //                    </CheckBox>
-            //                </ControlTemplate>
-            //            </CheckBox.Template>
-            //        </CheckBox>
-            //    </DataTemplate>";
-
-            //    return (DataTemplate)XamlReader.Parse(xaml);
-            //}
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        private void DeleteFromProject_Click(object sender, RoutedEventArgs e)
         {
-
+            string selectedUser = usersNotInProject.SelectedItem as string;
+            if (selectedUser != null)
+            {
+                userPageManager.AddUserToProject(selectedUser);
+            }
         }
 
-        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        private void AddToProject_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void AddUser_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-
+            string selectedUser = usersInProject.SelectedItem as string;
+            if (selectedUser != null)
+            {
+                userPageManager.RemoveUserFromProject(selectedUser);
+            }
         }
 
         private void GridProjects_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -104,18 +67,21 @@ namespace Test_Management_System.Pages
                 projectID = ((Project)GridProjects.SelectedItem).ProjectID;
                 usersInProject.IsEnabled = true;
                 usersNotInProject.IsEnabled = true;
-                left.IsEnabled = true;
-                Right.IsEnabled = true;
+                AddToProject.IsEnabled = true;
+                DeleteFromProject.IsEnabled = true;
 
-                AddUser.IsEnabled = true;
+                userPageManager.LoadUsersInProject(projectID);
+                userPageManager.LoadUsersNotInProject(projectID);
+
+                usersInProject.ItemsSource = userPageManager.GetUsersInProject();
+                usersNotInProject.ItemsSource = userPageManager.GetUsersNotInProject();
             }
             else
             {
                 usersInProject.IsEnabled = false;
                 usersNotInProject.IsEnabled = false;
-                left.IsEnabled = false;
-                Right.IsEnabled = false;
-                AddUser.IsEnabled = false;
+                AddToProject.IsEnabled = false;
+                DeleteFromProject.IsEnabled = false;
             }
         }
     }
