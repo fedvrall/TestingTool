@@ -1,6 +1,8 @@
-﻿using Microsoft.Win32;
+﻿using ControlzEx.Standard;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +29,7 @@ namespace Test_Management_System.Pages
         private List<string> attachmentsList = new List<string>();
         public UserContext userContext { get; set; }
         private int BRID, projectID, userID, roleID;
-        private bool isEditBR, creator;
+        private bool isEditBR, creator, success;
         Testing_ToolEntity db = new Testing_ToolEntity();
 
         public PageNewBugReport(UserContext userContext, int brID)
@@ -198,15 +200,17 @@ namespace Test_Management_System.Pages
                     catch
                     {
                         MessageBox.Show("Не удалось добавить баг-репорт");
+                        success = false;
                     }
                     finally
                     {
                         MessageBox.Show("Баг-репорт добавлен");
-
+                        success = true;
                     }
                 }
                 else // Редактирование
                 {
+                    SaveAndAddOneMoreBR.IsEnabled = false;
                     var findBR = db.BugReport.Find(BRID);
                     if(TBSummary.IsEnabled)
                         findBR.BugReportSummary = TBSummary.Text;
@@ -245,10 +249,12 @@ namespace Test_Management_System.Pages
                     catch
                     {
                         MessageBox.Show("Не удалось отредактировать баг-репорт");
+                        success = false;
                     }
                     finally
                     {
                         MessageBox.Show("Баг-репорт отредактирован");
+                        success = true;
                     }
                 }
             }
@@ -258,15 +264,49 @@ namespace Test_Management_System.Pages
 
         private void SaveBRAndExit_Click(object sender, RoutedEventArgs e)
         {
-
+            AddOrEditBR();
+            if (success)
+                NavigationService.Navigate(new PageBugReports(userContext));
+            else return;
         }
 
         private void SaveAndAddOneMoreBR_Click(object sender, RoutedEventArgs e)
         {
             AddOrEditBR();
+            if (success)
+                ClearFields();
+            else return;
         }
 
+        private void ClearFields()
+        {
+            TBSummary.Clear();
+            TBEnvir.Clear();
+            TBSteps.Clear();
+            TBexpected.Clear();
+            TBactual.Clear();
+            TBprecond.Clear();
+            TBtestdata.Clear();
+            attachmentsList.Clear();
+            DPCreation.SelectedDate = null;
+            ComboPriority.SelectedIndex = 0;
+            ComboSeverity.SelectedIndex = 0;
+            ComboStatus.SelectedIndex = 0;
+            TBNotes.Clear();
+            TBComponent.Clear();
+            TBVersion.Clear();
+            ComboTC.SelectedIndex = -1;
+            //var anonymousStyle = new Style(typeof(TextBox))
+            //{
+            //    Setters = {
+            //        new Setter(TextBox.BorderBrushProperty, Application.Current.FindResource("ControlDefaultBorderBrush")) }
+            //};
+            //foreach (var textBox in BRGrid.Children.OfType<System.Windows.Controls.TextBox>())
+            //{
+            //    textBox.Style = anonymousStyle;// (System.Windows.Style)FindResource("");
+            //}
 
+        }
 
         private void ExitWithoutSaveBR_Click(object sender, RoutedEventArgs e)
         {

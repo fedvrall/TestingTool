@@ -64,7 +64,7 @@
             </Grid>
         </Border>
 
-        <DataGrid HorizontalScrollBarVisibility="Auto" Name="bugReportGrid" Grid.Row="2" Margin="10" ItemsSource="{Binding BugReport}" SelectionChanged="bugReportGrid_SelectionChanged"  CanUserAddRows="False" AutoGenerateColumns="False" Grid.Column="0">
+        <DataGrid HorizontalScrollBarVisibility="Auto" Name="bugReportGrid" Grid.Row="2" Margin="10" ItemsSource="{Binding}" HeadersVisibility="Column" SelectionChanged="bugReportGrid_SelectionChanged" CanUserAddRows="False" AutoGenerateColumns="False" Grid.Column="0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Заголовок"  Binding="{Binding BugReportSummary}" Visibility="Visible" >
                     <DataGridTextColumn.ElementStyle>

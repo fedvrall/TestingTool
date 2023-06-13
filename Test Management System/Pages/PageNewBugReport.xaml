@@ -7,7 +7,7 @@
       d:DesignHeight="800" d:DesignWidth="1200"
       Title="PageNewBugReport">
    
-    <Grid>
+    <Grid Name="BRGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />

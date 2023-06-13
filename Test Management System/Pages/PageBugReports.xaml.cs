@@ -25,11 +25,12 @@ namespace Test_Management_System.Pages
     {
         List<ColumnSelectionItem> columnSelectionItems = new List<ColumnSelectionItem>();
         Testing_ToolEntity db = new Testing_ToolEntity();
-        private int BRID, userID, roleID;
+        private int BRID, userID, roleID, projectID;
         private bool creator;
         UserContext userContext { get; set; }
         public PageBugReports(UserContext userContext)
         {
+            this.projectID = userContext.projectID;
             this.userContext = userContext;
             this.userID = userContext.userId;
             this.roleID = userContext.roleId;
@@ -49,7 +50,7 @@ namespace Test_Management_System.Pages
             addFieldsList.ItemsSource = columnSelectionItems;
             UpdateDataGridColumns();
             EditBR.IsEnabled = false;
-            bugReportGrid.ItemsSource = db.BugReport.ToList();
+            bugReportGrid.ItemsSource = db.BugReport.Where(x=>x.ProjectID == projectID).ToList();
         }
 
 
@@ -124,6 +125,8 @@ namespace Test_Management_System.Pages
                 var bugreport = db.BugReport.FirstOrDefault(x => x.BugReportID == BRID);
                 db.BugReport.Remove(bugreport);
                 db.SaveChanges();
+                bugReportGrid.ItemsSource = null;
+                bugReportGrid.ItemsSource = db.BugReport.Where(x => x.ProjectID == projectID).ToList();
             }
             else
                 return;

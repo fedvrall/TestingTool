@@ -23,14 +23,15 @@ namespace Test_Management_System.Pages
     public partial class PageTestSuites : Page
     {
         public UserContext UserContext { get; set; }
-        public int testSuiteID;
+        public int testSuiteID, projectID;
         Testing_ToolEntity db = new Testing_ToolEntity();
 
         public PageTestSuites(UserContext userContext)
         {
             this.UserContext = userContext;
+            this.projectID = userContext.projectID;
             InitializeComponent();
-            dgvTestSuites.ItemsSource = db.TestSuite.ToList();
+            dgvTestSuites.ItemsSource = db.TestSuite.Where(x=>x.ProjectID == projectID).ToList();
         }
 
         private void NewTestSuiteButton_Click(object sender, RoutedEventArgs e)
@@ -63,6 +64,8 @@ namespace Test_Management_System.Pages
                 finally
                 {
                     MessageBox.Show("Тест-сьют удалён");
+                    dgvTestSuites.ItemsSource = null;
+                    dgvTestSuites.ItemsSource = db.TestSuite.Where(x => x.ProjectID == projectID).ToList();
                 }
             }
             else return;
