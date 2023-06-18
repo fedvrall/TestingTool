@@ -28,7 +28,24 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="2">
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="10" Height="80">
+            <ListBox  Width="1060" Margin="10, 10, 10, 0" x:Name="AttachmentsListBox">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="890"/>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding}" Margin="10" FontSize="14" FontFamily="Courier" />
+                            <Button Grid.Column="1" Content="Открыть файл" Width="150" x:Name="OpenFile" Click="OpenFile_Click" Style="{DynamicResource RoundedCorners}" CommandParameter="{Binding}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+
+        <!--<StackPanel Orientation="Horizontal" Grid.Row="2">
             <Label  Content="Вложения" Margin="10, 10, 10, 0"/>
 
             <ListBox Width="1060" Height="80" Margin="10, 10, 10, 10" x:Name="AttachmentsListBox">
@@ -40,7 +57,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-        </StackPanel>
+        </StackPanel>-->
 
         <StackPanel Name="CustomerInfo1" Grid.Row="3" Orientation="Horizontal" Margin="10">
             <Label  Content="Информация о заказчике:" FontSize="16" FontWeight="Bold"/>
@@ -49,18 +66,18 @@
 
         <StackPanel Name="CustomerInfo2" Grid.Row="4" Orientation="Horizontal" Margin="10">
             <Label Content="Фамилия:" VerticalAlignment="Center" />
-            <TextBox x:Name="txtLastName" Width="200" Margin="24, 0, 10, 0" />
+            <TextBox x:Name="txtLastName" Width="200" Margin="24, 0, 10, 0" IsEnabled="False"/>
             <Label  Content="Электронная почта:" VerticalAlignment="Center" />
-            <TextBox x:Name="txtEmail"  Margin="10, 0, 10, 0"  Width="200"  />
+            <TextBox x:Name="txtEmail"  Margin="10, 0, 10, 0"  Width="200"  IsEnabled="False"/>
 
         </StackPanel>
-        <TextBox Name="CustomerInfo3" Grid.Row="4" Grid.RowSpan="2" Margin="675,10,10,10" />
+        <TextBox Name="CustomerInfo3" Grid.Row="4" Grid.RowSpan="2" Margin="675,10,10,10" IsEnabled="False"/>
 
         <StackPanel Name="CustomerInfo4" Grid.Row="5" Orientation="Horizontal" Margin="10">
             <Label  Content="Имя:"  VerticalAlignment="Center" />
-            <TextBox x:Name="txtFirstName" Width="200" Margin="55, 0, 10, 0" />
+            <TextBox x:Name="txtFirstName" Width="200" Margin="55, 0, 10, 0" IsEnabled="False"/>
             <Label  Content="Телефон:" VerticalAlignment="Center" />
-            <TextBox x:Name="txtPhone" Width="200"  Margin="78, 0, 10, 0"    />
+            <TextBox x:Name="txtPhone" Width="200"  Margin="78, 0, 10, 0" IsEnabled="False"/>
 
         </StackPanel>
         <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="10, 20, 10, 20" HorizontalAlignment="Right">

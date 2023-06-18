@@ -30,11 +30,15 @@ namespace Test_Management_System.Pages
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             string login = textBoxLogin.Text;
-            string password = PasswordBox.Password;
+            string pass = "";
+            if(PasswordBox.Visibility == Visibility.Visible)
+                pass = PasswordBox.Password;
+            if (TBPass.Visibility == Visibility.Visible)
+                pass = TBPass.Text;
 
             using (Testing_ToolEntity db = new Testing_ToolEntity())
             {
-                var user = db.Userinfo.FirstOrDefault(x => x.Login == login && x.Password == password);
+                var user = db.Userinfo.FirstOrDefault(x => x.Login == login && x.Password == pass);
                 if (user != null)
                 {
                     UserContext userContext = new UserContext
@@ -51,10 +55,23 @@ namespace Test_Management_System.Pages
                 }
                 else
                 {
-                    // Ошибка авторизации
                     MessageBox.Show("Неверный логин или пароль");
                 }
             }
+        }
+
+        private void ShowPasswordCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            TBPass.Visibility = Visibility.Visible;
+            PasswordBox.Visibility = Visibility.Collapsed;
+            TBPass.Text = PasswordBox.Password;
+        }
+
+        private void ShowPasswordCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            PasswordBox.Visibility = Visibility.Visible;
+            TBPass.Visibility = Visibility.Collapsed;
+            PasswordBox.Password = TBPass.Text;
         }
     }
 }

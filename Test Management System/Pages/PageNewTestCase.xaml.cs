@@ -90,6 +90,29 @@ namespace Test_Management_System.Pages
                 ExDate = DateTime.Now;
                 executor = userID;
             }
+            int? type = null;
+            if (ComboTypeTC.SelectedIndex == -1)
+                type = null;
+            else
+                type = ComboTypeTC.SelectedIndex + 1;
+
+            int? behavior = null;
+            if (ComboBehaviorTC.SelectedIndex == -1)
+                behavior = null;
+            else
+                behavior = ComboBehaviorTC.SelectedIndex + 1;
+
+            int? severity = null;
+            if (ComboSeverityTC.SelectedIndex == -1)
+                severity = null;
+            else
+                severity = ComboSeverityTC.SelectedIndex + 1;
+
+            int? priority = null;
+            if (ComboPriorityTC.SelectedIndex == -1)
+                priority = null;
+            else
+                priority = ComboPriorityTC.SelectedIndex + 1;
 
             if (!isEditTC)
             {
@@ -110,10 +133,10 @@ namespace Test_Management_System.Pages
                         ExecutorUserID = executor,
                         TestCaseExecutionDate = ExDate,
                         TestCaseEnvironment = TBEnvironment.Text,
-                        TCTypeID = ComboTypeTC.SelectedIndex + 1,
-                        TCBehaviorID = ComboBehaviorTC.SelectedIndex + 1,
-                        TCPriorityID = ComboPriorityTC.SelectedIndex + 1,
-                        TCSeverityID = ComboSeverityTC.SelectedIndex + 1,
+                        TCTypeID = type,
+                        TCBehaviorID = behavior,
+                        TCPriorityID = priority,
+                        TCSeverityID = severity,
                         TestCaseAttachment = attString,
                         TestCasePrecondition = TBPreconditions.Text,
                         TestCasePostcondition = TBPostConditions.Text

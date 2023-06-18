@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +29,7 @@ namespace Test_Management_System.Pages
     {
         UserContext UserContext { get; set; }
         Testing_ToolEntity db = new Testing_ToolEntity();
-        private int checklistID;
+        private int checklistID, projectID;
         private List<string> attachmentsList = new List<string>();
         private CheckListManager checklistManager;
 
@@ -37,6 +39,7 @@ namespace Test_Management_System.Pages
         {
             this.checklistID = checklistID;
             this.UserContext = userContext;
+            this.projectID = userContext.projectID;
             InitializeComponent();
 
             checklistManager = new CheckListManager(checklistID);
@@ -113,6 +116,7 @@ namespace Test_Management_System.Pages
                 ComboBoxPriority.SelectedItem = null;
                 TextBoxComment.Text = string.Empty;
                 attachmentsList.Clear();
+                AttachmentsListBox.Items.Clear();
             }
             else
             {
@@ -162,6 +166,63 @@ namespace Test_Management_System.Pages
         private void ExecuteList_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new PageExecuteCheckList(UserContext, checklistID));
+        }
+
+        private void CLListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataGridCell cell = sender as DataGridCell;
+
+            if (cell != null )
+            {
+                string attachmentPath = cell.Content.ToString();
+                OpenAttachment(attachmentPath);
+            }
+        }
+
+        private void OpenAttachment(string attachmentPath)
+        {
+            var documentation = db.ProjectDocumentation.FirstOrDefault(x => x.ProjectID == projectID);
+            string attString = documentation != null ? documentation.ProjectDocumentationAttachment?.ToString() : string.Empty;
+
+            var filePath = attString.Split(';').FirstOrDefault(x => System.IO.Path.GetFileName(x) == attachmentPath);
+
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                if (System.IO.File.Exists(filePath))
+                {
+                    Process.Start(filePath);
+                }
+                else
+                {
+                    MessageBox.Show("Файл не найден.", "Открытие файла", MessageBoxButton.OK);
+                }
+            }
+            /*var documentation = db.ProjectDocumentation.FirstOrDefault(x => x.ProjectID == projectID);
+            string attString = documentation != null ? documentation.ProjectDocumentationAttachment?.ToString() : string.Empty;
+
+            var filePath = attString.Split(';').FirstOrDefault(x => System.IO.Path.GetFileName(x) == attachmentName);
+
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                if (System.IO.File.Exists(filePath))
+                {
+                    Process.Start(filePath);
+                }
+                else
+                {
+                    string currentDirectory = Directory.GetCurrentDirectory();
+                    string fullFilePath = System.IO.Path.Combine(currentDirectory, attachmentName);
+
+                    if (System.IO.File.Exists(fullFilePath))
+                    {
+                        Process.Start(fullFilePath);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Файл не найден.", "Открытие файла", MessageBoxButton.OK);
+                    }
+                }
+            }*/
         }
     }
 }

@@ -36,6 +36,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ab-testing_icon-icons.com_53768.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ControlzEx, Version=4.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
       <HintPath>packages\ControlzEx.4.4.0\lib\net462\ControlzEx.dll</HintPath>
@@ -197,6 +200,11 @@
     </Compile>
     <Compile Include="Pages\WindowChoseNewUser.xaml.cs">
       <DependentUpon>WindowChoseNewUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Themes\DarkTheme.xaml.cs">
       <DependentUpon>DarkTheme.xaml</DependentUpon>
@@ -431,11 +439,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -443,6 +446,7 @@
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EntityDeploy Include="Entities\Testing_toolModel.edmx">
@@ -462,6 +466,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="ab-testing_icon-icons.com_53768.ico" />
     <Content Include="Entities\Testing_toolModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Testing_toolModel.edmx</DependentUpon>
@@ -472,8 +477,7 @@
       <DependentUpon>Testing_toolModel.edmx</DependentUpon>
       <LastGenOutput>Testing_toolModel.cs</LastGenOutput>
     </Content>
-    <None Include="Resources\check.rtf" />
-    <None Include="Resources\checklist.txt" />
+    <None Include="Resources\ab-testing_icon-icons.com_53768.ico" />
     <Resource Include="Pages\image.jpg" />
   </ItemGroup>
   <ItemGroup>

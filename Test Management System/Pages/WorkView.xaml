@@ -33,14 +33,14 @@
                     <MenuItem Header="Чек-листы" Click="MenuItem_Click" />
                     <MenuItem Header="Тест-сьюты" Click="MenuItem_Click" />
                     <MenuItem Header="Баг-репорты" Click="MenuItem_Click" />
-                    <MenuItem Header="Руководство" Click="MenuItem_Click"  >
+                    <MenuItem Header="Руководство" Click="MenuItem_Click" Visibility="Collapsed" >
                         <MenuItem Header="Введение в тестовую документацию" Click="MenuItem_Click"  />
                     </MenuItem>
                     <MenuItem Header="Управление проектами" Name="ProjectAdmin" Click="MenuItem_Click" Visibility="Hidden"/>
                     <MenuItem Header="Проекты" Name="ProjectTeamLead" Click="MenuItem_Click" Visibility="Collapsed"/>
                     <MenuItem Header="Пользователи" Name="AdminSetting" Click="MenuItem_Click" Visibility="Hidden"/>
                 </Menu>
-                <CheckBox Margin="10, 150, 10, 10"  Content="Тёмная тема" Name="Theme" VerticalContentAlignment="Center" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                <CheckBox Margin="10, 200, 10, 10"  Content="Тёмная тема" Name="Theme" VerticalContentAlignment="Center" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
             </StackPanel>
         </Border>
 

@@ -68,12 +68,12 @@ namespace Test_Management_System.Pages
             }*/
         }
 
-        private void OpenFile()
-        {
+        //private void OpenFile()
+        //{
 
-            string file = Properties.Resources.checklist;
-            File.ReadAllText(file);
-        }
+        //    string file = Properties.Resources.checklist;
+        //    File.ReadAllText(file);
+        //}
 
     }
 }

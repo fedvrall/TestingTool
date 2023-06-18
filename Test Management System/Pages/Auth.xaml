@@ -27,24 +27,18 @@
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="1">
             <Label  Content="Добро пожаловать!" FontSize="18" HorizontalAlignment="Center"/>
             <Label Content="Введите логин и пароль для входа." HorizontalAlignment="Center"/>
-            <!--<Label Style="{StaticResource normLabel}" Content="Если у Вас ещё нет логина и пароля, или Вы забыли данные," HorizontalAlignment="Center" />
-            <Label Style="{StaticResource normLabel}" Content="обратитесь к администратору." HorizontalAlignment="Center" />-->
         </StackPanel>
-
 
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Label  Content="Логин" Margin="10,10,10,0"/>
-            <TextBox Margin="20,10,10,10" x:Name="textBoxLogin" Text="IvanAdmin" Width="200"/>
+            <TextBox Margin="20,10,10,10" x:Name="textBoxLogin" Text="" Width="200"/>
         </StackPanel>
         <StackPanel Grid.Row="3" Orientation="Horizontal">
             <Label  Content="Пароль" Margin="10,10,10,0"/>
-            <StackPanel Orientation="Horizontal">
-                <PasswordBox Width="200" x:Name="PasswordBox" Password="Admin_123" VerticalContentAlignment="Center" Margin="10,10,10,10"/>
-                <!--Checked="ShowPasswordCheckBox_Checked" Unchecked="ShowPasswordCheckBox_Unchecked"/>-->
-                <TextBox Width="200" x:Name="UnmaskedPasswordTextBox" Visibility="Collapsed"/>
+            <PasswordBox Width="200" x:Name="PasswordBox"  VerticalContentAlignment="Center" Margin="10,10,10,10"/>
+            <TextBox Width="200" x:Name="TBPass" Visibility="Collapsed" Margin="10,10,10,10"/>
             </StackPanel>
-        </StackPanel>
-        <CheckBox  Grid.Row="4" Content="Показать пароль" x:Name="ShowPasswordCheckBox" HorizontalAlignment="Center" Margin="10,10,30,10" Foreground="#ffffff"/>
+        <CheckBox  Grid.Row="4" Content="Показать пароль" x:Name="ShowPasswordCheckBox" Checked="ShowPasswordCheckBox_Checked" Unchecked="ShowPasswordCheckBox_Unchecked" HorizontalAlignment="Center" Margin="26,10,30,10" Foreground="#ffffff"/>
         <Button Padding="10" Style="{DynamicResource RoundedCorners}" Grid.Row="5" Content="Войти" Name="LoginButton" Margin="20,10,20,10" Click="LoginButton_Click" />
     </Grid>
 </Window>

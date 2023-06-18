@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Test_Management_System.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="1150" 
+      d:DesignHeight="800" d:DesignWidth="1200" 
       Title="PageCheckListItems">
 
     <Grid>
@@ -26,7 +26,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Margin="0 0 0 5" Content="Описание:"/>
+            <Label Grid.Row="0" Margin="0 0 0 5" Content="Описание *"/>
             <TextBox Grid.Row="0" x:Name="TextBoxDescription" Width="1030" MaxLength="1000"  HorizontalAlignment="Right" Margin="5, 5, 10, 5"/>
 
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0, 10, 0, 10">
@@ -53,7 +53,7 @@
             <Button Style="{DynamicResource RoundedCorners}" Grid.Row="3" Content=" + " FontSize="26" Padding="5" Click="AddAttachmentToCheckList_Click" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5, 5, 10, 5"/>
 
             <Button Grid.Row="4"   Content="Добавить пункт" Name="AddChecklistItem" Click="AddChecklistItem_Click" Margin="10" Style="{DynamicResource RoundedCorners}" />
-            <DataGrid Name="CLListView"  Grid.Row="5" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column" ItemsSource="{Binding}">
+            <DataGrid Name="CLListView"  Grid.Row="5" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column" ItemsSource="{Binding}" MouseDoubleClick="CLListView_MouseDoubleClick" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn  Header="Описание" Width="200" Binding="{Binding CheckListItemDescription}">
                         <DataGridTextColumn.ElementStyle>
@@ -114,7 +114,7 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0, 10, 20, 20">
             <!--<Button Template="{StaticResource beautifulButton}"  Width="250" Padding="10" Margin="10" Content="Создать и выйти" Name="AddItemToCheckListAndExit" Click="AddItemToCheckListAndExit_Click"/>
             <Button Template="{StaticResource beautifulButton}" Width="250" Padding="10" Margin="10" Content="Создать и перейти к следующему" Name="AddItemToCheckListGoToAnother" Click="AddItemToCheckListGoToAnother_Click" />-->
-            <Button Style="{DynamicResource RoundedCorners}" Width="200" Margin="0, 0, 10, 0" Content="Пройти чек-лист" Name="ExecuteList" Click="ExecuteList_Click"/>
+            <Button Style="{DynamicResource RoundedCorners}" Width="200" Margin="0, 0, 10, 0" Content="Пройти чек-лист" Name="ExecuteList" Click="ExecuteList_Click" Visibility="Collapsed"/>
             <Button Style="{DynamicResource RoundedCorners}" Width="200"  Content="Выйти к чек-листам" Name="ExitFromAddingCheckListItem" Click="ExitFromAddingCheckListItem_Click"/>
         </StackPanel>
     </Grid>

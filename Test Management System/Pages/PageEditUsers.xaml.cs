@@ -118,6 +118,15 @@ namespace Test_Management_System.Pages
                     finally
                     {
                         var userToDelete = db.Userinfo.Find(userID);
+                        int projectUser;
+                        ProjectUser projectUserToDelete;
+                        if (db.ProjectUser.Where(x => x.UserID == userID).FirstOrDefault().ProjectUserID != null)
+                        {
+                            projectUser = db.ProjectUser.Where(x => x.UserID == userID).FirstOrDefault().ProjectUserID;
+                            projectUserToDelete = db.ProjectUser.Find(projectUser);
+                            db.ProjectUser.Remove(projectUserToDelete);
+                        }
+                        
                         db.Userinfo.Remove(userToDelete);
                         db.SaveChanges();
                         MessageBox.Show("Связи успешно обновлены для выбранного пользователя: \n " + selectedUser.LastName + " " + selectedUser.FirstName + ", " +
@@ -165,7 +174,7 @@ namespace Test_Management_System.Pages
             if (HideCurrentPass.IsChecked == false)
             {
                 PassTextBox.Text = PassBox.Password;
-                PassTextBox.Visibility = Visibility.Visible;
+              //  PassTextBox.Visibility = Visibility.Visible;
                 PassBox.Visibility = Visibility.Collapsed;
             }
 

@@ -35,6 +35,7 @@ namespace Test_Management_System.Pages
         private int companyID, customerID;
         Testing_ToolEntity db = new Testing_ToolEntity();
         UserContext userContext { get; set; }
+        List<string> attachmentNames;
 
         public PageNewProject(UserContext userContext, int projectID)
         {
@@ -50,18 +51,26 @@ namespace Test_Management_System.Pages
                 Header.Content = "Редактирование проекта";
                 customerID = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().CustomerID;
 
-                TBProjectName.Text = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().ProjectName;
-                dpStartDate.SelectedDate = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().ProjectDateOfCreation;
-                dpEndDate.SelectedDate = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().ProjectDateOfDeadLine;
-                TBProjectNotes.Text = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().ProjectNotes;
+                var projInfo = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault();
+                TBProjectName.Text = projInfo.ProjectName;
+                dpStartDate.SelectedDate = projInfo.ProjectDateOfCreation;
+                dpEndDate.SelectedDate = projInfo.ProjectDateOfDeadLine;
+                TBProjectNotes.Text = projInfo.ProjectNotes;
 
-                customerNameTB.Text = db.Customer.Where(x => x.CustomerID == customerID).FirstOrDefault().CustomerFirstName;
-                customerLastNameTB.Text = db.Customer.Where(x => x.CustomerID == customerID).FirstOrDefault().CustomerLastName;
-                customerEmailTB.Text = db.Customer.Where(x => x.CustomerID == customerID).FirstOrDefault().CustomerEmail;
-                customerPhoneTB.Text = db.Customer.Where(x => x.CustomerID == customerID).FirstOrDefault().CustomerPhone;
-                customerNotesTB.Text = db.Customer.Where(x => x.CustomerID == customerID).FirstOrDefault().CustomerNotes;
+                var custInfo = db.Customer.Where(x => x.CustomerID == customerID).FirstOrDefault();
+                customerNameTB.Text = custInfo.CustomerFirstName;
+                customerLastNameTB.Text = custInfo.CustomerLastName;
+                customerEmailTB.Text = custInfo.CustomerEmail;
+                customerPhoneTB.Text = custInfo.CustomerPhone;
+                customerNotesTB.Text = custInfo.CustomerNotes;
                 SaveProjectChanges.IsEnabled = true;
                 ConfirmAdding.IsEnabled = false;
+
+                var documentation = db.ProjectDocumentation.FirstOrDefault(x => x.ProjectID == projectID);
+                string attString = documentation != null ? documentation.ProjectDocumentationAttachment?.ToString() : string.Empty;
+
+                attachmentNames = attString.Split(';').Select(System.IO.Path.GetFileName).ToList();
+                AttachmentsListBox.ItemsSource = attachmentNames;
             }
         }
 
@@ -204,7 +213,7 @@ namespace Test_Management_System.Pages
                     }
                     finally
                     {
-                        MessageBox.Show("Заказчик отредактирован");
+                       // MessageBox.Show("Заказчик отредактирован");
                     }
 
                     try
@@ -253,7 +262,7 @@ namespace Test_Management_System.Pages
                     }
                     finally
                     {
-                        MessageBox.Show("Вложения отредактирован");
+                        //MessageBox.Show("Вложения отредактированы");
                     }
                 }
             }
@@ -289,7 +298,9 @@ namespace Test_Management_System.Pages
             string fileName = removeButton.DataContext as string;
             string filePath = attachmentsList.FirstOrDefault(path => System.IO.Path.GetFileName(path) == fileName);
             attachmentsList.Remove(filePath);
-            AttachmentsListBox.Items.Remove(fileName);
+            attachmentNames.Remove(fileName);
+            AttachmentsListBox.ItemsSource = null;
+            AttachmentsListBox.ItemsSource = attachmentNames;
         }
 
         private void customerPhoneTB_LostFocus(object sender, RoutedEventArgs e)

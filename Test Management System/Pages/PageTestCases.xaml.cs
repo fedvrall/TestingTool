@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Security;
 using System.Web.UI.WebControls;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,14 +33,13 @@ namespace Test_Management_System.Pages
        // public ICommand ToggleElementCommand { get; }
         List<ColumnSelectionItem> columnSelectionItems = new List<ColumnSelectionItem>();
         Testing_ToolEntity db = new Testing_ToolEntity();
-        public int testStuiteID;
-        public int testCaseID;
+        public int testStuiteID, testCaseID, userID, roleID;
+        private bool creator;
         UserContext UserContext { get; set; }
 
         public PageTestCases(UserContext userContext, int testStuiteID)
         {
             InitializeComponent();
-            //testCaseGrid.ItemsSource = db.TestCase.ToList();
 
             SortTestCases();
             columnSelectionItems.Add(new ColumnSelectionItem("Описание"));
@@ -58,7 +58,9 @@ namespace Test_Management_System.Pages
             addFieldsList.ItemsSource = columnSelectionItems;
             UpdateDataGridColumns();
             this.testStuiteID = testStuiteID;
-            this.UserContext = userContext;            
+            this.UserContext = userContext;
+            this.userID = userContext.userId;
+            this.roleID = userContext.roleId;
             HeaderTestCasesView.Content = db.TestSuite.Where(x => x.TestSuiteID == testStuiteID).FirstOrDefault().TestSuiteSummary;
             testCaseGrid.ItemsSource = db.TestCase.Where(x=>x.TestSuiteID == testStuiteID).ToList();
         }
@@ -146,7 +148,6 @@ namespace Test_Management_System.Pages
 
         private void SortTestCases()
         {
-            //testCaseGrid.Items.Clear();
             var tc = db.TestCase.ToList();
 
             if (ComboSortBy.SelectedIndex == 1)
@@ -168,7 +169,6 @@ namespace Test_Management_System.Pages
             if (ComboSortBy.SelectedIndex == 8)
                 tc = db.TestCase.OrderByDescending(x => x.TCSeverityID).ToList();
             testCaseGrid.ItemsSource = tc;
-
         }
 
         private void AddTestCaseItem_Click(object sender, RoutedEventArgs e)
@@ -212,8 +212,20 @@ namespace Test_Management_System.Pages
             if (testCaseGrid.SelectedItem != null)
             {
                 testCaseID = ((TestCase)testCaseGrid.SelectedItem).TestCaseID;
-                EditTestCaseItem.IsEnabled = true;
-                DeleteTestCase.IsEnabled = true;
+
+                int userTC = db.TestCase.Where(x => x.TestCaseID == testCaseID).FirstOrDefault().CreatorUserID;
+                if (userTC == userID)
+                    creator = true;
+                if (roleID == 2 || creator)
+                {
+                    EditTestCaseItem.IsEnabled = true;
+                    DeleteTestCase.IsEnabled = true;
+                }
+                else
+                {
+                    EditTestCaseItem.IsEnabled = false;
+                    DeleteTestCase.IsEnabled = false;
+                }
             }
             else
             {

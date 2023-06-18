@@ -53,7 +53,7 @@ namespace Test_Management_System.Pages
                     }
                     else
                     {
-                        MessageBox.Show("Файл не найден.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Файл не найден.", "Открытие файла", MessageBoxButton.OK);
                     }
                 }
             }

@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Test_Management_System.Classes;
 using Test_Management_System.Entities;
+using System.Diagnostics;
 
 namespace Test_Management_System.Pages
 {
@@ -36,9 +37,6 @@ namespace Test_Management_System.Pages
             this.companyId = userContext.companyID;
             InitializeComponent();
             GridProjects.ItemsSource = db.Project.Where(x=>x.CompanyID == companyId).ToList();
-
-            //List<string> attachmentNames = attachmentsList.Select(Path.GetFileName).ToList();
-
         }
 
         private void AddNewProject_Click(object sender, RoutedEventArgs e)
@@ -51,6 +49,32 @@ namespace Test_Management_System.Pages
             NavigationService.Navigate(new PageNewProject(userContext, projectID));
         }
 
+        private void OpenFile_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            if (button != null)
+            {
+                var fileName = button.CommandParameter.ToString();
+
+                var documentation = db.ProjectDocumentation.FirstOrDefault(x => x.ProjectID == userContext.projectID);
+                string attString = documentation != null ? documentation.ProjectDocumentationAttachment?.ToString() : string.Empty;
+
+                var filePath = attString.Split(';').FirstOrDefault(x => System.IO.Path.GetFileName(x) == fileName);
+
+                if (!string.IsNullOrEmpty(filePath))
+                {
+                    if (File.Exists(filePath))
+                    {
+                        Process.Start(filePath);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Файл не найден.", "Открытие файла", MessageBoxButton.OK);
+                    }
+                }
+            }
+        }
+
         private void GridProjects_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (GridProjects.SelectedItem != null)
@@ -59,11 +83,10 @@ namespace Test_Management_System.Pages
                 var documentation = db.ProjectDocumentation.FirstOrDefault(x => x.ProjectID == projectID);
                 string attString = documentation != null ? documentation.ProjectDocumentationAttachment?.ToString() : string.Empty;
 
-                //string attString = db.ProjectDocumentation.Where(x => x.ProjectID == projectID).FirstOrDefault().ProjectDocumentationAttachment.ToString();
                 List<string> attachmentNames = attString.Split(';').Select(System.IO.Path.GetFileName).ToList();
                 EditProject.IsEnabled = true;
                 AttachmentsListBox.ItemsSource = attachmentNames;
-                if (AttachmentsListBox.Items.Count == 0)
+                if (documentation == null)
                     AttachmentsListBox.Items.Add("Здесь пока ничего нет");                    
 
                 int custID = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().CustomerID;
