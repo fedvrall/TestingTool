@@ -75,19 +75,28 @@ namespace Test_Management_System.Pages
             }
         }
 
+        private void DeleteProject_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void GridProjects_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (GridProjects.SelectedItem != null)
             {
                 projectID = ((Project)GridProjects.SelectedItem).ProjectID;
-                var documentation = db.ProjectDocumentation.FirstOrDefault(x => x.ProjectID == projectID);
-                string attString = documentation != null ? documentation.ProjectDocumentationAttachment?.ToString() : string.Empty;
 
-                List<string> attachmentNames = attString.Split(';').Select(System.IO.Path.GetFileName).ToList();
-                EditProject.IsEnabled = true;
-                AttachmentsListBox.ItemsSource = attachmentNames;
-                if (documentation == null)
-                    AttachmentsListBox.Items.Add("Здесь пока ничего нет");                    
+                AttachmentsListBox.ItemsSource = null;
+                var documentation = db.ProjectDocumentation.FirstOrDefault(x => x.ProjectID == projectID);
+                string attString = string.Empty;
+
+                if (documentation != null && documentation.ProjectDocumentationAttachment != null)
+                {
+                    attString = documentation.ProjectDocumentationAttachment.ToString();
+                    attachmentsList = attString.Split(';').ToList();
+                    attachmentNames = attachmentsList.Select(System.IO.Path.GetFileName).ToList();
+                    AttachmentsListBox.ItemsSource = attachmentNames;
+                }                
 
                 int custID = db.Project.Where(x => x.ProjectID == projectID).FirstOrDefault().CustomerID;
                 var custInfo = db.Customer.Where(x => x.CustomerID == custID).FirstOrDefault();

@@ -1,21 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Test_Management_System.Entities;
 using Test_Management_System.Classes;
 using Microsoft.Win32;
-using System.Diagnostics.Eventing.Reader;
 
 namespace Test_Management_System.Pages
 {
@@ -27,7 +18,8 @@ namespace Test_Management_System.Pages
         private List<string> attachmentsList = new List<string>();
         Testing_ToolEntity db = new Testing_ToolEntity();
         public int testSuiteID, testCaseID, userID;
-        private bool isEditTC;
+        private bool isEditTC, creator, success;
+        List<string> attachmentNames;
         UserContext UserContext { get; set; }
         public PageNewTestCase(UserContext userContext, int testSuiteID, int testCaseID)
         {
@@ -44,17 +36,86 @@ namespace Test_Management_System.Pages
             this.UserContext = userContext;
             this.userID = userContext.userId;
             if (testCaseID == 0)
-                isEditTC = false; 
-            else 
+            {
+                isEditTC = false;
+                Header.Content = "Добавление нового тест-кейса";
+                creator = true;
+            }
+            else
+            {
                 isEditTC = true;
+                Header.Content = "Редактирование тест-кейса";
+                SaveAndAddTCButton.IsEnabled = false;
+                int userTC = db.TestCase.Where(x => x.TestCaseID == testCaseID).FirstOrDefault().CreatorUserID;
+                if (userTC == userID)
+                    creator = true;
+                else
+                    creator = false;
+                IsCreator();
+            }
+
             CreationDate.DisplayDate = DateTime.Now;
+        }
+
+
+        private void IsCreator()
+        {
+            var tc = db.TestCase.Where(x => x.TestCaseID == testCaseID).FirstOrDefault();
+            TBSummary.Text = tc.TestCaseSummary;
+            TBDescription.Text = tc.TestCaseDescription;
+            TBSteps.Text = tc.TestCaseSteps;
+            TBExpected.Text = tc.TestCaseExpectedResult;
+            if (tc.TestCaseActualResult == "-")
+                TBActual.Clear();
+            else
+                TBActual.Text = tc.TestCaseActualResult;
+            TBTestData.Text = tc.TestCaseTestData;
+            TBEnvironment.Text = tc.TestCaseEnvironment;
+            ComboStatusTC.SelectedIndex = tc.TCStatusID - 1;
+            if (tc.TestCasePriority != null)
+                ComboPriorityTC.SelectedIndex = (int)(tc.TCPriorityID - 1);
+            if (tc.TestCaseSeverity != null)
+                ComboSeverityTC.SelectedIndex = (int)(tc.TCSeverityID - 1);
+            if (tc.TCBehaviorID != null)
+                ComboBehaviorTC.SelectedIndex = (int)(tc.TCBehaviorID - 1);
+            if (tc.TCTypeID != null)
+                ComboTypeTC.SelectedIndex = (int)(tc.TCTypeID - 1);
+            CreationDate.DisplayDate = tc.TestCaseCreationDate;
+            TBPreconditions.Text = tc.TestCasePrecondition;
+            TBPostConditions.Text = tc.TestCasePostcondition;
+
+            string attString = tc.TestCaseAttachment != null ? tc.TestCaseAttachment?.ToString() : string.Empty;
+            attachmentsList = attString.Split(';').ToList();
+            attachmentNames = attachmentsList.Select(System.IO.Path.GetFileName).ToList();
+            AttachmentsListBox.ItemsSource = attachmentNames;
+
+            if (!creator)
+            {
+                TBSummary.IsEnabled = false;
+                TBDescription.IsEnabled = false;
+                TBSteps.IsEnabled = false;
+                TBExpected.IsEnabled = false;
+                TBPreconditions.IsEnabled = false;
+                TBPostConditions.IsEnabled = false;
+                TBTestData.IsEnabled = false;
+                AddAttachment.IsEnabled = false;
+                AttachmentsListBox.IsEnabled = false;
+                CreationDate.IsEnabled = false;
+                TBEnvironment.IsEnabled = false;
+            }
         }
 
         private bool IsAllFieldsHaveContent()
         {
             bool isValid = true;
-            if (string.IsNullOrEmpty(TBActual.Text))
+            if (ComboStatusTC.SelectedIndex == 4 && string.IsNullOrEmpty(TBActual.Text))
                 TBActual.Text = "-";
+            if(ComboStatusTC.SelectedIndex != 4 && string.IsNullOrEmpty(TBActual.Text))
+            {
+                TBActual.Style = (System.Windows.Style)FindResource("InvalidFieldStyle");
+                isValid = false;
+            }
+
             if (string.IsNullOrEmpty(TBSummary.Text))
             {
                 TBSummary.Style = (System.Windows.Style)FindResource("InvalidFieldStyle");
@@ -114,9 +175,10 @@ namespace Test_Management_System.Pages
             else
                 priority = ComboPriorityTC.SelectedIndex + 1;
 
-            if (!isEditTC)
+            if (IsAllFieldsHaveContent())
             {
-                if (IsAllFieldsHaveContent())
+                if (!isEditTC)
+
                 {
                     TestCase testCase = new TestCase()
                     {
@@ -150,60 +212,67 @@ namespace Test_Management_System.Pages
                     catch
                     {
                         MessageBox.Show("Не удалось добавить тест-кейс");
+                        success = false;
                     }
                     finally
                     {
                         MessageBox.Show("Тест-кейс добавлен");
-
+                        success = true;
                     }
                 }
-                else
-                    MessageBox.Show("Заполните поля");
 
+
+            else
+                {
+                    try
+                    {
+                        var findTC = db.TestCase.Find(testCaseID);
+                        findTC.TestCaseSummary = TBSummary.Text;
+                        findTC.TestCaseDescription = TBDescription.Text;
+                        findTC.TestCaseSteps = TBSteps.Text;
+                        findTC.TestCaseExpectedResult = TBExpected.Text;
+                        findTC.TestCaseActualResult = TBActual.Text;
+                        findTC.TCStatusID = ComboStatusTC.SelectedIndex + 1;
+                        findTC.TestCaseTestData = TBTestData.Text;
+                        findTC.TestSuiteID = testSuiteID;
+                        findTC.CreatorUserID = findTC.CreatorUserID;
+                        findTC.TestCaseCreationDate = selectedDate;
+                        findTC.ExecutorUserID = executor;
+                        findTC.TestCaseExecutionDate = ExDate;
+                        findTC.TestCaseEnvironment = TBEnvironment.Text;
+                        findTC.TCTypeID = type;
+                        findTC.TCBehaviorID = behavior;
+                        findTC.TCPriorityID = priority;
+                        findTC.TCSeverityID = severity;
+                        findTC.TestCaseAttachment = attString;
+                        findTC.TestCasePrecondition = TBPreconditions.Text;
+                        findTC.TestCasePostcondition = TBPostConditions.Text;
+                        db.SaveChanges();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Не удалось отредактировать тест-кейс");
+                        success = false;
+                    }
+                    finally
+                    {
+                        MessageBox.Show("Тест-кейс изменён");
+                        success = true;
+                        NavigationService.Navigate(new PageTestCases(UserContext, testSuiteID));
+                    }
+                }
             }
             else
-            {
-                try
-                {
-                    var findTC = db.TestCase.Find(testCaseID);
-                    findTC.TestCaseSummary = TBSummary.Text;
-                    findTC.TestCaseDescription = TBDescription.Text;
-                    findTC.TestCaseSteps = TBSteps.Text;
-                    findTC.TestCaseExpectedResult = TBExpected.Text;
-                    findTC.TestCaseActualResult = TBActual.Text;
-                    findTC.TCStatusID = ComboStatusTC.SelectedIndex + 1;
-                    findTC.TestCaseTestData = TBTestData.Text;
-                    findTC.TestSuiteID = testSuiteID;
-                    findTC.CreatorUserID = findTC.CreatorUserID;
-                    findTC.TestCaseCreationDate = selectedDate;
-                    findTC.ExecutorUserID = executor;
-                    findTC.TestCaseExecutionDate = ExDate;
-                    findTC.TestCaseEnvironment = TBEnvironment.Text;
-                    findTC.TCTypeID = ComboTypeTC.SelectedIndex + 1;
-                    findTC.TCBehaviorID = ComboBehaviorTC.SelectedIndex + 1;
-                    findTC.TCPriorityID = ComboPriorityTC.SelectedIndex + 1;
-                    findTC.TCSeverityID = ComboSeverityTC.SelectedIndex + 1;
-                    findTC.TestCaseAttachment = attString;
-                    findTC.TestCasePrecondition = TBPreconditions.Text;
-                    findTC.TestCasePostcondition = TBPostConditions.Text;
-                    db.SaveChanges();
-                }
-                catch
-                {
-                    MessageBox.Show("Не удалось отредактировать тест-кейс");
-                }
-                finally
-                {
-                    MessageBox.Show("Тест-кейс изменён");
-                    NavigationService.Navigate(new PageTestCases(UserContext, testSuiteID));
-                }
-            }
+                MessageBox.Show("Заполните поля");
+
         }
 
         private void SaveAndBackToTCPageButton_Click(object sender, RoutedEventArgs e)
         {
             AddNewTestCase();
-            //NavigationService.Navigate(new PageTestCases(UserContext, testSuiteID));
+            if (success)
+                NavigationService.Navigate(new PageTestCases(UserContext, testSuiteID));
+            else return;
         }
 
         private void SaveAndAddTCButton_Click(object sender, RoutedEventArgs e)
@@ -216,13 +285,15 @@ namespace Test_Management_System.Pages
             TBActual.Clear();
             ComboStatusTC.SelectedIndex = 4;
             TBTestData.Clear();
-            CreationDate.DisplayDate = DateTime.Now;
+            CreationDate.SelectedDate = DateTime.Now;
             TBEnvironment.Clear();
             ComboTypeTC.SelectedIndex = -1;
             ComboBehaviorTC.SelectedIndex = -1;
             ComboPriorityTC.SelectedIndex = -1;
             ComboSeverityTC.SelectedIndex = -1;
             attachmentsList.Clear();
+            AttachmentsListBox.ItemsSource = null;
+            AttachmentsListBox.ItemsSource = attachmentsList;
             TBPreconditions.Clear();
             TBPostConditions.Clear();
         }
@@ -242,7 +313,9 @@ namespace Test_Management_System.Pages
             string fileName = removeButton.DataContext as string;
             string filePath = attachmentsList.FirstOrDefault(path => System.IO.Path.GetFileName(path) == fileName);
             attachmentsList.Remove(filePath);
-            AttachmentsListBox.Items.Remove(fileName);
+            attachmentNames.Remove(fileName);
+            AttachmentsListBox.ItemsSource = null;
+            AttachmentsListBox.ItemsSource = attachmentNames;
         }
 
         private void AddAttachment_Click(object sender, RoutedEventArgs e)
@@ -253,7 +326,8 @@ namespace Test_Management_System.Pages
                 string filePath = openFileDialog.FileName;
                 string fileName = System.IO.Path.GetFileName(filePath);
                 attachmentsList.Add(filePath);
-                AttachmentsListBox.Items.Add(fileName);
+                AttachmentsListBox.ItemsSource = null;
+                AttachmentsListBox.ItemsSource = attachmentsList.Select(System.IO.Path.GetFileName);
             }
         }
     }

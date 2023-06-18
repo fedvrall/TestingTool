@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,7 +65,6 @@ namespace Test_Management_System.Pages
             HeaderTestCasesView.Content = db.TestSuite.Where(x => x.TestSuiteID == testStuiteID).FirstOrDefault().TestSuiteSummary;
             testCaseGrid.ItemsSource = db.TestCase.Where(x=>x.TestSuiteID == testStuiteID).ToList();
         }
-
 
         public class ColumnSelectionItem
         {
@@ -205,6 +205,39 @@ namespace Test_Management_System.Pages
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             UpdateDataGridColumns();
+        }
+
+        private void testCaseGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var dataGrid = (System.Windows.Controls.DataGrid)sender;
+            var selectedItem = (TestCase)dataGrid.SelectedItem;
+            string attachmentPath = selectedItem.TestCaseAttachment;
+            OpenAttachment(attachmentPath);
+        }
+
+            private void OpenAttachment(string attachmentPath)
+        {
+            if (!string.IsNullOrEmpty(attachmentPath))
+            {
+                if (System.IO.File.Exists(attachmentPath))
+                {
+                    Process.Start(attachmentPath);
+                }
+                else
+                {
+                    MessageBox.Show("Файл не найден.", "Открытие файла", MessageBoxButton.OK);
+                }
+            }
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            FormContainer.Visibility = Visibility.Collapsed;
+            DoubleAnimation animation = new DoubleAnimation();
+            animation.From = 200;
+            animation.To = 0;
+            animation.Duration = TimeSpan.FromSeconds(0.3);
+            FormContainer.BeginAnimation(Border.WidthProperty, animation);
         }
 
         private void testCaseGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -31,11 +31,11 @@
 
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Label  Content="Логин" Margin="10,10,10,0"/>
-            <TextBox Margin="20,10,10,10" x:Name="textBoxLogin" Text="" Width="200"/>
+            <TextBox Margin="20,10,10,10" x:Name="textBoxLogin"  Text="IvanAdmin" Width="200"/>
         </StackPanel>
         <StackPanel Grid.Row="3" Orientation="Horizontal">
             <Label  Content="Пароль" Margin="10,10,10,0"/>
-            <PasswordBox Width="200" x:Name="PasswordBox"  VerticalContentAlignment="Center" Margin="10,10,10,10"/>
+            <PasswordBox Width="200" x:Name="PasswordBox" Password="Admin_123" VerticalContentAlignment="Center" Margin="10,10,10,10"/>
             <TextBox Width="200" x:Name="TBPass" Visibility="Collapsed" Margin="10,10,10,10"/>
             </StackPanel>
         <CheckBox  Grid.Row="4" Content="Показать пароль" x:Name="ShowPasswordCheckBox" Checked="ShowPasswordCheckBox_Checked" Unchecked="ShowPasswordCheckBox_Unchecked" HorizontalAlignment="Center" Margin="26,10,30,10" Foreground="#ffffff"/>

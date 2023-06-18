@@ -54,7 +54,7 @@
             <Label Content="Приоритет" />
             <ComboBox x:Name="ComboPriority" SelectedIndex="0" DisplayMemberPath="BugPriorityNameTranslation" Width="200" Margin="97,0,55,0"/>
 
-            <Label Content="Серьёзность" />
+            <Label Content="Критичность" />
             <ComboBox x:Name="ComboSeverity" SelectedIndex="0" DisplayMemberPath="BugSeverityNameTranslation" Width="200" Margin="63,0,55,0"/>
 
             <Label Content="Статус" />

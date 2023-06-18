@@ -20,7 +20,8 @@ namespace Test_Management_System.Pages
 
         public event EventHandler MainPageClicked;
         private int companyID, projectID;
-
+        private List<string> attachmentsList = new List<string>();
+        List<string> attachmentNames;
         Testing_ToolEntity db = new Testing_ToolEntity();
         
         public PageMain(UserContext userContext)
@@ -129,6 +130,13 @@ namespace Test_Management_System.Pages
 
         }
 
+        private void ChooseProjectCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            AttachmentsListBox.ItemsSource = null;
+            DateOfProjectCreation.Content = "";
+            DateOfProjectEnd.Content = "";
+        }
+
         private void AdmitChosenProject_Click(object sender, RoutedEventArgs e)
         {
             if (ChooseProjectCombo.Text != "")
@@ -139,13 +147,17 @@ namespace Test_Management_System.Pages
                 DateOfProjectEnd.Content = project.ProjectDateOfDeadLine.ToString();
                 userContext.projectID = project.ProjectID;
 
-                var documentation = db.ProjectDocumentation.FirstOrDefault(x => x.ProjectID == project.ProjectID);
-                string attString = documentation != null ? documentation.ProjectDocumentationAttachment?.ToString() : string.Empty;
+                
+                var documentation = db.ProjectDocumentation.FirstOrDefault(x => x.ProjectID == userContext.projectID);
+                string attString = string.Empty;
 
-                List<string> attachmentNames = attString.Split(';').Select(System.IO.Path.GetFileName).ToList();
-                AttachmentsListBox.ItemsSource = attachmentNames;
-                if (AttachmentsListBox.Items.Count == 0)
-                    AttachmentsListBox.Items.Add("Здесь пока ничего нет");
+                if (documentation != null && documentation.ProjectDocumentationAttachment != null)
+                {
+                    attString = documentation.ProjectDocumentationAttachment.ToString();
+                    attachmentsList = attString.Split(';').ToList();
+                    attachmentNames = attachmentsList.Select(System.IO.Path.GetFileName).ToList();
+                    AttachmentsListBox.ItemsSource = attachmentNames;
+                }
 
                 IsMenuEnabled = true;
                 MainPageClicked?.Invoke(this, EventArgs.Empty);

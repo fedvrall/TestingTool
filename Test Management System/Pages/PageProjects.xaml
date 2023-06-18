@@ -83,7 +83,7 @@
         <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="10, 20, 10, 20" HorizontalAlignment="Right">
             <Button Style="{DynamicResource RoundedCorners}" Width="150" Margin="0, 0, 10, 0" Content="Добавить проект" Name="AddNewProject" Click="AddNewProject_Click" VerticalAlignment="Center" HorizontalAlignment="Right"/>
             <Button Style="{DynamicResource RoundedCorners}" Width="150" Margin="0, 0, 10, 0" IsEnabled="False" Content="Редактировать" Name="EditProject" Click="EditProject_Click" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            <Button Style="{DynamicResource RoundedCorners}" Width="150"   Content="Удалить" IsEnabled="False" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+            <Button Style="{DynamicResource RoundedCorners}" Width="150"   Content="Удалить" IsEnabled="False" VerticalAlignment="Center" HorizontalAlignment="Right" Click="DeleteProject_Click"/>
 
         </StackPanel>
     </Grid>

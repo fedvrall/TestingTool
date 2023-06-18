@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -158,6 +159,39 @@ namespace Test_Management_System.Pages
                 EditBR.IsEnabled = false;
                 DeleteBR.IsEnabled = false;
             }
+        }
+
+        private void bugReportGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var dataGrid = (System.Windows.Controls.DataGrid)sender;
+            var selectedItem = (BugReport)dataGrid.SelectedItem;
+            string attachmentPath = selectedItem.BugAttachment;
+            OpenAttachment(attachmentPath);
+        }
+
+        private void OpenAttachment(string attachmentPath)
+        {
+            if (!string.IsNullOrEmpty(attachmentPath))
+            {
+                if (System.IO.File.Exists(attachmentPath))
+                {
+                    Process.Start(attachmentPath);
+                }
+                else
+                {
+                    MessageBox.Show("Файл не найден.", "Открытие файла", MessageBoxButton.OK);
+                }
+            }
+        }
+
+        private void CloseAdding_Click(object sender, RoutedEventArgs e)
+        {
+            FormContainer.Visibility = Visibility.Collapsed;
+            DoubleAnimation animation = new DoubleAnimation();
+            animation.From = 200;
+            animation.To = 0;
+            animation.Duration = TimeSpan.FromSeconds(0.3);
+            FormContainer.BeginAnimation(Border.WidthProperty, animation);
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)

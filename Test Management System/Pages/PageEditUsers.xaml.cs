@@ -62,10 +62,12 @@ namespace Test_Management_System.Pages
             FirstNameTextBox.IsReadOnly = false;
             LoginTextBox.IsReadOnly = false;
             RoleComboBox.IsReadOnly = false;
+
             PassLabel.Visibility = Visibility.Collapsed;
             PassBox.Visibility = Visibility.Collapsed;
             PassTextBox.Visibility = Visibility.Collapsed;
-            HideCurrentPass.Visibility = Visibility.Collapsed;
+            ShowCurrentPass.Visibility = Visibility.Collapsed;
+
             NewPassBlock.Visibility = Visibility.Visible;
             reminder1.Visibility = Visibility.Visible;
             reminder2.Visibility = Visibility.Visible;
@@ -89,6 +91,34 @@ namespace Test_Management_System.Pages
             EditButton.IsEnabled = false;
             isAddUser = false;
             isEditUser = true;
+        }
+
+        private bool AreFieldsFilled()
+        {
+            bool isValid = true;
+
+            foreach (var textBox in userInfo1.Children.OfType<System.Windows.Controls.TextBox>())
+            {
+                if (string.IsNullOrWhiteSpace(textBox.Text))
+                {
+                    textBox.Style = (System.Windows.Style)FindResource("InvalidFieldStyle");
+                    isValid = false;
+                }
+            }
+            if (string.IsNullOrEmpty(LoginTextBox.Text))
+            {
+                LoginTextBox.Style = (System.Windows.Style)FindResource("InvalidFieldStyle");
+                isValid = false;
+            }
+            if (string.IsNullOrEmpty(NewPass.Password) || string.IsNullOrEmpty(NewPassTextBox.Text))
+            {
+                NewPassTextBox.Style = (System.Windows.Style)FindResource("InvalidFieldStyle");
+                isValid = false;
+            }
+
+            if(RoleComboBox.SelectedIndex == -1 || RoleComboBox.SelectedIndex == 0)
+                isValid = false;
+            return isValid;
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -148,13 +178,12 @@ namespace Test_Management_System.Pages
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            if (HideCurrentPass.IsChecked == true)
+            if (ShowCurrentPass.IsChecked == true)
             {
-                PassBox.Password = PassTextBox.Text;
-                PassTextBox.Visibility = Visibility.Collapsed; 
-                PassBox.Visibility = Visibility.Visible; 
+                PassTextBox.Text = PassBox.Password; // показан
+                PassTextBox.Visibility = Visibility.Visible; 
+                PassBox.Visibility = Visibility.Collapsed; 
             }
-
 
             if(ShowNewPass.IsChecked == true)
             {
@@ -166,18 +195,16 @@ namespace Test_Management_System.Pages
                 NewPass.Visibility = Visibility.Collapsed;
                 NewPassAgreement.Visibility = Visibility.Collapsed;
             }
-
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (HideCurrentPass.IsChecked == false)
+            if (ShowCurrentPass.IsChecked == false)
             {
-                PassTextBox.Text = PassBox.Password;
-              //  PassTextBox.Visibility = Visibility.Visible;
-                PassBox.Visibility = Visibility.Collapsed;
+                PassBox.Password = PassTextBox.Text;
+                PassTextBox.Visibility = Visibility.Collapsed;
+                PassBox.Visibility = Visibility.Visible;
             }
-
 
             if (ShowNewPass.IsChecked == false)
             {
@@ -186,7 +213,6 @@ namespace Test_Management_System.Pages
 
                 NewPassTextBox.Visibility = Visibility.Collapsed;
                 NewPassAgreementTextBox.Visibility = Visibility.Collapsed;
-
                 NewPass.Visibility = Visibility.Visible;
                 NewPassAgreement.Visibility = Visibility.Visible;
             }
@@ -195,6 +221,9 @@ namespace Test_Management_System.Pages
         private void ChangePass_Click(object sender, RoutedEventArgs e)
         {
             NewPassBlock.Visibility = Visibility.Visible;
+            PassBox.Visibility=Visibility.Collapsed;
+            PassTextBox.Visibility=Visibility.Collapsed;
+            ShowCurrentPass.Visibility = Visibility.Collapsed;
             SaveButton.IsEnabled = true;
             reminder1.Visibility = Visibility.Visible;
             reminder2.Visibility = Visibility.Visible;
@@ -225,14 +254,14 @@ namespace Test_Management_System.Pages
             SaveButton.IsEnabled = false;
 
             PassLabel.Visibility = Visibility.Visible;
-            //PassBox.Visibility = Visibility.Visible;
-            PassTextBox.Visibility = Visibility.Visible;
-            HideCurrentPass.Visibility = Visibility.Visible;
+            PassBox.Visibility = Visibility.Visible;
+            ShowCurrentPass.Visibility = Visibility.Visible;
+            PassTextBox.Visibility = Visibility.Collapsed;
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            using (Testing_ToolEntity db = new Testing_ToolEntity())
+            if (AreFieldsFilled())
             {
                 string newUserPass;
                 if (NewPassAgreement.Visibility == Visibility.Visible)
@@ -272,7 +301,7 @@ namespace Test_Management_System.Pages
                     else
                         MessageBox.Show("Вы заполнили не все поля! Пожалуйста, заполните все поля и попробуйте ещё раз.");
                 }
-                if(isEditUser)
+                if (isEditUser)
                 {
                     var dialog = MessageBox.Show("Вы действительно хотите отредактировать данного пользователя?", "Изменить?", MessageBoxButton.YesNo);
                     if (dialog == MessageBoxResult.Yes)
@@ -302,12 +331,18 @@ namespace Test_Management_System.Pages
                     else
                         return;
                 }
-            }          
+            }
+            else
+                MessageBox.Show("Заполните поля");
+        
         }
 
         private bool IsIdenticalPass()
         {
-            if (NewPass.Password == NewPassAgreement.Password && NewPassTextBox.Text == NewPassAgreementTextBox.Text)
+            string pass1 = NewPassTextBox.Text.ToString();
+            string pass2 = NewPassAgreementTextBox.Text.ToString();
+
+            if (NewPass.Password == NewPassAgreement.Password && pass1 == pass2)
                 return true;
             else
             {

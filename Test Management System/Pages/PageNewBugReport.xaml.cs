@@ -31,6 +31,7 @@ namespace Test_Management_System.Pages
         private int BRID, projectID, userID, roleID;
         private bool isEditBR, creator, success;
         Testing_ToolEntity db = new Testing_ToolEntity();
+        List<string> attachmentNames;
 
         public PageNewBugReport(UserContext userContext, int brID)
         {
@@ -56,6 +57,7 @@ namespace Test_Management_System.Pages
                 else
                     creator = false;
                 IsCreator();
+                SaveAndAddOneMoreBR.IsEnabled = false;
             }
             ComboPriority.ItemsSource = db.BugPriority.ToList();
             ComboSeverity.ItemsSource = db.BugSeverity.ToList();
@@ -88,6 +90,11 @@ namespace Test_Management_System.Pages
             if (br.TestCaseID != null)
                 ComboTC.SelectedIndex = (int)(br.TestCaseID - 1);
 
+            string attString = br.BugAttachment != null ? br.BugAttachment?.ToString() : string.Empty;
+            attachmentsList = attString.Split(';').ToList();
+            attachmentNames = attachmentsList.Select(System.IO.Path.GetFileName).ToList();
+            AttachmentsListBox.ItemsSource = attachmentNames;
+
 
             if (!creator)
             {
@@ -99,7 +106,7 @@ namespace Test_Management_System.Pages
                 TBprecond.IsEnabled = false;
                 TBtestdata.IsEnabled = false;
                 AddAttachment.IsEnabled = false;
-                attachmentsList.AsReadOnly();
+                AttachmentsListBox.IsEnabled = false;
                 DPCreation.IsEnabled = false;
                 TBComponent.IsEnabled = false;
                 TBVersion.IsEnabled = false;
@@ -160,11 +167,8 @@ namespace Test_Management_System.Pages
                 TC = ComboTC.SelectedIndex + 1;
             else TC = null;
 
-            DateTime date;
-            if(DPCreation.SelectedDate == null)
-                date = DateTime.Now;
-            else
-                date = (DateTime)DPCreation.SelectedDate;
+            DateTime selectedDate = DPCreation.SelectedDate ?? DateTime.Now;
+
 
             if (IsFieldsAreFilled())
             {
@@ -185,7 +189,7 @@ namespace Test_Management_System.Pages
                         BRStatusID = status,
                         ProjectID = projectID,
                         UserID = userID,
-                        DateOfCreation = date,
+                        DateOfCreation = selectedDate,
                         BugReportRemark = TBNotes.Text,
                         BugComponentOfSW = TBComponent.Text,
                         BugVersionOfSW = TBVersion.Text,
@@ -288,6 +292,8 @@ namespace Test_Management_System.Pages
             TBprecond.Clear();
             TBtestdata.Clear();
             attachmentsList.Clear();
+            AttachmentsListBox.Items.Clear();
+            AttachmentsListBox.ItemsSource = attachmentsList;
             DPCreation.SelectedDate = null;
             ComboPriority.SelectedIndex = 0;
             ComboSeverity.SelectedIndex = 0;
@@ -296,16 +302,6 @@ namespace Test_Management_System.Pages
             TBComponent.Clear();
             TBVersion.Clear();
             ComboTC.SelectedIndex = -1;
-            //var anonymousStyle = new Style(typeof(TextBox))
-            //{
-            //    Setters = {
-            //        new Setter(TextBox.BorderBrushProperty, Application.Current.FindResource("ControlDefaultBorderBrush")) }
-            //};
-            //foreach (var textBox in BRGrid.Children.OfType<System.Windows.Controls.TextBox>())
-            //{
-            //    textBox.Style = anonymousStyle;// (System.Windows.Style)FindResource("");
-            //}
-
         }
 
         private void ExitWithoutSaveBR_Click(object sender, RoutedEventArgs e)
@@ -325,7 +321,8 @@ namespace Test_Management_System.Pages
                 string filePath = openFileDialog.FileName;
                 string fileName = System.IO.Path.GetFileName(filePath);
                 attachmentsList.Add(filePath);
-                AttachmentsListBox.Items.Add(fileName);
+                AttachmentsListBox.ItemsSource = null;
+                AttachmentsListBox.ItemsSource = attachmentsList.Select(System.IO.Path.GetFileName);
             }
         }
 
@@ -335,7 +332,9 @@ namespace Test_Management_System.Pages
             string fileName = removeButton.DataContext as string;
             string filePath = attachmentsList.FirstOrDefault(path => System.IO.Path.GetFileName(path) == fileName);
             attachmentsList.Remove(filePath);
-            AttachmentsListBox.Items.Remove(fileName);
+            attachmentNames.Remove(fileName);
+            AttachmentsListBox.ItemsSource = null;
+            AttachmentsListBox.ItemsSource = attachmentNames;
         }
     }
 }

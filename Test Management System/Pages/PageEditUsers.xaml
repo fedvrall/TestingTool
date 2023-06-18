@@ -21,12 +21,12 @@
 
         <Label Content="Просмотр пользователей" Grid.Row="0" FontSize="16" FontWeight="Bold" Margin="10, 10" HorizontalAlignment="Left"/>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="10, 10, 0, 10" HorizontalAlignment="Left" DataContext="{Binding ElementName=dgvUsers, Path=SelectedValue}">
-            <Label Content="Имя:"/>
-            <TextBox Name="FirstNameTextBox" Text="{Binding Path=FirstName}" IsReadOnly="True" Width="150" MaxLength="25" Margin="76,0,10,0" LostFocus="FirstNameTextBox_LostFocus"/>
-            <Label Content="Фамилия:" />
+        <StackPanel Name="userInfo1" Orientation="Horizontal" Grid.Row="3" Margin="10, 10, 0, 10" HorizontalAlignment="Left" DataContext="{Binding ElementName=dgvUsers, Path=SelectedValue}">
+            <Label Content="Имя"/>
+            <TextBox Name="FirstNameTextBox" Text="{Binding Path=FirstName}" IsReadOnly="True" Width="150" MaxLength="25" Margin="79,0,10,0" LostFocus="FirstNameTextBox_LostFocus"/>
+            <Label Content="Фамилия" />
             <TextBox Name="LastNameTextBox" Text="{Binding Path=LastName}" IsReadOnly="True" Width="150"  MaxLength="25" Margin="86,0,10,0" LostFocus="LastNameTextBox_LostFocus" />
-            <Label  Content="Роль:"/>
+            <Label  Content="Роль"/>
             <ComboBox  SelectedIndex="{Binding Role.RoleID}" IsReadOnly="True" DisplayMemberPath="RoleNameTranslation" 
                       Name="RoleComboBox" Width="200" Margin="10,0,10,0" VerticalContentAlignment="Center">
                 <TextBlock.FontSize>14</TextBlock.FontSize>
@@ -36,19 +36,19 @@
         <StackPanel DataContext="{Binding ElementName=dgvUsers, Path=SelectedValue}" Orientation="Horizontal" Grid.Row="4" Margin="10, 10, 0, 10" HorizontalAlignment="Left">
             <Label Content="Логин:" />
             <TextBox Name="LoginTextBox" Text="{Binding Path=Login}" IsReadOnly="True" Width="150" Margin="64,0,10,0" MaxLength="20" LostFocus="LoginTextBox_LostFocus" />
-            <Label Name="PassLabel"  Content="Текущий пароль:" />
+            <Label Name="PassLabel"  Content="Текущий пароль" />
             <PasswordBox Name="PassBox" IsEnabled="False"  Width="150" MaxLength="20" Margin="38,0,10,0" Visibility="Collapsed"/>
             <TextBox x:Name="PassTextBox" Width="150" Margin="38,0,10,0" MaxLength="20"  IsReadOnly="True"/>
-            <CheckBox Content="Скрыть пароль" Margin="10, 0" Name="HideCurrentPass" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+            <CheckBox Content="Показать пароль" Margin="10, 0" Name="ShowCurrentPass" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
         </StackPanel>
         <Button Content="Изменить пароль" Grid.Row="4" HorizontalAlignment="Right" Margin="10" Width="150" Style="{DynamicResource RoundedCorners}" Visibility="Collapsed" Name="ChangePass" Click="ChangePass_Click"/>
 
         <StackPanel x:Name="NewPassBlock" Orientation="Horizontal" Grid.Row="5" Margin="10, 10, 0, 10" HorizontalAlignment="Left">
-            <Label Name="NewPassLabel"  Content="Новый пароль:"/>
-            <PasswordBox Name="NewPass"  Width="150" Margin="10,0,10,0" MaxLength="20" LostFocus="NewPass_LostFocus"/>
-            <TextBox x:Name="NewPassTextBox" Width="150" Margin="10,0,10,0" MaxLength="20" Visibility="Collapsed" LostFocus="NewPassTextBox_LostFocus" />
+            <Label Name="NewPassLabel"  Content="Новый пароль"/>
+            <PasswordBox Name="NewPass"  Width="150" Margin="13,0,10,0" MaxLength="20" LostFocus="NewPass_LostFocus"/>
+            <TextBox x:Name="NewPassTextBox" Width="150" Margin="13,0,10,0" MaxLength="20" Visibility="Collapsed" LostFocus="NewPassTextBox_LostFocus" />
             
-            <Label  Content="Подтвердите пароль:"/>
+            <Label  Content="Подтвердите пароль"/>
             <PasswordBox Name="NewPassAgreement" Width="150" Margin="10,0,10,0" MaxLength="20" LostFocus="NewPassAgreement_LostFocus"/>
             <TextBox x:Name="NewPassAgreementTextBox" Width="150" Margin="10,0,10,0" MaxLength="20" Visibility="Collapsed" LostFocus="NewPassAgreementTextBox_LostFocus"/>
             <CheckBox Content="Показать пароль" Margin="10, 0" Name="ShowNewPass" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>

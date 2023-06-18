@@ -32,7 +32,7 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="0">
                 <Label  Content="Выбрать проект: " Margin="10"/>
-                <ComboBox x:Name="ChooseProjectCombo" Width="650" Margin="10" SelectedIndex="{Binding Project}"  DisplayMemberPath="ProjectName"/>
+                <ComboBox x:Name="ChooseProjectCombo" Width="650" Margin="10" SelectedIndex="{Binding Project}"  DisplayMemberPath="ProjectName" SelectionChanged="ChooseProjectCombo_SelectionChanged"/>
                 <Button Content="Подтвердить выбор" Margin="10" Width="300" Style="{DynamicResource RoundedCorners}"  x:Name="AdmitChosenProject" Click="AdmitChosenProject_Click" />
             </StackPanel>
 
