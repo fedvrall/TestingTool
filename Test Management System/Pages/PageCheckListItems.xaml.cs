@@ -47,7 +47,7 @@ namespace Test_Management_System.Pages
 
             checklistManager.LoadExistingChecklistItems();
 
-            CheckListGrid.Items.Clear();
+            CheckListGrid.ItemsSource = null;
             CheckListGrid.ItemsSource = checklistManager.AllChecklistItems;
 
             ComboBoxPriority.Items.Clear();
@@ -113,7 +113,7 @@ namespace Test_Management_System.Pages
 
                 checklistManager.AddNewChecklistItem(newItem);
                 TextBoxDescription.Text = string.Empty;
-                ComboBoxStatus.SelectedItem = 2;
+                ComboBoxStatus.SelectedItem = 3;
                 ComboBoxPriority.SelectedItem = null;
                 TextBoxComment.Text = string.Empty;
                 attachmentsList.Clear();

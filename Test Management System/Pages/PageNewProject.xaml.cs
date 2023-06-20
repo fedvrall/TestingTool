@@ -30,7 +30,7 @@ namespace Test_Management_System.Pages
     {
         private List<string> attachmentsList = new List<string>();
         TextBoxChecking checking = new TextBoxChecking();
-        private bool isEdit;
+        private bool isEdit, success, success1;
         private int projectID;
         private int companyID, customerID;
         Testing_ToolEntity db = new Testing_ToolEntity();
@@ -44,7 +44,11 @@ namespace Test_Management_System.Pages
             this.projectID = projectID;
             this.companyID = userContext.companyID;
             if (projectID == 0)
+            {
                 isEdit = false;
+                ConfirmAdding.IsEnabled = true;
+                SaveProjectChanges.IsEnabled = false;
+            }
             else
             {
                 isEdit = true;
@@ -77,11 +81,15 @@ namespace Test_Management_System.Pages
         private void ConfirmAdding_Click(object sender, RoutedEventArgs e)
         {
             AddOrEditProject();
+            if (success || success1)
+                NavigationService.Navigate(new PageProjects(userContext));
         }
 
         private void SaveProjectChanges_Click(object sender, RoutedEventArgs e)
         {
             AddOrEditProject();
+            if (success || success1)
+                NavigationService.Navigate(new PageProjects(userContext));
         }
 
         private bool AreFieldsFilled() // поля заполнены?
@@ -145,7 +153,8 @@ namespace Test_Management_System.Pages
                     }
                     finally
                     {
-                        MessageBox.Show("Заказчик был добавлен");
+                        
+                        //MessageBox.Show("Заказчик был добавлен");
                     }
 
                     int custID = db.Customer.Where(x => x.CustomerPhone == customerPhoneTB.Text).FirstOrDefault().CustomerID;
@@ -168,10 +177,12 @@ namespace Test_Management_System.Pages
                     catch
                     {
                         MessageBox.Show("Не удалось создать проект");
+                        success = false;
                     }
                     finally
                     {
                         MessageBox.Show("Проект был добавлен");
+                        success = true;
                     }
 
                     if (AttachmentsListBox.Items.Count > 0)
@@ -189,10 +200,12 @@ namespace Test_Management_System.Pages
                         catch
                         {
                             MessageBox.Show("Не удалось добавить документацию");
+                            success1 = false;
                         }
                         finally
                         {
                             MessageBox.Show("Документация была добавлена");
+                            success1 = true;
                         }
                     }
                 }
@@ -230,10 +243,12 @@ namespace Test_Management_System.Pages
                     catch
                     {
                         MessageBox.Show("Не удалось отредактировать проект");
+                        success = false;
                     }
                     finally
                     {
                         MessageBox.Show("Проект отредактирован");
+                        success = true;
                     }
 
                     try
@@ -259,9 +274,11 @@ namespace Test_Management_System.Pages
                     catch
                     {
                         MessageBox.Show("Не удалось отредактировать вложения");
+                        success1 = false;
                     }
                     finally
                     {
+                        success1 = true;
                         //MessageBox.Show("Вложения отредактированы");
                     }
                 }

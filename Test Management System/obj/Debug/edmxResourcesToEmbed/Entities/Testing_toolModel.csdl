@@ -231,6 +231,7 @@
     <NavigationProperty Name="TestCaseType" Relationship="Self.FK_TestCase_TestCaseType" FromRole="TestCase" ToRole="TestCaseType" />
     <NavigationProperty Name="Userinfo" Relationship="Self.FK_TestCase_Userinfo" FromRole="TestCase" ToRole="Userinfo" />
     <NavigationProperty Name="Userinfo1" Relationship="Self.FK_TestCase_Userinfo1" FromRole="TestCase" ToRole="Userinfo" />
+    <Property Name="TestCaseVisibleID" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="TestCaseBehavior">
     <Key>

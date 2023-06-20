@@ -181,6 +181,7 @@
     <EntitySetMapping Name="TestCase">
       <EntityTypeMapping TypeName="Testing_ToolModel.TestCase">
         <MappingFragment StoreEntitySet="TestCase">
+          <ScalarProperty Name="TestCaseVisibleID" ColumnName="TestCaseVisibleID" />
           <ScalarProperty Name="TestCaseID" ColumnName="TestCaseID" />
           <ScalarProperty Name="TestCaseSummary" ColumnName="TestCaseSummary" />
           <ScalarProperty Name="TestCaseDescription" ColumnName="TestCaseDescription" />

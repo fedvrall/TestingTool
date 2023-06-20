@@ -41,6 +41,7 @@ namespace Test_Management_System.Entities
         public string TestCaseAttachment { get; set; }
         public string TestCasePrecondition { get; set; }
         public string TestCasePostcondition { get; set; }
+        public string TestCaseVisibleID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BugReport> BugReport { get; set; }

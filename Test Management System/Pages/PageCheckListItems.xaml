@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Label Content="Список пунктов чек-листов" FontSize="16" FontWeight="DemiBold" Margin="10" />
+        <Label Content="Список пунктов чек-листов" FontSize="16" FontWeight="DemiBold" Margin="20, 10, 0, 0" />
 
         <Grid Grid.Row="1" Margin="10">
             <Grid.RowDefinitions>
@@ -26,20 +26,20 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Margin="0 0 0 5" Content="Описание *"/>
+            <Label Grid.Row="0" Margin="10 0 0 5" Content="Описание *"/>
             <TextBox Grid.Row="0" x:Name="TextBoxDescription" Width="1030" MaxLength="1000"  HorizontalAlignment="Right" Margin="5, 5, 10, 5"/>
 
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0, 10, 0, 10">
-                <Label  Margin="0, 0, 63, 0" Content="Статус:"/>
+                <Label  Margin="10, 0, 56, 0" Content="Статус"/>
                 <ComboBox x:Name="ComboBoxStatus" Width="400" Padding="10" DisplayMemberPath="CLStatusDescriptionTranslation"/>
-                <Label  Margin="75, 0, 72, 0"  Content="Приоритет:"/>
+                <Label  Margin="75, 0, 75, 0"  Content="Приоритет"/>
                 <ComboBox x:Name="ComboBoxPriority" Width="400" Padding="10" DisplayMemberPath="CLPriorityDescriptionTranslation"/>
             </StackPanel>
 
-            <Label Grid.Row="2" Margin="0, 5, 0, 5" Content="Комментарий:"/>
+            <Label Grid.Row="2" Margin="10, 5, 0, 5" Content="Комментарий"/>
             <TextBox Grid.Row="2" x:Name="TextBoxComment" MaxLength="255" Width="1030" HorizontalAlignment="Right" Margin="5, 5, 10, 5"/>
 
-            <Label Grid.Row="3"  Content="Вложение:" Margin="0 0 0 5"/>
+            <Label Grid.Row="3"  Content="Вложение" Margin="10 5 0 5"/>
             <ListBox Grid.Row="3" Width="975" Height="70" HorizontalAlignment="Right" Margin="5,5,65,5"  x:Name="AttachmentsListBox">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -53,7 +53,7 @@
             <Button Style="{DynamicResource RoundedCorners}" Grid.Row="3" Content=" + " FontSize="26" Padding="5" Click="AddAttachmentToCheckList_Click" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5, 5, 10, 5"/>
 
             <Button Grid.Row="4"   Content="Добавить пункт" Name="AddChecklistItem" Click="AddChecklistItem_Click" Margin="10" Style="{DynamicResource RoundedCorners}" />
-            <DataGrid Name="CheckListGrid"  Grid.Row="5" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column" ItemsSource="{Binding}" MouseDoubleClick="CLListView_MouseDoubleClick" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" IsReadOnly="True">
+            <DataGrid VerticalScrollBarVisibility="Auto" Name="CheckListGrid"  Margin="10" Grid.Row="5" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column" ItemsSource="{Binding}" MouseDoubleClick="CLListView_MouseDoubleClick" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" IsReadOnly="True" Height="368" MaxHeight="325" MaxWidth="1160" VerticalAlignment="Top">
                 <DataGrid.Columns>
                     <DataGridTextColumn  Header="Описание" Width="200" Binding="{Binding CheckListItemDescription}">
                         <DataGridTextColumn.ElementStyle>
@@ -112,8 +112,6 @@
         </Grid>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0, 10, 20, 20">
-            <!--<Button Template="{StaticResource beautifulButton}"  Width="250" Padding="10" Margin="10" Content="Создать и выйти" Name="AddItemToCheckListAndExit" Click="AddItemToCheckListAndExit_Click"/>
-            <Button Template="{StaticResource beautifulButton}" Width="250" Padding="10" Margin="10" Content="Создать и перейти к следующему" Name="AddItemToCheckListGoToAnother" Click="AddItemToCheckListGoToAnother_Click" />-->
             <Button Style="{DynamicResource RoundedCorners}" Width="200" Margin="0, 0, 10, 0" Content="Пройти чек-лист" Name="ExecuteList" Click="ExecuteList_Click" Visibility="Collapsed"/>
             <Button Style="{DynamicResource RoundedCorners}" Width="200"  Content="Выйти к чек-листам" Name="ExitFromAddingCheckListItem" Click="ExitFromAddingCheckListItem_Click"/>
         </StackPanel>

@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,27 +12,27 @@ namespace Test_Management_System.Classes
     {
         public UserContext Context { get; set; }
         public string ProjectLabel;
-        public string ProjectID;
+        public int ProjectID, TSID;
+        Testing_ToolEntity db = new Testing_ToolEntity();
         public GenerateID(UserContext userContext)
         {
             this.Context = userContext;
-            this.ProjectLabel = Context.projectLabel;
-            this.ProjectID = Context.projectID;
         }
 
-        public string GenerateTestSuiteD()
+        public string GenerateTestSuiteD(int TSID)
         {
-            string TSID = "";
-            string idPrefix = ProjectID + "TS";
+            string TCID = "";
+            string TSLabel = db.TestSuite.Where(x => x.TestSuiteID == TSID).FirstOrDefault().TestSuiteLabel;
+            string idPrefix = TSLabel + "";
             int lastUsedIdNumber = 0;
 
-
-            using (Testing_ToolEntities db = new Testing_ToolEntities())
+            int countRowsInTC = db.TestCase.Where(x => x.TestSuiteID == TSID).Count();
+            if(countRowsInTC > 0)
             {
-                var getLastTSID = db.TestSuite.Where(x => x.ProjectID == ProjectID).OrderByDescending(x => x.TestSuiteID).FirstOrDefault();
-                string lastID = getLastTSID.TestSuiteID;
-                if (getLastTSID != null)
-                {
+                var getLastTCID = db.TestCase.Where(x => x.TestSuiteID == TSID).OrderByDescending(x => x.TestCaseID).FirstOrDefault();
+                string lastID = getLastTCID.TestCaseVisibleID;
+                //if (getLastTCID != null)
+                //{
                     if (lastID.StartsWith(idPrefix))
                     {
                         string numberString = lastID.Substring(idPrefix.Length);
@@ -44,16 +44,16 @@ namespace Test_Management_System.Classes
                             }
                         }
                     }
-                }
-                else
-                {
-                    lastUsedIdNumber = 0;
-                }
-                lastUsedIdNumber++;
-                TSID = idPrefix + lastUsedIdNumber.ToString();
-                return TSID;
+                //}
             }
+
+            else
+            {
+                lastUsedIdNumber = 0;
+            }
+            lastUsedIdNumber++;
+            TCID = idPrefix + lastUsedIdNumber.ToString();
+            return TCID;
         }
     }
 }
-*/

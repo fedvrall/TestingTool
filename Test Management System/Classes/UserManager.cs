@@ -43,9 +43,14 @@ namespace Test_Management_System.Classes
             usersNotInProjectList.Clear();
 
             var namesNotInProject = db.Userinfo
-                .Where(u => !db.ProjectUser.Any(uip => uip.UserID == u.UserID && uip.ProjectID == projectID))
+                .Where(u => !db.ProjectUser.Any(uip => uip.UserID == u.UserID && uip.ProjectID == projectID) && u.RoleID == 3)
                 .Select(u => u.LastName + " " + u.FirstName)
                 .ToList();
+
+            //var namesNotInProject = db.Userinfo
+            //    .Where(u => !db.ProjectUser.Any(uip => uip.UserID == u.UserID && uip.ProjectID == projectID))
+            //    .Select(u => u.LastName + " " + u.FirstName)
+            //    .ToList();
 
             foreach (var name in namesNotInProject)
             {

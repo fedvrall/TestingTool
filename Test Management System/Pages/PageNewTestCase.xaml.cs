@@ -175,6 +175,9 @@ namespace Test_Management_System.Pages
             else
                 priority = ComboPriorityTC.SelectedIndex + 1;
 
+            GenerateID generateID = new GenerateID(UserContext);
+            string testcaseVisibleID = generateID.GenerateTestSuiteD(testSuiteID);
+
             if (IsAllFieldsHaveContent())
             {
                 if (!isEditTC)
@@ -183,6 +186,7 @@ namespace Test_Management_System.Pages
                     TestCase testCase = new TestCase()
                     {
                         TestCaseSummary = TBSummary.Text,
+                        TestCaseVisibleID = testcaseVisibleID,
                         TestCaseDescription = TBDescription.Text,
                         TestCaseSteps = TBSteps.Text,
                         TestCaseExpectedResult = TBExpected.Text,
@@ -228,6 +232,7 @@ namespace Test_Management_System.Pages
                     {
                         var findTC = db.TestCase.Find(testCaseID);
                         findTC.TestCaseSummary = TBSummary.Text;
+                        findTC.TestCaseVisibleID = testcaseVisibleID;
                         findTC.TestCaseDescription = TBDescription.Text;
                         findTC.TestCaseSteps = TBSteps.Text;
                         findTC.TestCaseExpectedResult = TBExpected.Text;

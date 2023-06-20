@@ -32,8 +32,6 @@ namespace Test_Management_System.Classes
             allChecklistItems.Clear();
             foreach (var item in existingItems)
             {
-                //item.CLPriorityID = item.CheckListPriority?.CLPriorityID;
-                //item.CLStatusID = item.CheckListStatus.CLStatusID;
                 allChecklistItems.Add(item);
             }
         }
