@@ -90,10 +90,17 @@ namespace Test_Management_System.Pages
             if (br.TestCaseID != null)
                 ComboTC.SelectedIndex = (int)(br.TestCaseID - 1);
 
-            string attString = br.BugAttachment != null ? br.BugAttachment?.ToString() : string.Empty;
-            attachmentsList = attString.Split(';').ToList();
-            attachmentNames = attachmentsList.Select(System.IO.Path.GetFileName).ToList();
-            AttachmentsListBox.ItemsSource = attachmentNames;
+            AttachmentsListBox.ItemsSource = null;
+            var documentation = db.BugReport.FirstOrDefault(x => x.ProjectID == projectID);
+            string attString = string.Empty;
+
+            if (documentation != null && documentation.BugAttachment != null && documentation.BugAttachment != "")
+            {
+                attString = documentation.BugAttachment.ToString();
+                attachmentsList = attString.Split(';').ToList();
+                attachmentNames = attachmentsList.Select(System.IO.Path.GetFileName).ToList();
+                AttachmentsListBox.ItemsSource = attachmentNames;
+            }
 
 
             if (!creator)

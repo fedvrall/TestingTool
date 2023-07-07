@@ -29,7 +29,7 @@ namespace Test_Management_System.Pages
     {
         private bool isEditUser = false;
         private bool isAddUser = false;
-        private int userID, companyID;
+        private int userID, companyID, currUser;
         TextBoxChecking checking = new TextBoxChecking();
         Testing_ToolEntity db = new Testing_ToolEntity();
 
@@ -38,6 +38,7 @@ namespace Test_Management_System.Pages
         {
             this.UserContext = userContext;
             this.companyID = userContext.companyID;
+            currUser = userContext.userId;
             InitializeComponent();
 
             dgvUsers.ItemsSource = db.Userinfo.Where(x=> x.CompanyID == companyID).ToList();
@@ -123,50 +124,60 @@ namespace Test_Management_System.Pages
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = MessageBox.Show("Вы действительно хотите удалить выбранного пользователя? Вам придётся выбрать пользователя, для передачи ему всех текущих наработок.", "Удалить?", MessageBoxButton.YesNo);
-            if (dialog == MessageBoxResult.Yes)
+            if (currUser == userID)
             {
-                WindowChoseNewUser newUser = new WindowChoseNewUser();
-                if (newUser.ShowDialog() == true)
-                {
-                    Userinfo selectedUser = newUser.SelectedUser;
-                    db.TestCase.Where(t => t.CreatorUserID == userID).ToList().ForEach(t => t.CreatorUserID = selectedUser.UserID);
-                    db.TestCase.Where(t => t.ExecutorUserID == userID).ToList().ForEach(t => t.ExecutorUserID = selectedUser.UserID);
-                    db.BugReport.Where(t => t.UserID == userID).ToList().ForEach(t => t.UserID = selectedUser.UserID);
-                    db.CheckList.Where(t => t.UserID == userID).ToList().ForEach(t => t.UserID = selectedUser.UserID);
-                    db.CheckListItem.Where(t => t.UserID == userID).ToList().ForEach(t => t.UserID = selectedUser.UserID);
+                MessageBox.Show("Вы не можете удалить самого себя");
 
-                    try
-                    {
-                        db.SaveChanges();
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Не удалось изменить связи");
-                    }
-
-                    finally
-                    {
-                        var userToDelete = db.Userinfo.Find(userID);
-                        int projectUser;
-                        ProjectUser projectUserToDelete;
-                        if (db.ProjectUser.Where(x => x.UserID == userID).FirstOrDefault().ProjectUserID != null)
-                        {
-                            projectUser = db.ProjectUser.Where(x => x.UserID == userID).FirstOrDefault().ProjectUserID;
-                            projectUserToDelete = db.ProjectUser.Find(projectUser);
-                            db.ProjectUser.Remove(projectUserToDelete);
-                        }
-                        
-                        db.Userinfo.Remove(userToDelete);
-                        db.SaveChanges();
-                        MessageBox.Show("Связи успешно обновлены для выбранного пользователя: \n " + selectedUser.LastName + " " + selectedUser.FirstName + ", " +
-                            "\nпользователь " + userToDelete.LastName + " " + userToDelete.FirstName + " успешно удалён.");
-                        RefreshGrid();
-                    }
-                }
             }
             else
-                return;
+            {
+                var dialog = MessageBox.Show("Вы действительно хотите удалить выбранного пользователя? Вам придётся выбрать пользователя, для передачи ему всех текущих наработок.", "Удалить?", MessageBoxButton.YesNo);
+                if (dialog == MessageBoxResult.Yes)
+                {
+                    WindowChoseNewUser newUser = new WindowChoseNewUser();
+                    if (newUser.ShowDialog() == true)
+                    {
+                        Userinfo selectedUser = newUser.SelectedUser;
+                        db.TestCase.Where(t => t.CreatorUserID == userID).ToList().ForEach(t => t.CreatorUserID = selectedUser.UserID);
+                        db.TestCase.Where(t => t.ExecutorUserID == userID).ToList().ForEach(t => t.ExecutorUserID = selectedUser.UserID);
+                        db.BugReport.Where(t => t.UserID == userID).ToList().ForEach(t => t.UserID = selectedUser.UserID);
+                        db.CheckList.Where(t => t.UserID == userID).ToList().ForEach(t => t.UserID = selectedUser.UserID);
+                        db.CheckListItem.Where(t => t.UserID == userID).ToList().ForEach(t => t.UserID = selectedUser.UserID);
+
+                        try
+                        {
+                            db.SaveChanges();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Не удалось изменить связи");
+                        }
+
+                        finally
+                        {
+                            var userToDelete = db.Userinfo.Find(userID);
+                            int projectUser;
+                            ProjectUser projectUserToDelete;
+                            var selprojectUser = db.ProjectUser.FirstOrDefault(x => x.UserID == userID);
+
+                            if (selprojectUser != null && selprojectUser.ProjectUserID != null)
+                            {
+                                projectUser = db.ProjectUser.Where(x => x.UserID == userID).FirstOrDefault().ProjectUserID;
+                                projectUserToDelete = db.ProjectUser.Find(projectUser);
+                                db.ProjectUser.Remove(projectUserToDelete);
+                            }
+
+                            db.Userinfo.Remove(userToDelete);
+                            db.SaveChanges();
+                            MessageBox.Show("Связи успешно обновлены для выбранного пользователя: \n " + selectedUser.LastName + " " + selectedUser.FirstName + ", " +
+                                "\nпользователь " + userToDelete.LastName + " " + userToDelete.FirstName + " успешно удалён.");
+                            RefreshGrid();
+                        }
+                    }
+                }
+                else
+                    return;
+            }    
         }
 
         private void RefreshGrid()
@@ -174,6 +185,7 @@ namespace Test_Management_System.Pages
             dgvUsers.ItemsSource = null;
             var user = db.Userinfo.Where(x => x.CompanyID == companyID).ToList();
             dgvUsers.ItemsSource = user;
+            PassBox.Clear();
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -228,6 +240,7 @@ namespace Test_Management_System.Pages
             reminder1.Visibility = Visibility.Visible;
             reminder2.Visibility = Visibility.Visible;
             reminder3.Visibility = Visibility.Visible;
+            PassLabel.Visibility = Visibility.Collapsed;
         }
 
         private void ClearFields()
@@ -268,68 +281,71 @@ namespace Test_Management_System.Pages
                     newUserPass = NewPassAgreement.Password;
                 else
                     newUserPass = NewPassAgreementTextBox.Text;
-                if (isAddUser)
+                if(IsIdenticalPass())
                 {
-                    if (LoginTextBox.Text != "" && FirstNameTextBox.Text != "" && LastNameTextBox.Text != "" && NewPass.Password != "" && RoleComboBox.SelectedIndex != 0)
+                    if (isAddUser)
                     {
-                        Userinfo user = new Userinfo
+                        if (LoginTextBox.Text != "" && FirstNameTextBox.Text != "" && LastNameTextBox.Text != "" && NewPass.Password != "" && RoleComboBox.SelectedIndex != 0)
                         {
-                            FirstName = FirstNameTextBox.Text.ToString(),
-                            LastName = LastNameTextBox.Text.ToString(),
-                            Login = LoginTextBox.Text.ToString(),
-                            Password = newUserPass,
-                            RoleID = RoleComboBox.SelectedIndex,
-                            CompanyID = UserContext.companyID
-                        };
+                            Userinfo user = new Userinfo
+                            {
+                                FirstName = FirstNameTextBox.Text.ToString(),
+                                LastName = LastNameTextBox.Text.ToString(),
+                                Login = LoginTextBox.Text.ToString(),
+                                Password = newUserPass,
+                                RoleID = RoleComboBox.SelectedIndex,
+                                CompanyID = UserContext.companyID
+                            };
 
-                        try
-                        {
-                            db.Userinfo.Add(user);
-                            db.SaveChanges();
+                            try
+                            {
+                                db.Userinfo.Add(user);
+                                db.SaveChanges();
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Пользователь не был добавлен");
+                            }
+                            finally
+                            {
+                                MessageBox.Show("Пользователь был добавлен");
+                                RefreshGrid();
+                                ClearFields();
+                            }
                         }
-                        catch
-                        {
-                            MessageBox.Show("Пользователь не был добавлен");
-                        }
-                        finally
-                        {
-                            MessageBox.Show("Пользователь был добавлен");
-                            RefreshGrid();
-                            ClearFields();
-                        }
+                        else
+                            MessageBox.Show("Вы заполнили не все поля! Пожалуйста, заполните все поля и попробуйте ещё раз.");
                     }
-                    else
-                        MessageBox.Show("Вы заполнили не все поля! Пожалуйста, заполните все поля и попробуйте ещё раз.");
-                }
-                if (isEditUser)
-                {
-                    var dialog = MessageBox.Show("Вы действительно хотите отредактировать данного пользователя?", "Изменить?", MessageBoxButton.YesNo);
-                    if (dialog == MessageBoxResult.Yes)
+                    if (isEditUser)
                     {
-                        var findUser = db.Userinfo.Find(userID);
-                        findUser.FirstName = FirstNameTextBox.Text.ToString();
-                        findUser.LastName = LastNameTextBox.Text.ToString();
-                        findUser.RoleID = RoleComboBox.SelectedIndex;
-                        findUser.Login = LoginTextBox.Text.ToString();
-                        findUser.Password = NewPassAgreement.Password.ToString();
-                        findUser.CompanyID = findUser.CompanyID;
-                        try
+                        var dialog = MessageBox.Show("Вы действительно хотите отредактировать данного пользователя?", "Изменить?", MessageBoxButton.YesNo);
+                        if (dialog == MessageBoxResult.Yes)
                         {
-                            db.SaveChanges();
+                            var findUser = db.Userinfo.Find(userID);
+                            findUser.FirstName = FirstNameTextBox.Text.ToString();
+                            findUser.LastName = LastNameTextBox.Text.ToString();
+                            findUser.RoleID = RoleComboBox.SelectedIndex;
+                            findUser.Login = LoginTextBox.Text.ToString();
+                            findUser.Password = NewPassAgreement.Password.ToString();
+                            findUser.CompanyID = findUser.CompanyID;
+                            try
+                            {
+                                db.SaveChanges();
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Данные пользователя не были сохранены.");
+                            }
+                            finally
+                            {
+                                MessageBox.Show("Данные пользователя изменены.");
+                                RefreshGrid();
+                                ClearFields();
+                            }
                         }
-                        catch
-                        {
-                            MessageBox.Show("Данные пользователя не были сохранены.");
-                        }
-                        finally
-                        {
-                            MessageBox.Show("Данные пользователя изменены.");
-                            RefreshGrid();
-                            ClearFields();
-                        }
+                        else
+                            return;
                     }
-                    else
-                        return;
                 }
             }
             else
@@ -342,7 +358,7 @@ namespace Test_Management_System.Pages
             string pass1 = NewPassTextBox.Text.ToString();
             string pass2 = NewPassAgreementTextBox.Text.ToString();
 
-            if (NewPass.Password == NewPassAgreement.Password && pass1 == pass2)
+            if (NewPass.Password == NewPassAgreement.Password || pass1 == pass2)
                 return true;
             else
             {

@@ -37,8 +37,8 @@
             <Label Content="Логин:" />
             <TextBox Name="LoginTextBox" Text="{Binding Path=Login}" IsReadOnly="True" Width="150" Margin="64,0,10,0" MaxLength="20" LostFocus="LoginTextBox_LostFocus" />
             <Label Name="PassLabel"  Content="Текущий пароль" />
-            <PasswordBox Name="PassBox" IsEnabled="False"  Width="150" MaxLength="20" Margin="38,0,10,0" Visibility="Collapsed"/>
-            <TextBox x:Name="PassTextBox" Width="150" Margin="38,0,10,0" MaxLength="20"  IsReadOnly="True"/>
+            <PasswordBox Name="PassBox" IsEnabled="False"  Width="150" MaxLength="20" Margin="38,0,10,0" />
+            <TextBox x:Name="PassTextBox" Width="150" Margin="38,0,10,0" MaxLength="20"  IsReadOnly="True" Visibility="Collapsed"/>
             <CheckBox Content="Показать пароль" Margin="10, 0" Name="ShowCurrentPass" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
         </StackPanel>
         <Button Content="Изменить пароль" Grid.Row="4" HorizontalAlignment="Right" Margin="10" Width="150" Style="{DynamicResource RoundedCorners}" Visibility="Collapsed" Name="ChangePass" Click="ChangePass_Click"/>

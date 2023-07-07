@@ -84,10 +84,17 @@ namespace Test_Management_System.Pages
             TBPreconditions.Text = tc.TestCasePrecondition;
             TBPostConditions.Text = tc.TestCasePostcondition;
 
-            string attString = tc.TestCaseAttachment != null ? tc.TestCaseAttachment?.ToString() : string.Empty;
-            attachmentsList = attString.Split(';').ToList();
-            attachmentNames = attachmentsList.Select(System.IO.Path.GetFileName).ToList();
-            AttachmentsListBox.ItemsSource = attachmentNames;
+            AttachmentsListBox.ItemsSource = null;
+            var documentation = db.TestCase.FirstOrDefault(x => x.TestSuiteID == testSuiteID);
+            string attString = string.Empty;
+
+            if (documentation != null && documentation.TestCaseAttachment != null && documentation.TestCaseAttachment != "")
+            {
+                attString = documentation.TestCaseAttachment.ToString();
+                attachmentsList = attString.Split(';').ToList();
+                attachmentNames = attachmentsList.Select(System.IO.Path.GetFileName).ToList();
+                AttachmentsListBox.ItemsSource = attachmentNames;
+            }
 
             if (!creator)
             {
@@ -232,7 +239,7 @@ namespace Test_Management_System.Pages
                     {
                         var findTC = db.TestCase.Find(testCaseID);
                         findTC.TestCaseSummary = TBSummary.Text;
-                        findTC.TestCaseVisibleID = testcaseVisibleID;
+                        findTC.TestCaseVisibleID = findTC.TestCaseVisibleID;
                         findTC.TestCaseDescription = TBDescription.Text;
                         findTC.TestCaseSteps = TBSteps.Text;
                         findTC.TestCaseExpectedResult = TBExpected.Text;

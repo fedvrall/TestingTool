@@ -92,7 +92,7 @@ namespace Test_Management_System.Pages
         {
             if(TBTestSuiteDescription.Text != "" ||  TBTestSuitePreconditions.Text != "" || TBtestSuiteSummary.Text != "" || ComboTestSuiteParentID.SelectedItem != null)
             {
-                var result = MessageBox.Show("У вас остались несохранённые данные. Вы действительно хотите выйти?", "Выйти без сохранения?", MessageBoxButton.YesNo);
+                var result = MessageBox.Show("Вы действительно хотите выйти?", "Выйти без сохранения?", MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                     NavigationService.Navigate(new PageTestSuites(UserContext));
                 else

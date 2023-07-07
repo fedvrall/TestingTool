@@ -70,11 +70,17 @@ namespace Test_Management_System.Pages
                 SaveProjectChanges.IsEnabled = true;
                 ConfirmAdding.IsEnabled = false;
 
+                AttachmentsListBox.ItemsSource = null;
                 var documentation = db.ProjectDocumentation.FirstOrDefault(x => x.ProjectID == projectID);
-                string attString = documentation != null ? documentation.ProjectDocumentationAttachment?.ToString() : string.Empty;
+                string attString = string.Empty;
 
-                attachmentNames = attString.Split(';').Select(System.IO.Path.GetFileName).ToList();
-                AttachmentsListBox.ItemsSource = attachmentNames;
+                if (documentation != null && documentation.ProjectDocumentationAttachment != null)
+                {
+                    attString = documentation.ProjectDocumentationAttachment.ToString();
+                    attachmentsList = attString.Split(';').ToList();
+                    attachmentNames = attachmentsList.Select(System.IO.Path.GetFileName).ToList();
+                    AttachmentsListBox.ItemsSource = attachmentNames;
+                }
             }
         }
 
@@ -305,7 +311,8 @@ namespace Test_Management_System.Pages
                 string filePath = openFileDialog.FileName;
                 string fileName = System.IO.Path.GetFileName(filePath);
                 attachmentsList.Add(filePath);
-                AttachmentsListBox.Items.Add(fileName);
+                AttachmentsListBox.ItemsSource = null;
+                AttachmentsListBox.ItemsSource = attachmentsList.Select(System.IO.Path.GetFileName);
             }
         }
 

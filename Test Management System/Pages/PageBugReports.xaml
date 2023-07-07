@@ -28,8 +28,8 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" Grid.Column="0">
-            <Label Content="Сортировать по " Margin="0,10,0,10"/>
-            <ComboBox Width="400" Margin="10, 0, 0, 0">
+            <Label Content="Сортировать по " Margin="0,10,0,10" Visibility="Hidden"/>
+            <ComboBox Width="400" Margin="10, 0, 0, 0" Visibility="Hidden">
                 <ComboBoxItem Content="дате (от новых к старым)"/>
                 <ComboBoxItem Content="дате (от старых к новым)"/>
                 <ComboBoxItem Content="приоритету (от низкого к высокому)"/>

@@ -78,65 +78,65 @@ namespace Test_Management_System.Pages
 
         private void DeleteProject_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = MessageBox.Show("Вы действительно хотите удалить проект? Это действие удалит всю документацию, созданную в нём", "Удалить?", MessageBoxButton.YesNo);
-            if (dialog == MessageBoxResult.Yes)
+            if (projectID != userContext.projectID)
             {
-                //Userinfo selectedUser = newUser.SelectedUser;
-                var testSuites = db.TestSuite.Where(t => t.ProjectID == projectID);
-                db.TestSuite.RemoveRange(testSuites);
-
-                var testCases = db.TestCase.Where(tc => testSuites.Any(ts => ts.TestSuiteID == tc.TestSuiteID));
-                db.TestCase.RemoveRange(testCases);
-
-                var checkLists = db.CheckList.Where(c=>c.ProjectID == projectID);
-                db.CheckList.RemoveRange(checkLists);
-
-                var checkListItems = db.CheckListItem.Where(ci => checkLists.Any(cl => cl.CheckListID == ci.CheckListID));
-                db.CheckListItem.RemoveRange(checkListItems);
-
-                var bugReps = db.BugReport.Where(b => b.ProjectID == projectID);
-                db.BugReport.RemoveRange(bugReps);
-
-                var projectUser = db.ProjectUser.Where(p=> p.ProjectID == projectID);
-                db.ProjectUser.RemoveRange(projectUser);
-
-                var projectAttachment = db.ProjectDocumentation.Where(b => b.ProjectID != projectID);
-                db.ProjectDocumentation.RemoveRange(projectAttachment);
-                try
+                var dialog = MessageBox.Show("Вы действительно хотите удалить проект? Это действие удалит всю документацию, созданную в нём", "Удалить?", MessageBoxButton.YesNo);
+                if (dialog == MessageBoxResult.Yes)
                 {
-                    db.SaveChanges();
-                }
-                catch
-                {
-                    MessageBox.Show("Не удалось изменить связи");
-                }
+                    var testSuites = db.TestSuite.Where(t => t.ProjectID == projectID);
+                    db.TestSuite.RemoveRange(testSuites);
 
-                finally
-                {
-                    var projecttoDelete = db.Project.Find(projectID);
-/*                    //int projectUser;
-                    ProjectUser projectUserToDelete;
-                    if (db.ProjectUser.Where(x => x.UserID == projectID).FirstOrDefault().ProjectUserID != null)
+                    var testCases = db.TestCase.Where(tc => testSuites.Any(ts => ts.TestSuiteID == tc.TestSuiteID));
+                    db.TestCase.RemoveRange(testCases);
+
+                    var checkLists = db.CheckList.Where(c => c.ProjectID == projectID);
+                    db.CheckList.RemoveRange(checkLists);
+
+                    var checkListItems = db.CheckListItem.Where(ci => checkLists.Any(cl => cl.CheckListID == ci.CheckListID));
+                    db.CheckListItem.RemoveRange(checkListItems);
+
+                    var bugReps = db.BugReport.Where(b => b.ProjectID == projectID);
+                    db.BugReport.RemoveRange(bugReps);
+
+                    var projectUser = db.ProjectUser.Where(p => p.ProjectID == projectID);
+                    db.ProjectUser.RemoveRange(projectUser);
+
+                    var projectAttachment = db.ProjectDocumentation.Where(b => b.ProjectID != projectID);
+                    db.ProjectDocumentation.RemoveRange(projectAttachment);
+                    try
                     {
-                        projectUser = db.ProjectUser.Where(x => x.UserID == projectID).FirstOrDefault().ProjectUserID;
-                        projectUserToDelete = db.ProjectUser.Find(projectUser);
-                        db.ProjectUser.Remove(projectUserToDelete);
+                        db.SaveChanges();
                     }
-*/
-                    db.Project.Remove(projecttoDelete);
-                    db.SaveChanges();
-                    MessageBox.Show("Проект " + projecttoDelete.ProjectName + " успешно удалён");
-                    RefreshGrid();
+                    catch
+                    {
+                        MessageBox.Show("Не удалось удалить проект");
+                    }
+
+                    finally
+                    {
+                        var projecttoDelete = db.Project.Find(projectID);
+                        db.Project.Remove(projecttoDelete);
+                        db.SaveChanges();
+                        MessageBox.Show("Проект " + projecttoDelete.ProjectName + " успешно удалён");
+                        txtLastName.Clear();
+                        txtFirstName.Clear();
+                        txtEmail.Clear();
+                        txtPhone.Clear();
+                        CustomerInfo3.Clear();
+                        RefreshGrid();
+                    }
                 }
+                else
+                    return;
             }
             else
-                return;
+                MessageBox.Show("Вы не можете удалить текущий проект");
+
         }
 
         private void RefreshGrid()
         {
             GridProjects.ItemsSource = null;
-            //var user = db.Userinfo.Where(x => x.CompanyID == companyID).ToList();
             GridProjects.ItemsSource = db.Project.Where(x => x.CompanyID == companyId).ToList();
         }
 
